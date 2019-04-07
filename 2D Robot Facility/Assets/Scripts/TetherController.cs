@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeatherController : MonoBehaviour
+public class TetherController : MonoBehaviour
 {
     private Rigidbody2D body;
     private PlayerController player;
@@ -38,7 +38,7 @@ public class TeatherController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonUp("Teather"))
+        if (Input.GetButtonUp("Tether"))
             released = true;
         if (distance > tetherRange)
             reached = true;

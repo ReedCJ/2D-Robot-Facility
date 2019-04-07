@@ -97,9 +97,9 @@ MonoBehaviour:
   shootDiagonal: 0
   vertical: 1
   diagonal: 0
-  time: 0
-  shooter: {fileID: 0}
-  speed: 0
+  time: 1
+  shooter: {fileID: 1116342740285378392, guid: e43d79f7f0b25474996563aac2c48208, type: 3}
+  speed: 30
 --- !u!58 &269138628090500250
 CircleCollider2D:
   m_ObjectHideFlags: 0
