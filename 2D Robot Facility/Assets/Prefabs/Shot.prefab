@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3d60cdd7ce2d2d428b12e078013b11f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,12 +89,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2406125701766486348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8d0a29d73b25174193e51319cb285a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 641ccfac918e73a41ad99c97b673788a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
+  shootVertical: 0
+  shootHorizontal: 0
+  shootDiagonal: 0
+  vertical: 1
+  diagonal: 0
   time: 1
-  shooter: {fileID: 3117654493854114479, guid: e43d79f7f0b25474996563aac2c48208, type: 3}
+  shooter: {fileID: 1116342740285378392, guid: e43d79f7f0b25474996563aac2c48208, type: 3}
   speed: 30
 --- !u!58 &269138628090500250
 CircleCollider2D:
