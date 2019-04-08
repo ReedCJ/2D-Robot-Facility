@@ -9,7 +9,17 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetVolume (float Volume)
     {
-        audioMixer.SetFloat("Volume", Volume);
+        audioMixer.SetFloat("Master", Volume);
+    }
+
+    public void SetBGMVolume(float BGMVolume)
+    {
+        audioMixer.SetFloat("BGM", BGMVolume);
+    }
+
+    public void SetSFXVolume(float SFXVolume)
+    {
+        audioMixer.SetFloat("SFX", SFXVolume);
     }
 
     public void SetQuality( int qualityIndex)
