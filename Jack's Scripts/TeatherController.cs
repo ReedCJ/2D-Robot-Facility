@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class TeatherController : MonoBehaviour
 {
-    private DistanceJoint2D joint;
-    private Rigidbody2D body;
-    private PlayerController player;
-    private bool reached;
-    private bool released;
-    private bool contact;
-    private float distance = 1;
-    public float deployAngle;
-    public float speed;
-    public float teatherRange;
+    private DistanceJoint2D joint;              // 
+    private Rigidbody2D body;                   // Used to move the hook to different places.
+    private PlayerController player;            // Script reference for the player
+    private bool reached;                       // Has it reached the max travel distance?
+    private bool released;                      // Has the teather been released by the player? Or is the character no longer able to continue teathering?
+    private bool contact;                       // Has the teather made contact with a grappable surface?
+    private float distance;                 // Current distance of tether from player
+
+    public float deployAngle;                   // Tether deploy angle relative to the character's front
+    public float speed;                         // Teather movement speed
+    public float teatherRange;                  // Max travel distance
+    public float swingRange;                    // Max swing range
+    public float swingSpeed;                    // Speed of swinging
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +29,10 @@ public class TeatherController : MonoBehaviour
 
         Vector3 targetVelocity;
 
-        if (player.hMove != 0)
+        if (player.Up > 0)
         {
             transform.Rotate(0.0f, 0.0f, deployAngle, Space.Self);
-            targetVelocity = new Vector2(Mathf.Cos(deployAngle / 180 * Mathf.PI) * Mathf.Abs(player.hMove) / player.hMove, Mathf.Sin(deployAngle / 180 * Mathf.PI));
+            targetVelocity = new Vector2(Mathf.Cos(deployAngle / 180 * Mathf.PI) * player.facing, Mathf.Sin(deployAngle / 180 * Mathf.PI));
         }
         else
         {
@@ -64,11 +68,11 @@ public class TeatherController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision Detected.");
-        if (other.gameObject.tag == "Terrain" && other.GetComponent<Collider>().gameObject.GetComponent<Rigidbody2D>() /*&& other.gameObject.Grappable*/)
+        if (other.gameObject.tag == "Terrain" && other.GetComponent<Collider>().gameObject.GetComponent<Rigidbody2D>() /*&& other.gameObject.Grappable*/ && !contact && !(released || reached))
         {
             body.velocity = Vector2.zero;
             contact = true;
-            joint.connectedAnchor = new Vector2(transform.position.x, transform.position.y); ;
+            joint.connectedAnchor = new Vector2(transform.position.x, transform.position.y);
             joint.enabled = true;
             joint.connectedBody = other.GetComponent<Collider>().gameObject.GetComponent<Rigidbody2D>();
             joint.distance = teatherRange;
@@ -87,10 +91,13 @@ public class TeatherController : MonoBehaviour
     void Retract()
     {
         joint.enabled = false;
-        float xT = (transform.position.x - player.transform.position.x) / Mathf.Abs(transform.position.x - player.transform.position.x);
-        float yT = (transform.position.y - player.transform.position.y) / Mathf.Abs(transform.position.y - player.transform.position.y);
-        float x = Mathf.Abs(transform.position.x - player.transform.position.x) / distance * xT;
-        float y = Mathf.Abs(transform.position.y - player.transform.position.y) / distance * yT;
-        body.velocity = new Vector3(-x, -y, 0) * speed;
+        if (distance != 0)
+        {
+            float xT = (transform.position.x - player.transform.position.x) / Mathf.Abs(transform.position.x - player.transform.position.x);
+            float yT = (transform.position.y - player.transform.position.y) / Mathf.Abs(transform.position.y - player.transform.position.y);
+            float x = Mathf.Abs(transform.position.x - player.transform.position.x) / distance * xT;
+            float y = Mathf.Abs(transform.position.y - player.transform.position.y) / distance * yT;
+            body.velocity = new Vector3(-x, -y, 0) * speed;
+        }
     }
 }
