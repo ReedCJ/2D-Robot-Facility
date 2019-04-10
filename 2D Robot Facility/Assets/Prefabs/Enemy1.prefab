@@ -115,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 1461811924099202742}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 5.1514397, y: 1.86, z: 0}
-  m_LocalScale: {x: 0.10000006, y: 0.1, z: 0.10000006}
+  m_LocalScale: {x: 0.10000006, y: 0.04, z: 0.04}
   m_Children:
   - {fileID: 1461811924367186020}
   - {fileID: 1461811923624649921}
@@ -182,7 +182,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -200,10 +200,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802cd94362440794fae68e5538877966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  jumpspeed: 0
-  jumpheight: 0
-  jumpCD: 0
+  attackJumpspeed: 800
+  attackJumpheight: 500
+  attackJumpCD: 3
+  moveJumpheight: 600
+  moveJumpspeed: 400
+  moveJumpCD: 2
+  randomMovement: 1
+  jumpRange: 3
 --- !u!114 &1535033476051133479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,10 +217,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1461811924099202742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 208d81f287dac7648aa87330ee0576a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 0
+  dammage: 1
 --- !u!1 &1461811924367186027
 GameObject:
   m_ObjectHideFlags: 0

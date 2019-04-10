@@ -25,6 +25,7 @@ public class MainMenu : MonoBehaviour
                         
         else if (Input.GetButtonUp("Cancel") && isPaused)
             UnPause();
+
     }
 
     public void PlayGame()

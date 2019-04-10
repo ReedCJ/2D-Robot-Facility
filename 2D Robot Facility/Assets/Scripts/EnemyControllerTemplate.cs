@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1Controller : MonoBehaviour
+public class EnemyControllerTemplate : MonoBehaviour
 {
     private GameObject player;
     private Rigidbody2D body;
@@ -14,7 +14,6 @@ public class Enemy1Controller : MonoBehaviour
     public float moveJumpspeed;
     public float moveJumpCD;
     public bool randomMovement;
-    public int jumpRange;
 
 
     private float timer;
@@ -40,15 +39,15 @@ public class Enemy1Controller : MonoBehaviour
         attackJumpleft = attackJumpspeed * -1.0f;
         moveJumpleft = moveJumpspeed * -1.0f;
         moveJumpright = moveJumpspeed;
+
         player = GameObject.FindWithTag("Player");
-        jumpedHeight = body.transform.position.y;
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
         //jump around to move when the player is not in attack range, also don't jump immediately after attacking
-        if (jumpedHeight + 0.003 > height && timer > mJCD)
+        if (aJCD < timer - 2 && timer > mJCD)
         {
             //add public cd value to the cd
             mJCD = timer + moveJumpCD;
@@ -67,8 +66,7 @@ public class Enemy1Controller : MonoBehaviour
                     if (facing) { body.transform.Rotate(0, 180, 0, 0); facing = false; }
                 }
                 //jump!
-                body.velocity = new Vector2(0, 0);
-                body.AddForce(new Vector2(moveJumpspeed * (1 + (Random.Range(0, jumpRange)/10)), moveJumpheight * (1 + (Random.Range(0, jumpRange) / 10))));
+                body.AddForce(new Vector2(moveJumpspeed, moveJumpheight));
                 whenJumped = timer;
                 jumpedHeight = body.transform.position.y;
             }
@@ -79,7 +77,7 @@ public class Enemy1Controller : MonoBehaviour
     void FixedUpdate()
     {
         //If the player gets close enough and the enemy can jump
-        if(player != null && jumpedHeight + 0.003 > height && (Vector2.Distance(body.transform.position, player.transform.position) < 14 && timer > aJCD))
+        if(player != null && jumpedHeight + 0.01 > height && (Vector2.Distance(body.transform.position, player.transform.position) < 14 && timer > aJCD))
         {
             //reset timer
             aJCD = timer + attackJumpCD;
@@ -96,8 +94,7 @@ public class Enemy1Controller : MonoBehaviour
                 //turn if you jump the other direction
                 if (!facing) { body.transform.Rotate(0, 180, 0, 0); facing = true; }
             }
-            body.velocity = new Vector2(0, 0);
-            body.AddForce(new Vector2(attackJumpspeed * (1 + (Random.Range(0, jumpRange) / 10)), attackJumpheight * (1 + (Random.Range(0, jumpRange) / 10))));
+            body.AddForce(new Vector2(attackJumpspeed, attackJumpheight));
             whenJumped = timer;
             jumpedHeight = body.transform.position.y;
         }
