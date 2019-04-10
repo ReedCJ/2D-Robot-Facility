@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    //public GameObject tether;
     [SerializeField] private GameObject hook;           // The "hook" in the grappling hook
     [SerializeField] private GameObject shot;           // Our player's projectile
     [SerializeField] private GameObject attack;         // A hitbox representing a melee weapon
@@ -21,17 +20,18 @@ public class PlayerController : MonoBehaviour
     private float nextFire;                 //counter for fire rate
     private GameObject settingshot;
     
-    private bool tether;                   // Tether key input
-    private bool crouch;                    // Crouch key input
-    private bool up;                        // Look up key input
+    private bool teather;                   // Teather key input
+    private bool crouch;                    // Is player crouched
+    public bool down;                       // Downwards input
+    public bool up;                         // Upwards input
     private bool jump;                      // Jump key input
     private bool canDouble;                 // bool for being able to double dump
     private bool doubleJump;                // double jump bool
-    private bool facing;                    // True = right, False = left
+    public bool facing;                    // True = right, False = left
     private bool grounded;                  // On the ground as opposed to in the air?
     private bool camFollow;                 // Camera is in follow mode?
     [System.NonSerialized] public float hMove = 0.0f;             // Ground movement
-    [System.NonSerialized] public bool tetherOut;                 // Grappling hook deployed?
+    [System.NonSerialized] public bool teatherOut;                 // Grappling hook deployed?
     private GameObject GrappleHook;         // Active Grappling Hook Object
     private Animator animate;
     private Rigidbody2D body;
@@ -78,19 +78,22 @@ public class PlayerController : MonoBehaviour
                 body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
         }
 
-        //crouch button press/release
-        if (Input.GetButtonDown("Look Up")) { up = true; }
-        else if (Input.GetButtonUp("Look Up")) { up = false; }
+        // look/aim up
+        if (Input.GetAxisRaw("Vertical") > 0) { up = true; }
+        else { up = false; }
 
-        //look/aim up
-        if (Input.GetAxisRaw("Vertical") < 0) { crouch = true; }
-        else if (Input.GetAxisRaw("Vertical") >= 0) { crouch = false; }
+        // Aim/look down / crouch
+        if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
+        else { down = false; }
+
+        if (down && grounded) { crouch = true; }
+        else { crouch = false; }
 
         //Attack button press/release
         if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
         else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
 
-        if (Input.GetButtonDown("Tether")) { tether = true; }
+        if (Input.GetButtonDown("Teather")) { teather = true; }
         #endregion
     }
 
@@ -115,19 +118,19 @@ public class PlayerController : MonoBehaviour
         }
 
         //If grapple key is pressed
-        if (tether) { CastTether(); }
+        if (teather) { CastTeather(); }
 
         //reset bools at the end of a FixedUpdate
         jump = false;
         doubleJump = false;
-        tether = false;
+        teather = false;
     }
 
-    void CastTether()           // Currently non functional
+    void CastTeather()           // Currently non functional
     {
-        if (!tetherOut)
+        if (!teatherOut)
         {
-            tetherOut = true;
+            teatherOut = true;
             GrappleHook = Instantiate(hook, new Vector3(transform.position.x + .2f, transform.position.y + .2f, transform.position.z), Quaternion.identity);
         }
     }

@@ -131,4 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deployAngle: 45
   speed: 25
-  tetherRange: 20
+  teatherRange: 10
+  swingRange: 8
+  swingSpeed: 0
