@@ -15,6 +15,7 @@ public class OptionsMenu : MonoBehaviour
 
 
     public Dropdown resolutionDropdown;
+    public Toggle fullscreen;
 
     Resolution[] resolutions;
 
@@ -45,12 +46,18 @@ public class OptionsMenu : MonoBehaviour
                 resolutions[i].refreshRate == Screen.currentResolution.refreshRate)
             {
                 currentResolutionIndex = i;
+                PlayerPrefs.SetInt("CurrentResolutionIndex", currentResolutionIndex);
             }
         }
 
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.value = PlayerPrefs.GetInt("CurrentResolutionIndex");
+
         resolutionDropdown.RefreshShownValue();
+
+        //updates fullscreen toggle position
+        fullscreen.enabled = Screen.fullScreen;
 
         //Saves audio changes to persistent playerpref values
         volSlider.value = PlayerPrefs.GetFloat("MVolume", 1f);
@@ -69,15 +76,14 @@ public class OptionsMenu : MonoBehaviour
         //If player presses escape 
         if (Input.GetButtonUp("Cancel"))
             backButton.onClick.Invoke();
-            
-            
     }
 
 
-    public void SetResolution (int resolutionIndex)
+    public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen, resolution.refreshRate);
+        PlayerPrefs.SetInt("CurrentResolutionIndex", resolutionIndex);
     }
 
     public void SetFullScreen(bool isFullscreen)
@@ -118,7 +124,7 @@ public class OptionsMenu : MonoBehaviour
 
         //Saves audio changes to persistent playerpref values
         PlayerPrefs.SetFloat("bgmVolume", BGMVolume);
-        audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("bgmVolume"));
+        audioMixer.SetFloat("BGM", PlayerPrefs.GetFloat("bgmVolume"));
     }
 
     public void SetSFXVolume(float SFXVolume)
@@ -135,7 +141,7 @@ public class OptionsMenu : MonoBehaviour
 
         //Saves audio changes to persistent playerpref values
         PlayerPrefs.SetFloat("sfxVolume", SFXVolume);
-        audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("sfxVolume"));
+        audioMixer.SetFloat("SFX", PlayerPrefs.GetFloat("sfxVolume"));
     }
 
     public void SetQuality( int qualityIndex)
