@@ -22,19 +22,20 @@ public class PlayerController : MonoBehaviour
     
     private bool teather;                   // Teather key input
     private bool crouch;                    // Is player crouched
-    public bool down;                       // Downwards input
-    public bool up;                         // Upwards input
     private bool jump;                      // Jump key input
     private bool canDouble;                 // bool for being able to double dump
     private bool doubleJump;                // double jump bool
-    public bool facing;                    // True = right, False = left
     private bool grounded;                  // On the ground as opposed to in the air?
     private bool camFollow;                 // Camera is in follow mode?
-    [System.NonSerialized] public float hMove = 0.0f;             // Ground movement
-    [System.NonSerialized] public bool teatherOut;                 // Grappling hook deployed?
     private GameObject GrappleHook;         // Active Grappling Hook Object
     private Animator animate;
     private Rigidbody2D body;
+    [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
+    [System.NonSerialized] public bool teatherOut;                  // Grappling hook deployed?
+    [System.NonSerialized] public bool swinging;                    // Currently swinging?
+    [System.NonSerialized] public bool facing;                    // True = right, False = left
+    public bool down;                       // Downwards input
+    public bool up;                         // Upwards input
 
     //Run when p;ayer is created
     void Start()
@@ -60,8 +61,6 @@ public class PlayerController : MonoBehaviour
         timer += Time.deltaTime;
 
         hMove = Input.GetAxisRaw("Horizontal");
-        // animate.SetBool("Moving", hMove != 0);
-        // animate.SetBool("Crouch", Input.GetButtonDown("Crouched");
 
         #region Keys
         if (Input.GetButtonDown("Jump"))
@@ -99,7 +98,16 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
+        if (!swinging)
+            controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
+        else if (swinging && jump)
+        {
+
+        }
+        else if (swinging)
+        {
+
+        }
 
         //direction facing
         if (hMove > 0) { facing = true; }
@@ -128,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
     void CastTeather()           // Currently non functional
     {
-        if (!teatherOut)
+        if (!teatherOut && !swinging)
         {
             teatherOut = true;
             GrappleHook = Instantiate(hook, new Vector3(transform.position.x + .2f, transform.position.y + .2f, transform.position.z), Quaternion.identity);

@@ -10,13 +10,15 @@ public class TeatherController : MonoBehaviour
     private bool retracting;                    // Is the teather currently retracting
     private bool contact;                       // Has the teather made contact with a grappable surface?
     private float distance;                     // Current distance of tether from player
-    private float facing;
+    private float facing;                       // 
+    private bool swung;                         // Variable used for disabling the swinging variable after the player has started retracting the teather
 
     public float deployAngle;                   // Tether deploy angle relative to the character's front
     public float speed;                         // Teather movement speed
     public float teatherRange;                  // Max travel distance
     public float swingRange;                    // Max swing range
     public float swingSpeed;                    // Speed of swinging
+    public float pushRange;                     // Max Swing Angle
 
 
     // Start is called before the first frame update
@@ -26,6 +28,7 @@ public class TeatherController : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         joint = player.GetComponent<DistanceJoint2D>();
         joint.enabled = false;
+        swung = false;
 
         Vector3 targetVelocity;
         
@@ -79,6 +82,7 @@ public class TeatherController : MonoBehaviour
             joint.enabled = true;
             joint.connectedBody = other.GetComponent<Collider2D>().gameObject.GetComponent<Rigidbody2D>();
             joint.distance = teatherRange;
+            player.swinging = true;
         }
         else if (other.gameObject.tag == "Terrain")
         {
@@ -93,7 +97,13 @@ public class TeatherController : MonoBehaviour
 
     void Retract()
     {
-        joint.enabled = false;
+        if (swung)
+        {
+            joint.enabled = false;
+            swung = false;
+            player.swinging = false;
+        }
+
         if (distance != 0)
         {
             float xT = (transform.position.x - player.transform.position.x) / Mathf.Abs(transform.position.x - player.transform.position.x);
