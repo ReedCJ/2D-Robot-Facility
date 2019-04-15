@@ -132,5 +132,10 @@ MonoBehaviour:
   deployAngle: 45
   speed: 25
   teatherRange: 10
-  swingRange: 8
-  swingSpeed: 0
+  maxSwing: 4
+  minSwing: 0.2
+  swingSpeed: 40
+  pushRange: 0
+  climbSpeed: 12
+  pullRate: 4
+  swingAccel: 15

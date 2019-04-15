@@ -19,7 +19,9 @@ public class PlayerController : MonoBehaviour
     public float fireRate;                  // How fast you can shoot
     private float nextFire;                 //counter for fire rate
     private GameObject settingshot;
-    
+
+    public bool enabledDouble;              // public bool for enabling/disabling double jumps
+
     private bool teather;                   // Teather key input
     private bool crouch;                    // Is player crouched
     private bool jump;                      // Jump key input
@@ -28,14 +30,18 @@ public class PlayerController : MonoBehaviour
     private bool grounded;                  // On the ground as opposed to in the air?
     private bool camFollow;                 // Camera is in follow mode?
     private GameObject GrappleHook;         // Active Grappling Hook Object
+    private TeatherController grappleController;     // Script for swinging player
     private Animator animate;
     private Rigidbody2D body;
     [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
+    [System.NonSerialized] public float vMove = 0.0f;               // Vertical Input and climbing
     [System.NonSerialized] public bool teatherOut;                  // Grappling hook deployed?
     [System.NonSerialized] public bool swinging;                    // Currently swinging?
-    [System.NonSerialized] public bool facing;                    // True = right, False = left
-    public bool down;                       // Downwards input
-    public bool up;                         // Upwards input
+    [System.NonSerialized] public bool teatherSwinging;             // Currently swinging?
+    [System.NonSerialized] public bool facing;                      // True = right, False = left
+    public bool up;                                                 // Up Input
+    public bool down;                                               // Down Input
+
 
     //Run when p;ayer is created
     void Start()
@@ -61,7 +67,7 @@ public class PlayerController : MonoBehaviour
         timer += Time.deltaTime;
 
         hMove = Input.GetAxisRaw("Horizontal");
-
+        vMove = Input.GetAxisRaw("Vertical");
         #region Keys
         if (Input.GetButtonDown("Jump"))
         {
@@ -102,11 +108,14 @@ public class PlayerController : MonoBehaviour
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         else if (swinging && jump)
         {
-
+            if (teatherSwinging)
+                grappleController.StartRetracting();
+            // Perform swing jump
         }
         else if (swinging)
         {
-
+            if (teatherSwinging)
+                grappleController.Swing();
         }
 
         //direction facing
@@ -140,6 +149,7 @@ public class PlayerController : MonoBehaviour
         {
             teatherOut = true;
             GrappleHook = Instantiate(hook, new Vector3(transform.position.x + .2f, transform.position.y + .2f, transform.position.z), Quaternion.identity);
+            grappleController = GrappleHook.GetComponent<TeatherController>();
         }
     }
 
