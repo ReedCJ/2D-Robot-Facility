@@ -554,7 +554,8 @@ GameObject:
   - component: {fileID: 5641065676181277589}
   - component: {fileID: 9192746827690962206}
   - component: {fileID: 2032221761826024852}
-  - component: {fileID: 207978481919975758}
+  - component: {fileID: 6901941474304945822}
+  - component: {fileID: 1128176177644544060}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -630,6 +631,9 @@ MonoBehaviour:
   controller: {fileID: 8203511480655968605}
   speed: 60
   fireRate: 0.5
+  down: 0
+  up: 0
+  facing: 0
 --- !u!50 &5641065676181277589
 Rigidbody2D:
   serializedVersion: 4
@@ -710,7 +714,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df7eb54dcccd71143bee1325dd03c275, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -730,3 +734,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!232 &1128176177644544060
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931401961466127111}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 16.11063
+  m_MaxDistanceOnly: 0
