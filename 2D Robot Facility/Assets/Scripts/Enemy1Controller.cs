@@ -100,11 +100,9 @@ public class Enemy1Controller : MonoBehaviour
             //jump at player
             Jump(attackJumpspeed, attackJumpheight);
         }
-
-        if (height < body.transform.position.y + 0.001 && timer > whenJumped + 0.5f && jumpedHeight + 0.01 > height)
-        {
-            body.velocity = new Vector2(0, 0);
-        }
+        //stop sliding if you are sliding
+        StopSliding();
+        //set height to check for sliding/distance from ground
         height = body.transform.position.y;
     }
 
@@ -132,5 +130,13 @@ public class Enemy1Controller : MonoBehaviour
         //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 1.0f);
         //return true if hit collider isn't null
         return hit.collider != null;
+    }
+
+    private void StopSliding()
+    {
+        if (height < body.transform.position.y + 0.001 && timer > whenJumped + 0.5f && jumpedHeight + 0.01 > height)
+        {
+            body.velocity = new Vector2(0, 0);
+        }
     }
 }
