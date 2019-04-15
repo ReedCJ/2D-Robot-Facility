@@ -105,7 +105,7 @@ public class Enemy1Controller : MonoBehaviour
         //set height to check for sliding/distance from ground
         height = body.transform.position.y;
     }
-
+    
     //jump method
     private void Jump (float speed, float height)
     {
