@@ -13,6 +13,7 @@ public class Enemy1Controller : MonoBehaviour
     public float moveJumpheight;
     public float moveJumpspeed;
     public float moveJumpCD;
+    public float landingCheckDistance;
     public bool randomMovement;
     public int jumpRange;
 
@@ -48,7 +49,7 @@ public class Enemy1Controller : MonoBehaviour
     {
         timer += Time.deltaTime;
         //jump around to move when the player is not in attack range, also don't jump immediately after attacking
-        if (jumpedHeight + 0.003 > height && timer > mJCD)
+        if (jumpedHeight + 0.003 > height && timer > mJCD && timer > 2.0f)
         {
             //add public cd value to the cd
             mJCD = timer + moveJumpCD;
@@ -66,11 +67,11 @@ public class Enemy1Controller : MonoBehaviour
                     //if facing right and you jump left flip around
                     if (facing) { body.transform.Rotate(0, 180, 0, 0); facing = false; }
                 }
-                //jump!
-                body.velocity = new Vector2(0, 0);
-                body.AddForce(new Vector2(moveJumpspeed * (1 + (Random.Range(0, jumpRange)/10)), moveJumpheight * (1 + (Random.Range(0, jumpRange) / 10))));
-                whenJumped = timer;
-                jumpedHeight = body.transform.position.y;
+                //jump around if you aren't jumping off things
+                if (LandingSpotExists(facing))
+                {
+                    Jump(moveJumpspeed, moveJumpheight);
+                }
             }
         }
     }
@@ -96,10 +97,8 @@ public class Enemy1Controller : MonoBehaviour
                 //turn if you jump the other direction
                 if (!facing) { body.transform.Rotate(0, 180, 0, 0); facing = true; }
             }
-            body.velocity = new Vector2(0, 0);
-            body.AddForce(new Vector2(attackJumpspeed * (1 + (Random.Range(0, jumpRange) / 10)), attackJumpheight * (1 + (Random.Range(0, jumpRange) / 10))));
-            whenJumped = timer;
-            jumpedHeight = body.transform.position.y;
+            //jump at player
+            Jump(attackJumpspeed, attackJumpheight);
         }
 
         if (height < body.transform.position.y + 0.001 && timer > whenJumped + 0.5f && jumpedHeight + 0.01 > height)
@@ -107,5 +106,31 @@ public class Enemy1Controller : MonoBehaviour
             body.velocity = new Vector2(0, 0);
         }
         height = body.transform.position.y;
+    }
+
+    //jump method
+    private void Jump (float speed, float height)
+    {
+        body.velocity = new Vector2(0, 0);
+        body.AddForce(new Vector2(speed * (1 + (Random.Range(0, jumpRange) / 10)), height * (1 + (Random.Range(0, jumpRange) / 10))));
+        whenJumped = timer;
+        jumpedHeight = body.transform.position.y;
+    }
+
+    //check whther the jump will land somewhere
+    private bool LandingSpotExists(bool facing)
+    {
+        //get distance to check at
+        float lcd = landingCheckDistance;
+        //negative if facing left
+        if(!facing) { lcd *= -1.0f; }
+        //get the position you will check from
+        Vector2 checkPosition = new Vector2(gameObject.transform.position.x + lcd, gameObject.transform.position.y);
+        //raycast down
+        RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, 3.0f);
+        //debug
+        //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 1.0f);
+        //return true if hit collider isn't null
+        return hit.collider != null;
     }
 }

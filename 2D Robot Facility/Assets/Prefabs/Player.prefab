@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 5641065676181277589}
   - component: {fileID: 9192746827690962206}
   - component: {fileID: 2032221761826024852}
-  - component: {fileID: 6901941474304945822}
+  - component: {fileID: 207978481919975758}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -693,7 +693,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0103468, y: 1.2343392}
   m_EdgeRadius: 0
---- !u!23 &6901941474304945822
+--- !u!23 &207978481919975758
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -710,7 +710,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b1b917650f11a5458098a363a42f1cb, type: 2}
+  - {fileID: 2100000, guid: df7eb54dcccd71143bee1325dd03c275, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
