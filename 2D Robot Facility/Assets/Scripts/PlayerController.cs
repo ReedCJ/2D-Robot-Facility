@@ -262,8 +262,6 @@ public class PlayerController : MonoBehaviour
                 //not a vertical shot
                 settingshot.GetComponent<ShotController>().vertical = false;
 
-                Debug.Log(settingshot.GetComponent<ShotController>().vertical);
-
                 //if facing right
                 if (facing)
                 {

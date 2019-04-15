@@ -23,7 +23,6 @@ public class ShotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(vertical.ToString() + shootDiagonal.ToString() + shootVertical.ToString() + diagonal.ToString() + shootHorizontal.ToString());
         body = GetComponent<Rigidbody2D>();
 
         //shoot direction
@@ -74,9 +73,17 @@ public class ShotController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //instantiate small animationg
-        if (collision.gameObject.tag == "Environment") { Destroy(gameObject); }
-        if (collision.gameObject.tag == "Enemy1") { Destroy(collision.gameObject.transform.parent.gameObject); }
+        //instantiate small animations at some point
+        if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
+        //for each enemy type
+        foreach (string enemyTag in GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().enemyTypes)
+        {
+            if (collision.gameObject.tag == enemyTag)
+            {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void Update()
