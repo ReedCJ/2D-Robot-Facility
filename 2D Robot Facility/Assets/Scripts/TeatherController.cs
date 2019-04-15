@@ -90,27 +90,12 @@ public class TeatherController : MonoBehaviour
 
             joint.distance = distance;
             currentSwing = distance;
-
-            joint.connectedBody = other.GetComponent<Collider2D>().gameObject.GetComponent<Rigidbody2D>();
-            joint.connectedAnchor = new Vector2(transform.position.x, transform.position.y);
-            joint.anchor = new Vector2(player.transform.position.x, player.transform.position.y);
+            joint.connectedBody = body;
             joint.enabled = true;
             
             contact = true;
             player.swinging = true;
             player.teatherSwinging = true;
-
-            if (player.transform.position.x > transform.position.x)
-            {
-
-            }
-            else if (player.transform.position.x < transform.position.x || m_FacingRight)
-            {
-            }
-            else
-            {
-
-            }
         }
         else if (other.gameObject.tag == "Terrain")
         {
@@ -150,9 +135,7 @@ public class TeatherController : MonoBehaviour
 
     public void Swing()
     {
-        joint.anchor = new Vector2(player.transform.position.x, player.transform.position.y);
-
-        if (currentSwing > maxSwing)      // If grapple was created outside of the normal max swing length, steadily reduce to max length
+        if (currentSwing > maxSwing)      // If the grapple was created outside of the normal max swing length, steadily reduce to max length
         {
             currentSwing = currentSwing - pullRate * Time.fixedDeltaTime;
             if (currentSwing < maxSwing)
