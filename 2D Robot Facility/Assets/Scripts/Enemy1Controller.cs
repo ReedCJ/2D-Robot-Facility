@@ -2,23 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1Controller : MonoBehaviour
+public class Enemy1Controller : EnemyControllerTemplate
 {
-    private GameObject player;
-    private Rigidbody2D body;
-
     public float attackJumpspeed;
     public float attackJumpheight;
     public float attackJumpCD;
     public float moveJumpheight;
     public float moveJumpspeed;
     public float moveJumpCD;
-    public float landingCheckDistance;
-    public bool randomMovement;
-    public int jumpRange;
-
-
-    private float timer;
+    
     private float attackJumpleft;
     private float attackJumpright;
     private float moveJumpleft;
@@ -27,11 +19,6 @@ public class Enemy1Controller : MonoBehaviour
     private float mJCD;
     private float whenJumped;
     private float jumpedHeight;
-    //for stopping
-    private float height;
-
-    //true = right;
-    private bool facing;
 
     // Start is called before the first frame update
     void Start()
@@ -100,43 +87,18 @@ public class Enemy1Controller : MonoBehaviour
             //jump at player
             Jump(attackJumpspeed, attackJumpheight);
         }
-        //stop sliding if you are sliding
-        StopSliding();
-        //set height to check for sliding/distance from ground
-        height = body.transform.position.y;
     }
-    
-    //jump method
-    private void Jump (float speed, float height)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        body.velocity = new Vector2(0, 0);
-        body.AddForce(new Vector2(speed * (1 + (Random.Range(0, jumpRange) / 10)), height * (1 + (Random.Range(0, jumpRange) / 10))));
+        if(collision.gameObject.tag == "Terrain") { StopSliding(); }
+    }
+
+    //jump method
+    protected override void Jump(float speed, float height)
+    {
+        base.Jump(speed, height);
         whenJumped = timer;
         jumpedHeight = body.transform.position.y;
-    }
-
-    //check whther the jump will land somewhere
-    private bool LandingSpotExists(bool facing)
-    {
-        //get distance to check at
-        float lcd = landingCheckDistance;
-        //negative if facing left
-        if(!facing) { lcd *= -1.0f; }
-        //get the position you will check from
-        Vector2 checkPosition = new Vector2(gameObject.transform.position.x + lcd, gameObject.transform.position.y);
-        //raycast down
-        RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, 3.0f);
-        //debug
-        //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 1.0f);
-        //return true if hit collider isn't null
-        return hit.collider != null;
-    }
-
-    private void StopSliding()
-    {
-        if (height < body.transform.position.y + 0.001 && timer > whenJumped + 0.5f && jumpedHeight + 0.01 > height)
-        {
-            body.velocity = new Vector2(0, 0);
-        }
     }
 }
