@@ -129,12 +129,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f43025b5b0d4e24187cee28cb19713f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployAngle: 45
+  deployAngle: 60
   speed: 25
   teatherRange: 10
   maxSwing: 7
   minSwing: 0.2
-  swingSpeed: 40
+  swingSpeed: 50
   pushRange: 0
   climbSpeed: 12
   pullRate: 4
