@@ -24,7 +24,6 @@ public class TeatherController : MonoBehaviour
     public float pushRange;                     // Max Swing Height
     public float climbSpeed;                    // Speed of retracting grapple
     public float pullRate;                      // Rate that the grapple will pull the player into range in
-    public float swingAccel;                    // Rate of swing speed increase
 
 
     // Start is called before the first frame update
@@ -90,27 +89,12 @@ public class TeatherController : MonoBehaviour
 
             joint.distance = distance;
             currentSwing = distance;
-
-            joint.connectedBody = other.GetComponent<Collider2D>().gameObject.GetComponent<Rigidbody2D>();
-            joint.connectedAnchor = new Vector2(transform.position.x, transform.position.y);
-            joint.anchor = new Vector2(player.transform.position.x, player.transform.position.y);
+            joint.connectedBody = body;
             joint.enabled = true;
             
             contact = true;
             player.swinging = true;
             player.teatherSwinging = true;
-
-            if (player.transform.position.x > transform.position.x)
-            {
-
-            }
-            else if (player.transform.position.x < transform.position.x || m_FacingRight)
-            {
-            }
-            else
-            {
-
-            }
         }
         else if (other.gameObject.tag == "Terrain")
         {
@@ -139,7 +123,7 @@ public class TeatherController : MonoBehaviour
             float yT = (transform.position.y - player.transform.position.y) / Mathf.Abs(transform.position.y - player.transform.position.y);
             float x = Mathf.Abs(transform.position.x - player.transform.position.x) / distance * xT;
             float y = Mathf.Abs(transform.position.y - player.transform.position.y) / distance * yT;
-            body.velocity = new Vector3(-x, -y, 0) * speed;
+            body.velocity = new Vector2(-x, -y) * speed;
         }
     }
 
@@ -150,9 +134,7 @@ public class TeatherController : MonoBehaviour
 
     public void Swing()
     {
-        joint.anchor = new Vector2(player.transform.position.x, player.transform.position.y);
-
-        if (currentSwing > maxSwing)      // If grapple was created outside of the normal max swing length, steadily reduce to max length
+        if (currentSwing > maxSwing)      // If the grapple was created outside of the normal max swing length, steadily reduce to max length
         {
             currentSwing = currentSwing - pullRate * Time.fixedDeltaTime;
             if (currentSwing < maxSwing)
@@ -222,17 +204,22 @@ public class TeatherController : MonoBehaviour
             }
             else
             {
+                float speed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+
                 if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
-                new Vector2(transform.position.x, transform.position.y - distance * 2)) > 1)
+                new Vector2(transform.position.x, transform.position.y - distance)) > 2)
                 {
                     Vector2 destination = new Vector2(transform.position.x - distance - player.transform.position.x,
                         transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed * .25f;
                     playerBody.AddForce(destination);
                 }
-                else
+                else if (speed > .4f)
                 {
-                    playerBody.velocity = playerBody.velocity * .95f;
+                    playerBody.velocity = playerBody.velocity * .98f;
                 }
+                else if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
+                new Vector2(transform.position.x, transform.position.y - distance)) < .25f)
+                    playerBody.velocity = new Vector2(0, 0);
             }
         }
         else if (Input.GetButtonDown("Focus"))
@@ -249,9 +236,6 @@ public class TeatherController : MonoBehaviour
         m_FacingRight = !m_FacingRight;
         player.facing = m_FacingRight;
 
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = player.transform.localScale;
-        theScale.x *= -1;
-        player.transform.localScale = theScale;
+        transform.Rotate(0.0f, 180.0f, 0, Space.Self);
     }
 }
