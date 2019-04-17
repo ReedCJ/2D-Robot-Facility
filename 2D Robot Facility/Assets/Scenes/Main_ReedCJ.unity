@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 193533259}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,19 +239,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 193533258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15d4105aa5252fd4ebdbc1b1ac0e7775, type: 3}
+  m_Script: {fileID: 11500000, guid: 53fd5a8a78dd53d4eb02231702240e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneEnemies: []
-  player: {fileID: 0}
 --- !u!4 &193533260
 Transform:
   m_ObjectHideFlags: 0
@@ -394,7 +384,7 @@ GameObject:
   - component: {fileID: 267224324}
   m_Layer: 8
   m_Name: Floor (4)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -822,7 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a1ad11832fa6b4bbf8bab95f79a35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
+  gameOverScreen: {fileID: 204247688}
   restartGame: {fileID: 1375466917}
 --- !u!1001 &516355739
 PrefabInstance:
@@ -1028,7 +1018,7 @@ PrefabInstance:
     - target: {fileID: 7869436946262270028, guid: 2530b53ba50bf254d8226863126e0d9c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7869436946262270025, guid: 2530b53ba50bf254d8226863126e0d9c,
         type: 3}
@@ -1336,7 +1326,7 @@ GameObject:
   - component: {fileID: 932191943}
   m_Layer: 8
   m_Name: Floor (3)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1761,7 +1751,7 @@ GameObject:
   - component: {fileID: 1152783416}
   m_Layer: 8
   m_Name: Floor (2)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1899,7 +1889,7 @@ GameObject:
   - component: {fileID: 1286971892}
   m_Layer: 8
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2270,7 +2260,7 @@ GameObject:
   - component: {fileID: 1396440650}
   m_Layer: 8
   m_Name: Floor (5)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2396,7 +2386,7 @@ GameObject:
   - component: {fileID: 1662015357}
   m_Layer: 8
   m_Name: Floor (1)
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
