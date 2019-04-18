@@ -5,27 +5,55 @@ using UnityEngine;
 public class EnemyControllerTemplate : MonoBehaviour
 {
     protected GameObject player;
+    protected GameObject gameController;
     protected Rigidbody2D body;
     
     public float floorCheckDistance;
     public float jumpRange;
     public float landingCheckDistance;
+    public float moveSpeed;
+    public float aggroRange;
+    public float aggroLeash;
+    public float levelCheckHeight;
     public bool randomMovement;
 
-    protected float timer;
-
     protected float height;
+    protected bool aggro;
+
+    protected Vector2 moveVector;
 
     //true = right;
     protected bool facing;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         //get rigidbody
         body = GetComponent<Rigidbody2D>();
         //get player
         player = GameObject.FindWithTag("Player");
+        //get gamecontroller
+        gameController = GameObject.FindWithTag("GameController");
+    }
+
+    protected virtual void Update()
+    {
+    }
+
+    //timer property from gamecontroller
+    protected float Timer
+    {
+        get { return gameController.GetComponent<GameController>().timer; }
+    }
+    //is the player to the right property
+    protected bool PlayerToTheRight
+    {
+        get
+        {
+            Debug.Log(player.transform.position.x);
+            Debug.Log(body.transform.position.x);
+            return player.transform.position.x > body.transform.position.x;
+        }
     }
 
     //jump method
@@ -35,6 +63,12 @@ public class EnemyControllerTemplate : MonoBehaviour
         Vector2 debugVector = new Vector2(speed * (1 + (Random.Range(0, jumpRange) / 10)), height * (1 + (Random.Range(0, jumpRange) / 10)));
         body.AddForce(debugVector);
         //Debug.Log(debugVector);
+    }
+
+    //check if player is within a certain y range relative to the enemy
+    protected bool PlayerOnLevel()
+    {
+        return player.transform.position.y < body.transform.position.y + levelCheckHeight && player.transform.position.y > body.transform.position.y - levelCheckHeight;
     }
 
     //check whther the jump will land somewhere
@@ -55,7 +89,7 @@ public class EnemyControllerTemplate : MonoBehaviour
     }
 
     //check whether there is floor where you are going
-    protected bool ThereIsFloor(bool facing)
+    protected bool ThereIsFloor()
     {
         //get distance to check at
         float fcd = floorCheckDistance;
@@ -70,9 +104,20 @@ public class EnemyControllerTemplate : MonoBehaviour
         //return true if hit collider isn't null
         return hit.collider != null;
     }
+
+    protected void setMovement()
+    {
+        moveVector = new Vector2(moveSpeed, body.velocity.y);
+        if(!facing) { moveVector.x *= -1.0f; }
+    }
+
+    protected void MoveAround()
+    {
+        body.velocity = moveVector;
+    }
     
     //stop sldiing
-    public void StopSliding()
+    protected void StopSliding()
     {
         body.velocity = new Vector2(0, body.velocity.y);
         Debug.Log("aaaa");

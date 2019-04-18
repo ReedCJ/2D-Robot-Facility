@@ -21,25 +21,23 @@ public class Enemy1Controller : EnemyControllerTemplate
     private float jumpedHeight;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        body = GetComponent<Rigidbody2D>();
+        base.Start();
         attackJumpright = attackJumpspeed;
         attackJumpleft = attackJumpspeed * -1.0f;
         moveJumpleft = moveJumpspeed * -1.0f;
         moveJumpright = moveJumpspeed;
-        player = GameObject.FindWithTag("Player");
         jumpedHeight = body.transform.position.y;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        timer += Time.deltaTime;
         //jump around to move when the player is not in attack range, also don't jump immediately after attacking
-        if (jumpedHeight + 0.003 > height && timer > mJCD && timer > 2.0f)
+        if (jumpedHeight + 0.003 > height && Timer > mJCD && Timer > 2.0f)
         {
             //add public cd value to the cd
-            mJCD = timer + moveJumpCD;
+            mJCD = Timer + moveJumpCD;
             if(randomMovement)
             {
                 if(Random.Range(0,2) == 1)
@@ -67,10 +65,10 @@ public class Enemy1Controller : EnemyControllerTemplate
     void FixedUpdate()
     {
         //If the player gets close enough and the enemy can jump
-        if(player != null && jumpedHeight + 0.003 > height && (Vector2.Distance(body.transform.position, player.transform.position) < 14 && timer > aJCD))
+        if(player != null && jumpedHeight + 0.003 > height && (Vector2.Distance(body.transform.position, player.transform.position) < 14 && Timer > aJCD))
         {
-            //reset timer
-            aJCD = timer + attackJumpCD;
+            //reset Timer
+            aJCD = Timer + attackJumpCD;
             //If the enemy is to the right of the player face left(default) and inverse jump speed
             if (body.transform.position.x > player.transform.position.x)
             {
@@ -98,7 +96,7 @@ public class Enemy1Controller : EnemyControllerTemplate
     protected override void Jump(float speed, float height)
     {
         base.Jump(speed, height);
-        whenJumped = timer;
+        whenJumped = Timer;
         jumpedHeight = body.transform.position.y;
     }
 }
