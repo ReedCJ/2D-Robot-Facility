@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
     private List<GameObject> sceneEnemies;
     private ArrayList sceneEnemyColliderEnemies;
     private GameObject player;
+    private Collider2D playerBox;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class GameController : MonoBehaviour
         PopulateEnemyList();
         AllEnemiesIgnoreEnemyCollision();
         PlayerIgnoresCollisionWithEnemies();
+
     }
 
     // Update is called once per frame
@@ -69,5 +71,17 @@ public class GameController : MonoBehaviour
     public void GetPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        playerBox = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<BoxCollider2D>();
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other != playerBox)
+        {
+            Destroy(other.gameObject);
+        }
+       
+
+        
     }
 }

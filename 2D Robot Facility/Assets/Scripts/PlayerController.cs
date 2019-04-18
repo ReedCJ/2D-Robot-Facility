@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject shot;           // Our player's projectile
     [SerializeField] private GameObject attack;         // A hitbox representing a melee weapon
     [SerializeField] private GameObject cam;            // The primary virtual camera
+
     [SerializeField] private CharacterController2D controller;      // The script that processes our movement inputs
 
     [SerializeField] private float speed = 0.0f;   // Character ground speed
@@ -66,39 +67,44 @@ public class PlayerController : MonoBehaviour
         //timer
         timer += Time.deltaTime;
 
-        hMove = Input.GetAxisRaw("Horizontal");
-        vMove = Input.GetAxisRaw("Vertical");
-        #region Keys
-        if (Input.GetButtonDown("Jump"))
+        if (!MainMenu.isPaused)
         {
-            // animate.SetTrigger("Jumping");
-            if (grounded) { jump = true; }
-            //double jump
-            else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
+            hMove = Input.GetAxisRaw("Horizontal");
+            vMove = Input.GetAxisRaw("Vertical");
+            #region Keys
+            if (Input.GetButtonDown("Jump"))
+            {
+                // animate.SetTrigger("Jumping");
+                if (grounded) { jump = true; }
+                //double jump
+                else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
+            }
+
+            if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
+            {
+                if (body.velocity.y > 0)
+                    body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
+            }
+
+            // look/aim up
+            if (Input.GetAxisRaw("Vertical") > 0) { up = true; }
+            else { up = false; }
+
+            // Aim/look down / crouch
+            if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
+            else { down = false; }
+
+            if (down && grounded) { crouch = true; }
+            else { crouch = false; }
+
+            //Attack button press/release
+            if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
+            else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
+
+            if (Input.GetButtonDown("Teather")) { teather = true; }
         }
-
-        if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
-        {
-            if (body.velocity.y > 0)
-                body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
-        }
-
-        // look/aim up
-        if (Input.GetAxisRaw("Vertical") > 0) { up = true; }
-        else { up = false; }
-
-        // Aim/look down / crouch
-        if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
-        else { down = false; }
-
-        if (down && grounded) { crouch = true; }
-        else { crouch = false; }
-
-        //Attack button press/release
-        if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
-        else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
-
-        if (Input.GetButtonDown("Teather")) { teather = true; }
+      
+       
         #endregion
     }
 

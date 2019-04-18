@@ -88,7 +88,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8208748433622882811}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -129,12 +129,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f43025b5b0d4e24187cee28cb19713f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployAngle: 45
+  deployAngle: 60
   speed: 25
   teatherRange: 10
-  maxSwing: 4
+  maxSwing: 7
   minSwing: 0.2
-  swingSpeed: 40
+  swingSpeed: 50
   pushRange: 0
   climbSpeed: 12
   pullRate: 4

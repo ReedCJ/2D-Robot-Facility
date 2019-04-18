@@ -6,10 +6,18 @@ public class GameOver : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public GameObject restartGame;
+    public GameObject inGameUI;
     private IEnumerator coroutine;
+
+    private void Start()
+    {
+       // gameOverScreen.SetActive(false);
+       // restartGame.SetActive(false);
+    }
 
     void OnDestroy ()
     {
+        inGameUI.SetActive(false);
         gameOverScreen.SetActive(true);
         restartGame.SetActive(true);
        // coroutine = WaitAndRetry();
