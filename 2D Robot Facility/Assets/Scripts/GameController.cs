@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour
         playerBox = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<BoxCollider2D>();
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other != playerBox)
         {

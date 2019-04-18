@@ -120,8 +120,7 @@ MonoBehaviour:
   moveJumpheight: 600
   moveJumpspeed: 400
   moveJumpCD: 2
-
-  landingCheckDistance: 4
+  landingCheckDistance: 5
   randomMovement: 1
   jumpRange: 3
 --- !u!58 &1455734901947507603
