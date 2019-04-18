@@ -9,6 +9,7 @@ public class ThinPlatforms : MonoBehaviour
 #pragma warning restore 0649
 
     private PlayerController player;
+    [System.NonSerialized] public bool pCol;
 
     // Start is called before the first frame update
     void Start()
@@ -18,11 +19,13 @@ public class ThinPlatforms : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log(player.grounded);
         if (player.transform.position.y > transform.position.y && player.grounded)
             player.thinGround = true;
         else
             player.thinGround = false;
+        Debug.Log(player.grounded);
+        //Debug.Log(player.fallThrough || player.jumpThrough);
+        ToggleCol(player.fallThrough || player.jumpThrough, player.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -31,15 +34,7 @@ public class ThinPlatforms : MonoBehaviour
         {
             if (player.transform.position.y > transform.position.y)
                 player.thinGround = true;
-            ToggleCol(player.fallThrough, player.gameObject);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            player.thinGround = false;
+            ToggleCol(player.fallThrough || player.jumpThrough, player.gameObject);
         }
     }
 
@@ -51,8 +46,10 @@ public class ThinPlatforms : MonoBehaviour
         }
     }
 
-    private void ToggleCol(bool fallThrough, GameObject chara)
+    private void ToggleCol(bool passThrough, GameObject chara)
     {
-        Physics2D.IgnoreCollision(platformCol, chara.GetComponent<Collider2D>(), fallThrough);
+        pCol = passThrough;
+        Physics2D.IgnoreCollision(platformCol, chara.GetComponent<BoxCollider2D>(), passThrough);
+        Physics2D.IgnoreCollision(platformCol, chara.GetComponent<CircleCollider2D>(), passThrough);
     }
 }

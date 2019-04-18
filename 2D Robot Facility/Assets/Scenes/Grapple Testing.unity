@@ -500,6 +500,11 @@ PrefabInstance:
       propertyPath: m_MaxDistanceOnly
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8203511480655968605, guid: e43d79f7f0b25474996563aac2c48208,
+        type: 3}
+      propertyPath: m_WhatIsGround.m_Bits
+      value: 1280
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e43d79f7f0b25474996563aac2c48208, type: 3}
 --- !u!1001 &1938393595
@@ -671,7 +676,7 @@ GameObject:
   - component: {fileID: 2071579289}
   - component: {fileID: 2071579288}
   - component: {fileID: 2071579287}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Thin Platform
   m_TagString: Terrain
   m_Icon: {fileID: 0}

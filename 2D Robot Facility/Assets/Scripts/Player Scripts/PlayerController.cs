@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool swinging;                    // Currently swinging?
     [System.NonSerialized] public bool teatherSwinging;             // Currently swinging?
     [System.NonSerialized] public bool facing;                      // True = right, False = left
-    [System.NonSerialized] public bool fallThrough;                 // Variable thin platforms use to determine collision with the player
+    [System.NonSerialized] public bool fallThrough;                 // Can the player currently fall through thin platforms?
+    [System.NonSerialized] public bool jumpThrough;                 // Can the player currently jump through thin platforms?
     [System.NonSerialized] public bool thinGround;                  // Is the player on top of ground he can fall through?
     public bool up;                                                 // Up Input
     public bool down;                                               // Down Input
@@ -99,6 +100,15 @@ public class PlayerController : MonoBehaviour
         if (down && grounded) { crouch = true; }
         else { crouch = false; }
 
+        if (grounded && crouch && jump && thinGround && body.velocity.y == 0.0f)
+            fallThrough = true;
+        else if (!grounded || !thinGround)
+            fallThrough = false;
+        if (!grounded && body.velocity.y > 0 || jump)
+            jumpThrough = true;
+        else
+            jumpThrough = false;
+
         //Attack button press/release
         if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
         else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
@@ -113,7 +123,7 @@ public class PlayerController : MonoBehaviour
         // Movement input && grapple input processing block
         //
 
-        if (!swinging && !(grounded && crouch && jump && thinGround))
+        if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         else if (swinging && jump)
         {
@@ -125,14 +135,6 @@ public class PlayerController : MonoBehaviour
         {
             if (teatherSwinging)
                 grappleController.Swing();
-        }
-        else if ((grounded && crouch && jump && thinGround) || body.velocity.y > 0)
-        {
-            fallThrough = true;
-        }
-        else if (body.velocity.y < 0 || grounded)
-        {
-            fallThrough = false;
         }
 
         //direction facing
