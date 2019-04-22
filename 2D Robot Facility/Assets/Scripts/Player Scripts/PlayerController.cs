@@ -42,9 +42,9 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool fallThrough;                 // Can the player currently fall through thin platforms?
     [System.NonSerialized] public bool jumpThrough;                 // Can the player currently jump through thin platforms?
     [System.NonSerialized] public bool thinGround;                  // Is the player on top of ground he can fall through?
-    public bool up;                                                 // Up Input
-    public bool down;                                               // Down Input
-    public bool grounded;                   // On the ground as opposed to in the air?
+    [System.NonSerialized] public bool up;                                                 // Up Input
+    [System.NonSerialized] public bool down;                                               // Down Input
+    [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
 
     //Run when p;ayer is created
@@ -100,14 +100,7 @@ public class PlayerController : MonoBehaviour
         if (down && grounded) { crouch = true; }
         else { crouch = false; }
 
-        if (grounded && crouch && jump && thinGround && body.velocity.y == 0.0f)
-            fallThrough = true;
-        else if (!grounded || !thinGround)
-            fallThrough = false;
-        if (!grounded && body.velocity.y > 0 || jump)
-            jumpThrough = true;
-        else
-            jumpThrough = false;
+        MoveThroughPlatform();
 
         //Attack button press/release
         if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
@@ -293,5 +286,19 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void MoveThroughPlatform()
+    {
+        //Debug.Log(" " + grounded + " " + crouch + " " + jump + " " + thinGround + " " + (body.velocity.y == 0.0f));
+        if (grounded && crouch && jump && thinGround && body.velocity.y == 0.0f)
+            fallThrough = true;
+        else if (grounded || !thinGround || body.velocity.y > 0.0f)
+            fallThrough = false;
+
+        if (!grounded && body.velocity.y > 0 || jump)
+            jumpThrough = true;
+        else
+            jumpThrough = false;
     }
 }
