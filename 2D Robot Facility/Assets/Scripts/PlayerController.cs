@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private bool camFollow;                 // Camera is in follow mode?
     private GameObject GrappleHook;         // Active Grappling Hook Object
     private TeatherController grappleController;     // Script for swinging player
-    private Animator animate;
+    public Animator animator;
     private Rigidbody2D body;
     [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
     [System.NonSerialized] public float vMove = 0.0f;               // Vertical Input and climbing
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         //assign rigidbody to variable
         body = GetComponent<Rigidbody2D>();
         SetInitialState();
+        //animator = transform.GetChild(2).GetComponent<Animator>();
     }
 
     void SetInitialState()      // Sets variables 
@@ -70,11 +71,14 @@ public class PlayerController : MonoBehaviour
         if (!MainMenu.isPaused)
         {
             hMove = Input.GetAxisRaw("Horizontal");
+            
+            
+
             vMove = Input.GetAxisRaw("Vertical");
             #region Keys
             if (Input.GetButtonDown("Jump"))
             {
-                // animate.SetTrigger("Jumping");
+                animator.SetTrigger("Jumping");
                 if (grounded) { jump = true; }
                 //double jump
                 else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
@@ -96,6 +100,8 @@ public class PlayerController : MonoBehaviour
 
             if (down && grounded) { crouch = true; }
             else { crouch = false; }
+
+            animator.SetBool("Crouched", crouch);
 
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
