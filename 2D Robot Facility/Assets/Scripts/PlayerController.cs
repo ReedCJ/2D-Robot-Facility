@@ -71,8 +71,17 @@ public class PlayerController : MonoBehaviour
         if (!MainMenu.isPaused)
         {
             hMove = Input.GetAxisRaw("Horizontal");
-            
-            
+
+            if (hMove != 0 && !down)
+                animator.SetBool("Running", true);
+            else animator.SetBool("Running", false);
+
+
+            if (hMove != 0 && down)
+                animator.SetBool("Walking", true);
+            else animator.SetBool("Walking", false);
+
+
 
             vMove = Input.GetAxisRaw("Vertical");
             #region Keys
@@ -98,10 +107,13 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
             else { down = false; }
 
-            if (down && grounded) { crouch = true; animator.SetBool("Crouched", crouch);}
-            else { crouch = false; animator.SetBool("Crouched", crouch); }
+            if (down && grounded) { crouch = true; }
+            else { crouch = false; }
 
-            
+            if (crouch)
+                animator.SetBool("Crouched", crouch);
+            else if (!crouch)
+                animator.SetBool("Crouched", crouch);
 
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
