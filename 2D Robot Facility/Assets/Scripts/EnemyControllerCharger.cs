@@ -15,7 +15,6 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     protected override void Start()
     {
         base.Start();
-        setMovement();
         chargeRight = new Vector2(chargeSpeed, 0);
         chargeLeft = new Vector2(chargeSpeed * -1.0f, 0);
     }
@@ -53,6 +52,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     //charge at the player
     private void ChargePlayer()
     {
+        FacePlayer();
         //Debug.Log("Charged");
         if (PlayerToTheRight)
         {

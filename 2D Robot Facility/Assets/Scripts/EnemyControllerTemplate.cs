@@ -25,6 +25,9 @@ public class EnemyControllerTemplate : MonoBehaviour
     //true = right;
     protected bool facing;
 
+    protected Quaternion faceLeft;
+    protected Quaternion faceRight;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -34,6 +37,8 @@ public class EnemyControllerTemplate : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         //get gamecontroller
         gameController = GameObject.FindWithTag("GameController");
+        //Set movement for enemies that move
+        setMovement();
     }
 
     protected virtual void Update()
@@ -50,8 +55,8 @@ public class EnemyControllerTemplate : MonoBehaviour
     {
         get
         {
-            Debug.Log(player.transform.position.x);
-            Debug.Log(body.transform.position.x);
+            //Debug.Log(player.transform.position.x);
+            //Debug.Log(body.transform.position.x);
             return player.transform.position.x > body.transform.position.x;
         }
     }
@@ -105,21 +110,52 @@ public class EnemyControllerTemplate : MonoBehaviour
         return hit.collider != null;
     }
 
+    //sets the movement of an enemy
     protected void setMovement()
     {
         moveVector = new Vector2(moveSpeed, body.velocity.y);
         if(!facing) { moveVector.x *= -1.0f; }
     }
 
+    //moves enemies around
     protected void MoveAround()
     {
         body.velocity = moveVector;
+        FaceMovement();
+    }
+    //makes the enemy face the correct direction for movement
+    protected void FaceMovement()
+    {
+        if(moveVector.x < 0 && facing || moveVector.x > 0 && !facing)
+        {
+            FlipAround();
+        }
+    }
+    //make the enemy face the player
+    protected void FacePlayer()
+    {
+        if(PlayerToTheRight && !facing || !PlayerToTheRight && facing)
+        {
+            FlipAround();
+        }
+    }
+
+    protected void FlipAround()
+    {
+        body.transform.Rotate(0, 180, 0, 0);
+        facing = !facing;
     }
     
     //stop sldiing
     protected void StopSliding()
     {
         body.velocity = new Vector2(0, body.velocity.y);
-        Debug.Log("aaaa");
     }
+
+    //get angle to player
+    protected float GetAngleToPlayer()
+    {
+        return (-Vector2.Angle(body.transform.position, player.transform.position));
+    }
+
 }
