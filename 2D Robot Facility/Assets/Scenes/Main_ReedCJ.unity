@@ -695,6 +695,14 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 58b9fa3f8738b804ab0f2a6c672d9060, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 58b9fa3f8738b804ab0f2a6c672d9060, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58b9fa3f8738b804ab0f2a6c672d9060, type: 3}
 --- !u!1 &314659345
@@ -4737,6 +4745,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 6725215194558557032}
   m_CeilingCheck: {fileID: 1128776744604996804}
   m_CrouchDisableCollider: {fileID: 8111887866922680370}
+  animator: {fileID: 0}
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []

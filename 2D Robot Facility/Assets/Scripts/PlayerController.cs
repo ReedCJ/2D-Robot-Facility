@@ -98,10 +98,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
             else { down = false; }
 
-            if (down && grounded) { crouch = true; }
-            else { crouch = false; }
+            if (down && grounded) { crouch = true; animator.SetBool("Crouched", crouch);}
+            else { crouch = false; animator.SetBool("Crouched", crouch); }
 
-            animator.SetBool("Crouched", crouch);
+            
 
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
