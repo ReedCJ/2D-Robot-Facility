@@ -10,8 +10,9 @@ public class TeatherController : MonoBehaviour
     private PlayerController player;            // Script reference for the player
     private bool retracting;                    // Is the teather currently retracting?
     private bool contact;                       // Is the hook currently touching a grappable surface?
-    private float distance;                     // Current distance of tether from player
-    private bool m_FacingRight;                 // Used for flipping the player
+    private bool belowAnchor;                   // Is the player below the anchor?
+    private float distance;                     // Current distance of teather from player
+    private bool m_FacingRight;                 // Used for flipping the player, true == right
     private float currentSwing;                 // Current swing range, is steadily reduced to max when above max
     private float currentSpeed;                 // Current speed of swing
 
@@ -35,7 +36,6 @@ public class TeatherController : MonoBehaviour
         joint = player.GetComponent<DistanceJoint2D>();
         joint.enabled = false;
         contact = false;
-        m_FacingRight = player.facing;
 
         Vector3 targetVelocity;
         float facing;
@@ -64,9 +64,17 @@ public class TeatherController : MonoBehaviour
             retracting = true;
         if (distance > teatherRange && !contact)
             retracting = true;
+        if (transform.position.y < player.transform.position.y)
+            belowAnchor = false;
+        else belowAnchor = true;
 
         distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
                 new Vector2(transform.position.x, transform.position.y));
+
+        if (playerBody.velocity.x > 0 && !m_FacingRight && contact && belowAnchor)
+            Flip();
+        else if (playerBody.velocity.x < 0 && m_FacingRight && contact && belowAnchor)
+            Flip();
     }
 
     void FixedUpdate()
@@ -81,6 +89,7 @@ public class TeatherController : MonoBehaviour
     {
         if (other.gameObject.tag == "Terrain" && other.GetComponent<Collider2D>().gameObject.GetComponent<Rigidbody2D>() /*&& other.gameObject.Grappable*/ && !contact && !retracting)
         {
+            m_FacingRight = player.facing;
             if ((player.transform.position.x > transform.position.x && m_FacingRight)
                 || player.transform.position.x < transform.position.x && !m_FacingRight)
                 Flip();
@@ -236,6 +245,6 @@ public class TeatherController : MonoBehaviour
         m_FacingRight = !m_FacingRight;
         player.facing = m_FacingRight;
 
-        transform.Rotate(0.0f, 180.0f, 0, Space.Self);
+        player.transform.Rotate(0.0f, 180.0f, 0, Space.Self);
     }
 }

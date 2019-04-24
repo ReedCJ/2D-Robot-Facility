@@ -24,30 +24,31 @@ public class ThinPlatforms : MonoBehaviour
         playerCol = new Collider2D[10];
 
         topLeft = new Vector2(-transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f + transform.position.y -.007f);
-        botRight = new Vector2(transform.localScale.x / 2.0f + transform.position.x, -transform.localScale.y / 2.0f + +transform.position.y);
+        botRight = new Vector2(transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f + + transform.position.y - .007f);
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        overlapping = false;
-        Physics2D.OverlapArea(topLeft, botRight, filter, playerCol);
-        for (int i = 0; i < playerCol.Length; i++)
+        if (other.gameObject.tag == "Player")
         {
-            if (playerCol[i] != null && playerCol[i].gameObject.GetComponent<PlayerController>() != null && playerCol[i].gameObject.GetComponent<PlayerController>().tag == "Player")
+            overlapping = false;
+            Physics2D.OverlapArea(topLeft, botRight, filter, playerCol);
+            for (int i = 0; i < playerCol.Length; i++)
             {
-                overlapping = true;
+                if (playerCol[i] != null && playerCol[i].gameObject.GetComponent<PlayerController>() != null && playerCol[i].gameObject.GetComponent<PlayerController>().tag == "Player")
+                {
+                    overlapping = true;
+                }
             }
-        }
 
-        if (player.transform.position.y > transform.position.y && player.grounded)
-            player.thinGround = true;
-        else
-            player.thinGround = false;
-        
-        player.MoveThroughPlatform();
-        //Debug.Log("Grounded: " + player.grounded);
-        //Debug.Log("Fall THrough: " + player.fallThrough);
-        ToggleCol((player.fallThrough || player.jumpThrough || overlapping), player.gameObject);
+            if (player.transform.position.y > transform.position.y && player.grounded)
+                player.thinGround = true;
+            else
+                player.thinGround = false;
+
+            player.MoveThroughPlatform();
+            ToggleCol(((player.fallThrough || (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded)) || player.jumpThrough || overlapping), player.gameObject);
+        }
     }
 
     private void ToggleCol(bool passThrough, GameObject chara)

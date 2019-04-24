@@ -288,13 +288,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void MoveThroughPlatform()
+    public void MoveThroughPlatform()       // Updates fallThrough and jumpThrough status.
     {
         //Debug.Log(" " + grounded + " " + crouch + " " + jump + " " + thinGround + " " + (body.velocity.y == 0.0f));
-        if (grounded && crouch && jump && thinGround && body.velocity.y == 0.0f)
+        if ((grounded && crouch && jump && thinGround && body.velocity.y == 0.0f))
             fallThrough = true;
-        else if (grounded || !thinGround || body.velocity.y > 0.0f)
-            fallThrough = false;
 
         if (!grounded && body.velocity.y > 0 || jump)
             jumpThrough = true;
