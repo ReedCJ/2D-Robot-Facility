@@ -76,28 +76,14 @@ public class PlayerController : MonoBehaviour
 
             //Checks if falling parameter
             animator.SetFloat("Falling", body.velocity.y);
-            if (body.velocity.y < 0)
+            if (body.velocity.y < -2)
                 animator.SetBool("Jumping", false);
-            
-            /*
-            if (hMove > .01 || hMove < -.01 && grounded && !down)
-                animator.SetBool("Running", true);
-            else animator.SetBool("Running", false);
-
-
-            if (hMove > .01 || hMove < -.01 && grounded && down)
-                animator.SetBool("Walking", true);
-            else animator.SetBool("Walking", false);
-
-            */
 
             vMove = Input.GetAxisRaw("Vertical");
             #region Keys
             if (Input.GetButtonDown("Jump"))
             {
-//                if (hMove != 0)
-//                    animator.SetTrigger("Jumping");
-//                else animator.SetTrigger("IdleJump");
+
                 if (grounded)
                 {
                     jump = true;
@@ -125,24 +111,30 @@ public class PlayerController : MonoBehaviour
             if (down && grounded) { crouch = true; }
             else { crouch = false; }
 
- //           if (crouch)
- //               animator.SetBool("Crouched", crouch);
- //           else if (!crouch)
- //               animator.SetBool("Crouched", crouch);
 
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
             else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
 
-            if (Input.GetButtonDown("Teather")) { teather = true; }
+            if (Input.GetButtonDown("Teather"))
+            {
+                teather = true;
+                animator.SetTrigger("SwingStart");
+            }
 
- //           if (teather == true)
- //               animator.SetBool("Swinging", true);
- //           else if (teather == false)
- //               animator.SetBool("Swinging", false);
+//            if (teather == true)
+//                animator.SetBool("Swinging", true);
+//            else if (teather == false)
+//                animator.SetBool("Swinging", false);
         }
-      
-       
+
+        //        if (swinging)
+        //           Debug.Log("Swinging True");
+        //        else if (!swinging)
+        //            Debug.Log("Swinging False");
+
+        animator.SetBool("Swinging", swinging);
+
         #endregion
     }
 
@@ -185,6 +177,7 @@ public class PlayerController : MonoBehaviour
         jump = false;
         doubleJump = false;
         teather = false;
+        //animator.SetBool("Swinging", false);
     }
 
     void CastTeather()           // Currently non functional
