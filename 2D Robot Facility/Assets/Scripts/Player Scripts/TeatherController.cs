@@ -36,6 +36,7 @@ public class TeatherController : MonoBehaviour
         joint = player.GetComponent<DistanceJoint2D>();
         joint.enabled = false;
         contact = false;
+        retracting = false;
 
         Vector3 targetVelocity;
         float facing;
