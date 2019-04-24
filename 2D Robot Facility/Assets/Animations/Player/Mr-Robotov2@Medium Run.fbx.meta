@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6c006737d024b4a4aab2ff5495961079
+guid: b59d2868726e22b42a378351f264ed7e
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -75,7 +75,7 @@ ModelImporter:
     400068: polySurface25.001
     2100000: lambert1
     4300000: polySurface25.001
-    7400000: Crouched Walking (1)
+    7400000: Medium Run
     9500000: //RootNode
     13700000: polySurface25.001
   externalObjects: {}
@@ -107,10 +107,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Crouched Walking (1)
+      name: Medium Run
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 32
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

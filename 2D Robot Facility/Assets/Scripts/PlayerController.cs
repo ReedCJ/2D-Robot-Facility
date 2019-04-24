@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private bool camFollow;                 // Camera is in follow mode?
     private GameObject GrappleHook;         // Active Grappling Hook Object
     private TeatherController grappleController;     // Script for swinging player
-    public Animator animator;
+    static public Animator animator;
     private Rigidbody2D body;
     [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
     [System.NonSerialized] public float vMove = 0.0f;               // Vertical Input and climbing
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         //assign rigidbody to variable
         body = GetComponent<Rigidbody2D>();
         SetInitialState();
-        //animator = transform.GetChild(2).GetComponent<Animator>();
+        animator = transform.GetChild(2).GetComponent<Animator>();
     }
 
     void SetInitialState()      // Sets variables 
@@ -71,24 +71,37 @@ public class PlayerController : MonoBehaviour
         if (!MainMenu.isPaused)
         {
             hMove = Input.GetAxisRaw("Horizontal");
+            //Sets animation parameter for speed (Movement)
+            animator.SetFloat("Speed", Mathf.Abs(hMove));
 
-            if (hMove != 0 && !down)
+            //Checks if falling parameter
+            animator.SetFloat("Falling", Mathf.Abs(body.velocity.y));
+            
+            /*
+            if (hMove > .01 || hMove < -.01 && grounded && !down)
                 animator.SetBool("Running", true);
             else animator.SetBool("Running", false);
 
 
-            if (hMove != 0 && down)
+            if (hMove > .01 || hMove < -.01 && grounded && down)
                 animator.SetBool("Walking", true);
             else animator.SetBool("Walking", false);
 
-
+            */
 
             vMove = Input.GetAxisRaw("Vertical");
             #region Keys
             if (Input.GetButtonDown("Jump"))
             {
-                animator.SetTrigger("Jumping");
-                if (grounded) { jump = true; }
+//                if (hMove != 0)
+//                    animator.SetTrigger("Jumping");
+//                else animator.SetTrigger("IdleJump");
+                if (grounded)
+                {
+                    jump = true;
+                    animator.SetBool("Jumping", true);
+                    animator.SetBool("Grounded", false);
+                }
                 //double jump
                 else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
             }
@@ -110,16 +123,21 @@ public class PlayerController : MonoBehaviour
             if (down && grounded) { crouch = true; }
             else { crouch = false; }
 
-            if (crouch)
-                animator.SetBool("Crouched", crouch);
-            else if (!crouch)
-                animator.SetBool("Crouched", crouch);
+ //           if (crouch)
+ //               animator.SetBool("Crouched", crouch);
+ //           else if (!crouch)
+ //               animator.SetBool("Crouched", crouch);
 
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
             else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
 
             if (Input.GetButtonDown("Teather")) { teather = true; }
+
+ //           if (teather == true)
+ //               animator.SetBool("Swinging", true);
+ //           else if (teather == false)
+ //               animator.SetBool("Swinging", false);
         }
       
        
@@ -298,5 +316,20 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public void OnLanding ()
+    {
+        animator.SetTrigger("Landing");
+      //  Debug.Log("Landed Event");
+        animator.SetBool("Jumping", false);
+        animator.SetBool("Grounded", true);
+
+    }
+
+    public void OnCrouching (bool isCrouching)
+    {
+        animator.SetBool("Crouching", isCrouching);
     }
 }
