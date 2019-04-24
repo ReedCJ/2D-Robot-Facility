@@ -4681,7 +4681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1912609872
 Transform:
   m_ObjectHideFlags: 0
@@ -4931,12 +4931,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!95 &2143514969 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: ba743b27e78171e42bcbf5092ccafe62,
-    type: 3}
-  m_PrefabInstance: {fileID: 1127069120}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2143514970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400066, guid: ba743b27e78171e42bcbf5092ccafe62,
@@ -5032,7 +5026,6 @@ MonoBehaviour:
   speed: 60
   fireRate: 0.5
   enabledDouble: 0
-  animator: {fileID: 2143514969}
   up: 0
   down: 0
 --- !u!1 &2084154437816477290
@@ -5075,12 +5068,34 @@ MonoBehaviour:
   m_CrouchDisableCollider: {fileID: 8111887866922680370}
   OnLandEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752135478089611973}
+        m_MethodName: OnLanding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   OnCrouchEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1752135478089611973}
+        m_MethodName: OnCrouching
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: CharacterController2D+BoolEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!50 &2515760385414407731

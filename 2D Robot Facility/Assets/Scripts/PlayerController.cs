@@ -75,7 +75,9 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Speed", Mathf.Abs(hMove));
 
             //Checks if falling parameter
-            animator.SetFloat("Falling", Mathf.Abs(body.velocity.y));
+            animator.SetFloat("Falling", body.velocity.y);
+            if (body.velocity.y < 0)
+                animator.SetBool("Jumping", false);
             
             /*
             if (hMove > .01 || hMove < -.01 && grounded && !down)
