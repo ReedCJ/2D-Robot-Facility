@@ -24,8 +24,7 @@ public class PlayerController : MonoBehaviour
     public bool enabledDouble;              // public bool for enabling/disabling double jumps
 
     private bool teather;                   // Teather key input
-    private bool crouch;                    // Is player crouched
-    private bool jump;                      // Jump key input
+    public bool jump;                      // Jump key input
     private bool canDouble;                 // bool for being able to double dump
     private bool doubleJump;                // double jump bool
     private bool camFollow;                 // Camera is in follow mode?
@@ -42,6 +41,7 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool fallThrough;                 // Can the player currently fall through thin platforms?
     [System.NonSerialized] public bool jumpThrough;                 // Can the player currently jump through thin platforms?
     [System.NonSerialized] public bool thinGround;                  // Is the player on top of ground he can fall through?
+    [System.NonSerialized] public bool crouch;                      // Is player crouched
     [System.NonSerialized] public bool up;                                                 // Up Input
     [System.NonSerialized] public bool down;                                               // Down Input
     [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
@@ -293,9 +293,11 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(" " + grounded + " " + crouch + " " + jump + " " + thinGround + " " + (body.velocity.y == 0.0f));
         if ((grounded && crouch && jump && thinGround && body.velocity.y == 0.0f))
             fallThrough = true;
-
-        if (!grounded && body.velocity.y > 0 || jump)
+        else if (!grounded && body.velocity.y > 0 || jump)
+        {
             jumpThrough = true;
+            fallThrough = false;
+        }
         else
             jumpThrough = false;
     }

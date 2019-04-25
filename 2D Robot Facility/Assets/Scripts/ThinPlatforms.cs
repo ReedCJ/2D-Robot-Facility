@@ -10,11 +10,11 @@ public class ThinPlatforms : MonoBehaviour
 #pragma warning restore 0649
 
 
-    private Vector2 topLeft;        // Used to determine whether the player is overlapping with the platform's collider
-    private Vector2 botRight;       // Used to determine whether the player is overlapping with the platform's collider
+    private Vector2 topLeft;            // Used to determine whether the player is overlapping with the platform's collider
+    private Vector2 botRight;           // Used to determine whether the player is overlapping with the platform's collider
     private PlayerController player;    // Used to access variables in the player script
     private Collider2D []playerCol;
-    private bool overlapping;       // Is the player overlapping with the phyiscs collider?
+    private bool overlapping;           // Is the player overlapping with the phyiscs collider?
     [System.NonSerialized] public bool pCol;        // Is the platform collider active with the player?
 
     // Start is called before the first frame update
@@ -45,10 +45,13 @@ public class ThinPlatforms : MonoBehaviour
                 player.thinGround = true;
             else
                 player.thinGround = false;
-
-            player.MoveThroughPlatform();                                                   // Update the player variables
-            ToggleCol(((player.fallThrough || (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded)) || player.jumpThrough || overlapping), player.gameObject);      // Send the proper boolean statement to toggle collision and the player's gameObject
         }
+    }
+
+    private void FixedUpdate()
+    {
+        player.MoveThroughPlatform();                                                   // Update the player variables
+        ToggleCol(((player.fallThrough || (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded)) || player.jumpThrough || overlapping), player.gameObject);      // Send the proper boolean statement to toggle collision and the player's gameObject
     }
 
     private void ToggleCol(bool passThrough, GameObject chara)      // Toggle Collision. Call this to update the collision between this platform and the player
