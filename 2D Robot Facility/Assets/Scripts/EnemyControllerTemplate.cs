@@ -50,6 +50,25 @@ public class EnemyControllerTemplate : MonoBehaviour
     {
         get { return gameController.GetComponent<GameController>().timer; }
     }
+    //distance to the player
+    protected float DistanceToPlayer
+    {
+        get { return Vector2.Distance(body.transform.position, player.transform.position); }
+    }
+    protected float HorizontalDistanceToPlayer
+    {
+        get
+        {
+            if (PlayerToTheRight)
+            {
+                return player.transform.position.x - body.transform.position.x; 
+            }
+            else
+            {
+                return body.transform.position.x - player.transform.position.x;
+            }
+        }
+    }
     //is the player to the right property
     protected bool PlayerToTheRight
     {
