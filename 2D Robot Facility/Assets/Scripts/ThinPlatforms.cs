@@ -23,6 +23,9 @@ public class ThinPlatforms : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if (player == null)
+            Debug.Log("Player not found.");
+
         playerCol = new Collider2D[10];
 
         topLeft = new Vector2(-transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f + transform.position.y -.007f);
