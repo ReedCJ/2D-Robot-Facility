@@ -126,11 +126,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8208748433622882811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e04a7dbdf9ca47408ed8a817e05cea5, type: 3}
+  m_Script: {fileID: 11500000, guid: 84fa303953379bf4892bb82bcb4b0999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   deployAngle: 60
-  speed: 25
+  speed: 40
   teatherRange: 10
   maxSwing: 7
   minSwing: 0.5

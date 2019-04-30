@@ -107,21 +107,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8078804377546338604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce86b0c3da00fea468697262e1cde868, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0715df575fbc2429a934cf74c44833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floorCheckDistance: 3
   jumpRange: 0
   landingCheckDistance: 0
   moveSpeed: 3
-  aggroRange: 15
+  aggroRange: 20
   aggroLeash: 25
   levelCheckHeight: 6
   randomMovement: 0
   mortarCount: 3
   mortarCD: 1
-  laserSpeed: 0.5
-  laserDuration: 0.8
+  laserSpeed: 0.6
+  laserDuration: 0.9
   TankMortar: {fileID: 2211785857085361117, guid: 2210ad008cb861e459df6d543a4adb3b,
     type: 3}
 --- !u!50 &8078804377546338602
@@ -247,8 +247,8 @@ GameObject:
   - component: {fileID: 8078804377880983253}
   - component: {fileID: 8078804377880983254}
   - component: {fileID: 8078804377880983255}
-  - component: {fileID: 8078804377880983252}
   - component: {fileID: 3659588328307895965}
+  - component: {fileID: 3621118527461714769}
   m_Layer: 0
   m_Name: 'Laser '
   m_TagString: Untagged
@@ -315,19 +315,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8078804377880983252
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8078804377880983258}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3659588328307895965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,10 +324,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 8078804377880983258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 91349898230543c4fae226480b10c912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dammage: 1
+--- !u!61 &3621118527461714769
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8078804377880983258}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000023841858, y: -0.0000023841858}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0000007, y: 1.0000056}
+  m_EdgeRadius: 0
 --- !u!1 &8078804377937179528
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8078804377937179528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 91349898230543c4fae226480b10c912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dammage: 1

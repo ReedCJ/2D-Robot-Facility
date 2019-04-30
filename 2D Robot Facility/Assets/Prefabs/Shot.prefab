@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2406125701766486348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 641ccfac918e73a41ad99c97b673788a, type: 3}
+  m_Script: {fileID: 11500000, guid: a1db9a92bc3432e4f8cda9ec6a913bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shootVertical: 0
@@ -97,9 +97,9 @@ MonoBehaviour:
   shootDiagonal: 0
   vertical: 1
   diagonal: 0
-  time: 1
-  shooter: {fileID: 1116342740285378392, guid: e43d79f7f0b25474996563aac2c48208, type: 3}
-  speed: 30
+  time: 0
+  shooter: {fileID: 0}
+  speed: 20
 --- !u!58 &269138628090500250
 CircleCollider2D:
   m_ObjectHideFlags: 0
