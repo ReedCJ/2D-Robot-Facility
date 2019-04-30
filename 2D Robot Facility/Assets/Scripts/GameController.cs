@@ -59,6 +59,7 @@ public class GameController : MonoBehaviour
             //ignore collision with other enemies
             foreach(GameObject e in sceneEnemies)
             {
+
                 //circle coliders
                 if (enemy.gameObject.GetComponent<CircleCollider2D>() != null)
                 {

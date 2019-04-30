@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main_ReedCJ.unity
     guid: f2e1707227aac3f47a287ea7e406f7ee
   - enabled: 1
-    path: Assets/Scenes/ReedCJMain.unity
+    path: Assets/Scenes/Grapple Testing.unity
+    guid: de3f4d6a5be907346b82965a385a89bd
+  - enabled: 1
+    path: Assets/Scenes/GordonSprint1Scene.unity
     guid: 05631f7542a91124fb4e12905305a6c6
   m_configObjects: {}
