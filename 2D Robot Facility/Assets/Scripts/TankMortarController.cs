@@ -19,6 +19,7 @@ public class TankMortarController : MonoBehaviour
     private Vector2 p1;
     private Vector2 p2;
     private Rigidbody2D body;
+    private GameObject shooter;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +36,7 @@ public class TankMortarController : MonoBehaviour
     private void FixedUpdate()
     {
         currentTime = (Timer - startTime) / travelTime;
-        body.transform.position = Parabola(spawnPosition, playerPosition, height, currentTime);
+        body.transform.position = Parabola(spawnPosition, GetEndPosition(), height, currentTime);
         //they should probably blow up at the end or something
         if(Timer > startTime + travelTime) { Destroy(gameObject); }
     }
@@ -45,11 +46,12 @@ public class TankMortarController : MonoBehaviour
         get { return GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().timer; }
     }
 
-    public void SetMortar(bool f, Vector2 sp, Vector2 pp)
+    public void SetMortar(bool f, Vector2 sp, Vector2 pp, GameObject s)
     {
         facing = f;
         spawnPosition = sp;
         playerPosition = pp;
+        shooter = s;
     }
     //destroy these on terrain collision
     private void OnTriggerEnter(Collider other)
@@ -68,6 +70,16 @@ public class TankMortarController : MonoBehaviour
 
     private Vector2 GetEndPosition()
     {
-        Parabola(spawnPosition, playerPosition, height, 0.5f);
+        Vector2 endPosition = spawnPosition;
+        endPosition.y -= 2;
+        if(shooter.GetComponent<EnemyControllerTank>().PlayerToTheRight)
+        {
+            endPosition.x += (Parabola(spawnPosition, playerPosition, height, 0.5f).x - spawnPosition.x) * 2;
+        }
+        else
+        {
+            endPosition.x -= (spawnPosition.x - Parabola(spawnPosition, playerPosition, height, 0.5f).x) * 2;
+        }
+        return endPosition;
     }
 }
