@@ -72,7 +72,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
             {
                 if (DistanceToPlayer > 10)
                 {
-                    Instantiate(TankMortar, MortarSpawn, placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn, player.transform.position);
+                    FireMortar();
                     mc++;
                     sm = Timer;
                 }
@@ -98,6 +98,10 @@ public class EnemyControllerTank : EnemyControllerTemplate
     {
         get { return new Vector2(body.transform.position.x, body.transform.position.y + 2); }
     }
+    private void FireMortar()
+    {
+        Instantiate(TankMortar, MortarSpawn, placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn, player.transform.position);
+    }
     //fires the laser
     private void FireLaser()
     {
@@ -107,7 +111,6 @@ public class EnemyControllerTank : EnemyControllerTemplate
         laserParent.SetActive(true);
         laserTrace.SetActive(true);
         lf = Timer;
-        Debug.Log("Shot a laser");
     }
     /*Old code from when angles were being tested
     private void RotateLaser(float laserAngle, bool atPlayer)

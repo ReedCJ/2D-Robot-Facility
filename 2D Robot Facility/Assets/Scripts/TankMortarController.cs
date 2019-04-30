@@ -65,4 +65,9 @@ public class TankMortarController : MonoBehaviour
 
         return new Vector2(mid.x, f(t) + Mathf.Lerp(start.y, end.y, t));
     }
+
+    private Vector2 GetEndPosition()
+    {
+        Parabola(spawnPosition, playerPosition, height, currentTime)
+    }
 }
