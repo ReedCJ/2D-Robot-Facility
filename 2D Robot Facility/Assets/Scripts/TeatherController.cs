@@ -21,7 +21,8 @@ public class TeatherController : MonoBehaviour
     public float teatherRange;                  // Max travel distance
     public float maxSwing;                      // Max swing range
     public float minSwing;                      // Min swing range
-    public float swingSpeed;                    // Speed of swinging
+    public float accel;                         // Speed of swinging
+    public float maxSwingSpeed;                 // Maximum Swinging speed
     public float pushRange;                     // Max Swing Height
     public float climbSpeed;                    // Speed of retracting grapple
     public float pullRate;                      // Rate that the grapple will pull the player into range in
@@ -155,82 +156,66 @@ public class TeatherController : MonoBehaviour
 
         if (!Input.GetButtonDown("Focus"))
         {
-            if (player.vMove > 0)
+            if (player.vMove > 0)           // Retract
             {
                 currentSwing = currentSwing - climbSpeed * player.vMove * Time.fixedDeltaTime;
                 if (currentSwing < minSwing)
                     currentSwing = minSwing;
             }
-            else if (player.vMove < 0)
+            else if (player.vMove < 0)      // Extend
             {
                 currentSwing = currentSwing - climbSpeed * player.vMove * Time.fixedDeltaTime;
                 if (currentSwing > maxSwing)
                     currentSwing = maxSwing;
             }
 
-            if (player.transform.position.y >= -pushRange + transform.position.y
+
+            float currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+            
+            if (player.transform.position.y >= -pushRange + transform.position.y        // Is the player too high? Push him towards the center
                 && player.transform.position.x <= transform.position.x)
             {
-                 Vector2 destination = new Vector2(transform.position.x - distance - player.transform.position.x,
-                     transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed;
-                playerBody.AddForce(destination);
+                Accelerate(new Vector2(transform.position.x - distance - player.transform.position.x,
+                     transform.position.y - player.transform.position.y));
             }
-            else if (player.transform.position.y >= -pushRange + transform.position.y
+            else if (player.transform.position.y >= -pushRange + transform.position.y   // Is the player too high? Push him towards the center
                 && player.transform.position.x > transform.position.x)
             {
-                Vector2 destination = new Vector2(transform.position.x + distance - player.transform.position.x,
-                    transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed;
-                playerBody.AddForce(destination);
+                Accelerate(new Vector2(transform.position.x + distance - player.transform.position.x,
+                    transform.position.y - player.transform.position.y));
             }
-            else if (player.hMove > 0)
+            else if (player.hMove > 0 && currentSpeed < maxSwingSpeed)                  // If the player is not too high, read his input and accelerate him up to the max
             {
                 if (player.transform.position.x < transform.position.x)
                 {
-                    Vector2 destination = new Vector2(transform.position.x - player.transform.position.x,
-                        transform.position.y - distance - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed * 2;
-                    playerBody.AddForce(destination);
+                    Accelerate(new Vector2(transform.position.x - player.transform.position.x,
+                        transform.position.y - distance - player.transform.position.y));
                 }
                 else
                 {
-                    Vector2 destination = new Vector2(transform.position.x + distance - player.transform.position.x,
-                        transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed * 2;
-                    playerBody.AddForce(destination);
+                    Accelerate(new Vector2(transform.position.x + distance - player.transform.position.x,
+                        transform.position.y - player.transform.position.y));
                 }
             }
-            else if (player.hMove < 0)
+            else if (player.hMove < 0 && currentSpeed < maxSwingSpeed)                  // If the player is not too high, read his input and accelerate him up to the max
             {
                 if (player.transform.position.x > transform.position.x)
                 {
-                    Vector2 destination = new Vector2(transform.position.x - player.transform.position.x,
-                        transform.position.y - distance - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed;
-                    playerBody.AddForce(destination);
+                    Accelerate(new Vector2(transform.position.x - player.transform.position.x,
+                        transform.position.y - distance - player.transform.position.y));
                 }
                 else
                 {
-                    Vector2 destination = new Vector2(transform.position.x - distance - player.transform.position.x,
-                        transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed;
-                    playerBody.AddForce(destination);
+                    Accelerate(new Vector2(transform.position.x - distance - player.transform.position.x,
+                        transform.position.y - player.transform.position.y));
                 }
             }
-            else
+            else if (player.hMove == 0)                     // If the player is not pressing any buttons, gradually slow him down
             {
-                float speed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
-
-                if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
-                new Vector2(transform.position.x, transform.position.y - distance)) > 2)
-                {
-                    Vector2 destination = new Vector2(transform.position.x - distance - player.transform.position.x,
-                        transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * swingSpeed * .25f;
-                    playerBody.AddForce(destination);
-                }
-                else if (speed > .4f)
-                {
-                    playerBody.velocity = playerBody.velocity * .98f;
-                }
-                else if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
-                new Vector2(transform.position.x, transform.position.y - distance)) < .25f)
-                    playerBody.velocity = new Vector2(0, 0);
+                SlowDown();
             }
+
+            SlowToMaxSpeed();
         }
         else if (Input.GetButtonDown("Focus"))
         {
@@ -247,5 +232,41 @@ public class TeatherController : MonoBehaviour
         player.facing = m_FacingRight;
 
         player.transform.Rotate(0.0f, 180.0f, 0, Space.Self);
+    }
+
+    private void Accelerate(Vector2 destination)        // Accelerate player towards a direction
+    {
+        playerBody.AddForce(destination * Time.fixedDeltaTime * accel);
+    }
+
+    private void SlowDown()             // Called to gradually slow the player down
+    {
+        float speed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+        Vector2 destination;
+
+        if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
+        new Vector2(transform.position.x, transform.position.y - distance)) > 2)
+        {
+            destination = new Vector2(transform.position.x - distance - player.transform.position.x,
+                transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * accel * .25f;
+            playerBody.AddForce(destination);
+        }
+        else if (speed > .4f)
+        {
+            playerBody.velocity = playerBody.velocity * .98f;
+        }
+        else if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
+        new Vector2(transform.position.x, transform.position.y - distance)) < .25f)
+            playerBody.velocity = new Vector2(0, 0);
+    }
+
+    private void SlowToMaxSpeed()              // Set Velocity to the max speed if it is over the max speed
+    {
+        float curSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+        if (currentSpeed > maxSwingSpeed)
+        {
+            float speed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y) / speed * maxSwingSpeed;
+        }
     }
 }

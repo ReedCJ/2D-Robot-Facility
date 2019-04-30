@@ -134,7 +134,8 @@ MonoBehaviour:
   teatherRange: 10
   maxSwing: 7
   minSwing: 0.5
-  swingSpeed: 50
+  accel: 120
+  maxSwingSpeed: 50
   pushRange: 0
   climbSpeed: 12
   pullRate: 4
