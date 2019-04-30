@@ -5,14 +5,15 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+#pragma warning disable 0649
     [SerializeField] private GameObject hook;           // The "hook" in the grappling hook
     [SerializeField] private GameObject shot;           // Our player's projectile
     [SerializeField] private GameObject attack;         // A hitbox representing a melee weapon
     [SerializeField] private GameObject cam;            // The primary virtual camera
 
     [SerializeField] private CharacterController2D controller;      // The script that processes our movement inputs
-
     [SerializeField] private float speed = 0.0f;   // Character ground speed
+#pragma warning restore 0649
 
     private float timer;
     
@@ -24,11 +25,9 @@ public class PlayerController : MonoBehaviour
     public bool enabledDouble;              // public bool for enabling/disabling double jumps
 
     private bool teather;                   // Teather key input
-    private bool crouch;                    // Is player crouched
-    private bool jump;                      // Jump key input
+    public bool jump;                      // Jump key input
     private bool canDouble;                 // bool for being able to double dump
     private bool doubleJump;                // double jump bool
-    private bool grounded;                  // On the ground as opposed to in the air?
     private bool camFollow;                 // Camera is in follow mode?
     private GameObject GrappleHook;         // Active Grappling Hook Object
     private TeatherController grappleController;     // Script for swinging player
@@ -40,13 +39,19 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool swinging;                    // Currently swinging?
     [System.NonSerialized] public bool teatherSwinging;             // Currently swinging?
     [System.NonSerialized] public bool facing;                      // True = right, False = left
-    public bool up;                                                 // Up Input
-    public bool down;                                               // Down Input
+    [System.NonSerialized] public bool fallThrough;                 // Can the player currently fall through thin platforms?
+    [System.NonSerialized] public bool jumpThrough;                 // Can the player currently jump through thin platforms?
+    [System.NonSerialized] public bool thinGround;                  // Is the player on top of ground he can fall through?
+    [System.NonSerialized] public bool crouch;                      // Is player crouched
+    [System.NonSerialized] public bool up;                                                 // Up Input
+    [System.NonSerialized] public bool down;                                               // Down Input
+    [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
 
     //Run when p;ayer is created
     void Start()
     {
+        thinGround = false;
         //Player starts facing right
         facing = true;
         //Player has not double jumped
@@ -69,6 +74,14 @@ public class PlayerController : MonoBehaviour
         timer += Time.deltaTime;
 
         if (!MainMenu.isPaused)
+        {
+
+        hMove = Input.GetAxisRaw("Horizontal");
+        vMove = Input.GetAxisRaw("Vertical");
+        #region Keys
+
+        if (Input.GetButtonDown("Jump"))
+
         {
             hMove = Input.GetAxisRaw("Horizontal");
             //Sets animation parameter for speed (Movement)
@@ -108,13 +121,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
             else { down = false; }
 
+
             if (down && grounded) { crouch = true; }
             else { crouch = false; }
-
-
-            //Attack button press/release
-            if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
-            else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
 
             if (Input.GetButtonDown("Teather"))
             {
@@ -134,19 +143,30 @@ public class PlayerController : MonoBehaviour
         //            Debug.Log("Swinging False");
 
         animator.SetBool("Swinging", swinging);
+        MoveThroughPlatform();
+
+        //Attack button press/release
+        if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
+        else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
 
         #endregion
+       }
     }
+    
 
     void FixedUpdate()
     {
-        if (!swinging)
+        //
+        // Movement input && grapple input processing block
+        //
+
+        if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         else if (swinging && jump)
         {
             if (teatherSwinging)
                 grappleController.StartRetracting();
-            // Perform swing jump
+            controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         }
         else if (swinging)
         {
@@ -326,5 +346,20 @@ public class PlayerController : MonoBehaviour
     public void OnCrouching (bool isCrouching)
     {
         animator.SetBool("Crouching", isCrouching);
+    }
+    
+    public void MoveThroughPlatform()       // Updates fallThrough and jumpThrough status.
+    {
+        //Debug.Log(" " + grounded + " " + crouch + " " + jump + " " + thinGround + " " + (body.velocity.y == 0.0f));
+        if ((grounded && crouch && jump && thinGround && body.velocity.y == 0.0f))
+            fallThrough = true;
+        else if (!grounded && body.velocity.y > 0 || jump)
+        {
+            jumpThrough = true;
+            fallThrough = false;
+        }
+        else
+            jumpThrough = false;
+
     }
 }

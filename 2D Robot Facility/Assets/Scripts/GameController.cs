@@ -2,32 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+
 
 public class GameController : MonoBehaviour
 {
     //list of enemy tags
     public readonly string[] enemyTypes = new string[1] { "Enemy1" };
-    //list of enemies
+    //public timer
+    public float timer;
 
     //DO THIS
     private List<GameObject> sceneEnemies;
     private ArrayList sceneEnemyColliderEnemies;
     private GameObject player;
-    private Collider2D playerBox;
+    private GameObject followCam;
 
     // Start is called before the first frame update
     void Start()
     {
         GetPlayer();
+        GetFollowCam();
+        CameraGetPlayer();
         PopulateEnemyList();
         AllEnemiesIgnoreEnemyCollision();
         PlayerIgnoresCollisionWithEnemies();
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
         //Restart the game
         if (Input.GetButtonDown("Restart"))
         {
@@ -54,7 +59,31 @@ public class GameController : MonoBehaviour
             //ignore collision with other enemies
             foreach(GameObject e in sceneEnemies)
             {
-                Physics2D.IgnoreCollision(enemy.gameObject.GetComponent<CircleCollider2D>(), e.gameObject.GetComponent<CircleCollider2D>());
+
+                //circle coliders
+                if (enemy.gameObject.GetComponent<CircleCollider2D>() != null)
+                {
+                    if (e.gameObject.GetComponent<CircleCollider2D>() != null)
+                    {
+                        Physics2D.IgnoreCollision(enemy.gameObject.GetComponent<CircleCollider2D>(), e.gameObject.GetComponent<CircleCollider2D>());
+                    }
+                    if (e.gameObject.GetComponent<CapsuleCollider2D>() != null)
+                    {
+                        Physics2D.IgnoreCollision(enemy.gameObject.GetComponent<CircleCollider2D>(), e.gameObject.GetComponent<CapsuleCollider2D>());
+                    }
+                }
+                //capsule colliders
+                if (enemy.gameObject.GetComponent<CapsuleCollider2D>() != null)
+                {
+                    if (e.gameObject.GetComponent<CircleCollider2D>() != null)
+                    {
+                        Physics2D.IgnoreCollision(enemy.gameObject.GetComponent<CapsuleCollider2D>(), e.gameObject.GetComponent<CircleCollider2D>());
+                    }
+                    if (e.gameObject.GetComponent<CapsuleCollider2D>() != null)
+                    {
+                        Physics2D.IgnoreCollision(enemy.gameObject.GetComponent<CapsuleCollider2D>(), e.gameObject.GetComponent<CapsuleCollider2D>());
+                    }
+                }
             }
         }
     }
@@ -63,25 +92,33 @@ public class GameController : MonoBehaviour
     {
         foreach (GameObject e in sceneEnemies)
         {
-            Physics2D.IgnoreCollision(GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CircleCollider2D>(), e.gameObject.GetComponent<CircleCollider2D>());
-            Physics2D.IgnoreCollision(GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<BoxCollider2D>(), e.gameObject.GetComponent<CircleCollider2D>());
+            if (e.gameObject.GetComponent<CircleCollider2D>() != null)
+            {
+                Physics2D.IgnoreCollision(player.gameObject.GetComponent<CircleCollider2D>(), e.gameObject.GetComponent<CircleCollider2D>());
+                Physics2D.IgnoreCollision(player.gameObject.GetComponent<BoxCollider2D>(), e.gameObject.GetComponent<CircleCollider2D>());
+            }
+            if (e.gameObject.GetComponent<CapsuleCollider2D>() != null)
+            {
+                Physics2D.IgnoreCollision(player.gameObject.GetComponent<CircleCollider2D>(), e.gameObject.GetComponent<CapsuleCollider2D>());
+                Physics2D.IgnoreCollision(player.gameObject.GetComponent<BoxCollider2D>(), e.gameObject.GetComponent<CapsuleCollider2D>());
+            }
         }
     }
 
+    //GEts the player gameobject
     public void GetPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerBox = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<BoxCollider2D>();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void GetFollowCam()
     {
-        if (other != playerBox)
-        {
-            Destroy(other.gameObject);
-        }
-       
+        followCam = GameObject.FindGameObjectWithTag("FollowCam");
+    }
 
-        
+    //put player in camera, used by camera script
+    public void CameraGetPlayer()
+    {
+        followCam.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
     }
 }
