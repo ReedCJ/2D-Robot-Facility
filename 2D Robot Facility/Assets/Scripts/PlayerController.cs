@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Jumping", false);
 
             vMove = Input.GetAxisRaw("Vertical");
-            #region Keys
             if (Input.GetButtonDown("Jump"))
             {
 

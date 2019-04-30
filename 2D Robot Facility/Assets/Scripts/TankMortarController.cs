@@ -68,6 +68,6 @@ public class TankMortarController : MonoBehaviour
 
     private Vector2 GetEndPosition()
     {
-        Parabola(spawnPosition, playerPosition, height, currentTime)
+        Parabola(spawnPosition, playerPosition, height, 0.5f);
     }
 }
