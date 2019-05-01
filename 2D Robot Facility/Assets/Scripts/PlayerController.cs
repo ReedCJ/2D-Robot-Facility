@@ -67,23 +67,38 @@ public class PlayerController : MonoBehaviour
         camFollow = true;
     }
 
+    //Run when p;ayer is created
+    void Start()
+    {
+        thinGround = false;
+        //Player starts facing right
+        facing = true;
+        //Player has not double jumped
+        doubleJump = false;
+        //assign rigidbody to variable
+        body = GetComponent<Rigidbody2D>();
+        SetInitialState();
+        animator = transform.GetChild(2).GetComponent<Animator>();
+    }
+
+    void SetInitialState()      // Sets variables 
+    {
+        camFollow = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
         //timer
         timer += Time.deltaTime;
 
+
         if (!MainMenu.isPaused)
         {
-
-        hMove = Input.GetAxisRaw("Horizontal");
-        vMove = Input.GetAxisRaw("Vertical");
-        #region Keys
-
-        if (Input.GetButtonDown("Jump"))
-
-        {
+            #region Keys
             hMove = Input.GetAxisRaw("Horizontal");
+            vMove = Input.GetAxisRaw("Vertical");
+
             //Sets animation parameter for speed (Movement)
             animator.SetFloat("Speed", Mathf.Abs(hMove));
 
@@ -92,10 +107,9 @@ public class PlayerController : MonoBehaviour
             if (body.velocity.y < -2)
                 animator.SetBool("Jumping", false);
 
-            vMove = Input.GetAxisRaw("Vertical");
+
             if (Input.GetButtonDown("Jump"))
             {
-
                 if (grounded)
                 {
                     jump = true;
@@ -103,7 +117,11 @@ public class PlayerController : MonoBehaviour
                     animator.SetBool("Grounded", false);
                 }
                 //double jump
-                else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
+                else if (!grounded && canDouble)
+                {
+                    doubleJump = true;
+                    canDouble = false;
+                }
             }
 
             if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
@@ -113,16 +131,34 @@ public class PlayerController : MonoBehaviour
             }
 
             // look/aim up
-            if (Input.GetAxisRaw("Vertical") > 0) { up = true; }
-            else { up = false; }
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                up = true;
+            }
+            else
+            {
+                up = false;
+            }
 
             // Aim/look down / crouch
-            if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
-            else { down = false; }
+            if (Input.GetAxisRaw("Vertical") < 0)
+            {
+                down = true;
+            }
+            else
+            {
+                down = false;
+            }
 
 
-            if (down && grounded) { crouch = true; }
-            else { crouch = false; }
+            if (down && grounded)
+            {
+                crouch = true;
+            }
+            else
+            {
+                crouch = false;
+            }
 
             if (Input.GetButtonDown("Teather"))
             {
@@ -130,28 +166,23 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("SwingStart");
             }
 
-//            if (teather == true)
-//                animator.SetBool("Swinging", true);
-//            else if (teather == false)
-//                animator.SetBool("Swinging", false);
+            animator.SetBool("Swinging", swinging);
+            MoveThroughPlatform();
+
+            //Attack button press/release
+            if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1"))
+            {
+                fire = true;
+            }
+            else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1"))
+            {
+                fire = false;
+            }
+
+            #endregion
         }
-
-        //        if (swinging)
-        //           Debug.Log("Swinging True");
-        //        else if (!swinging)
-        //            Debug.Log("Swinging False");
-
-        animator.SetBool("Swinging", swinging);
-        MoveThroughPlatform();
-
-        //Attack button press/release
-        if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
-        else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
-
-        #endregion
-       }
     }
-    
+
 
     void FixedUpdate()
     {
