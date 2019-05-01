@@ -73,17 +73,13 @@ public class PlayerController : MonoBehaviour
         //timer
         timer += Time.deltaTime;
 
+        
         if (!MainMenu.isPaused)
         {
-
-        hMove = Input.GetAxisRaw("Horizontal");
-        vMove = Input.GetAxisRaw("Vertical");
         #region Keys
-
-        if (Input.GetButtonDown("Jump"))
-
-        {
             hMove = Input.GetAxisRaw("Horizontal");
+            vMove = Input.GetAxisRaw("Vertical");
+
             //Sets animation parameter for speed (Movement)
             animator.SetFloat("Speed", Mathf.Abs(hMove));
 
@@ -92,64 +88,80 @@ public class PlayerController : MonoBehaviour
             if (body.velocity.y < -2)
                 animator.SetBool("Jumping", false);
 
-            vMove = Input.GetAxisRaw("Vertical");
+
             if (Input.GetButtonDown("Jump"))
             {
-
                 if (grounded)
                 {
-                    jump = true;
-                    animator.SetBool("Jumping", true);
-                    animator.SetBool("Grounded", false);
+                      jump = true;
+                      animator.SetBool("Jumping", true);
+                      animator.SetBool("Grounded", false);
                 }
                 //double jump
-                else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
+                else if (!grounded && canDouble)
+                {
+                    doubleJump = true;
+                    canDouble = false;
+                }
             }
 
             if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
             {
                 if (body.velocity.y > 0)
-                    body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
+                body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
             }
 
             // look/aim up
-            if (Input.GetAxisRaw("Vertical") > 0) { up = true; }
-            else { up = false; }
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                up = true;
+            }
+            else
+            {
+                up = false;
+            }
 
             // Aim/look down / crouch
-            if (Input.GetAxisRaw("Vertical") < 0) { down = true; }
-            else { down = false; }
+            if (Input.GetAxisRaw("Vertical") < 0)
+            {
+                down = true;
+            }
+            else
+            {
+                down = false;
+            }
 
 
-            if (down && grounded) { crouch = true; }
-            else { crouch = false; }
+            if (down && grounded)
+            {
+                crouch = true;
+            }
+            else
+            {
+                crouch = false;
+            }
 
             if (Input.GetButtonDown("Teather"))
             {
-                teather = true;
-                animator.SetTrigger("SwingStart");
+               teather = true;
+               animator.SetTrigger("SwingStart");
             }
 
-//            if (teather == true)
-//                animator.SetBool("Swinging", true);
-//            else if (teather == false)
-//                animator.SetBool("Swinging", false);
+            animator.SetBool("Swinging", swinging);
+            MoveThroughPlatform();
+
+            //Attack button press/release
+            if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1"))
+            {
+                  fire = true;
+            }
+            else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1"))
+            {
+                  fire = false;
+            }
+
+                #endregion
         }
-
-        //        if (swinging)
-        //           Debug.Log("Swinging True");
-        //        else if (!swinging)
-        //            Debug.Log("Swinging False");
-
-        animator.SetBool("Swinging", swinging);
-        MoveThroughPlatform();
-
-        //Attack button press/release
-        if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1")) { fire = true; }
-        else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1")) { fire = false; }
-
-        #endregion
-       }
     }
     
 
