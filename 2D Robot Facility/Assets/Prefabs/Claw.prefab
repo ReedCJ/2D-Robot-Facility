@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2410949952165644351}
   - component: {fileID: 9169411504962128869}
   - component: {fileID: 8959223745364636245}
+  - component: {fileID: 2254403234361016256}
   m_Layer: 0
   m_Name: Claw
   m_TagString: Untagged
@@ -129,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e04a7dbdf9ca47408ed8a817e05cea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployAngle: 60
+  deployAngle: 75
   speed: 25
   teatherRange: 10
   maxSwing: 7
@@ -139,3 +140,29 @@ MonoBehaviour:
   pushRange: 0
   climbSpeed: 12
   pullRate: 4
+--- !u!234 &2254403234361016256
+SliderJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8208748433622882811}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureAngle: 1
+  m_Angle: 0
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_TranslationLimits:
+    m_LowerTranslation: 0
+    m_UpperTranslation: 0

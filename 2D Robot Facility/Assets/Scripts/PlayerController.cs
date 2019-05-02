@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject cam;            // The primary virtual camera
     [SerializeField] private CharacterController2D controller;      // The script that processes our movement inputs
     [SerializeField] private float speed = 0.0f;   // Character ground speed
+    [SerializeField] private Transform teatherSpawn;
 #pragma warning restore 0649
 
     private float timer;
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour
             // animate.SetTrigger("Jumping");
             if (grounded) { jump = true; }
             //double jump
-            else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
+            else if (!grounded && (canDouble || swinging)) { doubleJump = true; canDouble = false; }
         }
 
         if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
@@ -118,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
         if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
-        else if (swinging && jump)
+        else if (swinging && doubleJump)
         {
             if (teatherSwinging)
                 grappleController.StartRetracting();
@@ -160,7 +161,7 @@ public class PlayerController : MonoBehaviour
         if (!teatherOut && !swinging)
         {
             teatherOut = true;
-            GrappleHook = Instantiate(hook, new Vector3(transform.position.x + .2f, transform.position.y + .2f, transform.position.z), Quaternion.identity);
+            GrappleHook = Instantiate(hook, teatherSpawn.position, Quaternion.identity);
             grappleController = GrappleHook.GetComponent<TeatherController>();
         }
     }
