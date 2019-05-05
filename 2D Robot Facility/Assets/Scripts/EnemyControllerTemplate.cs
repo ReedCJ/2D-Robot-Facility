@@ -70,7 +70,7 @@ public class EnemyControllerTemplate : MonoBehaviour
         }
     }
     //is the player to the right property
-    protected bool PlayerToTheRight
+    public bool PlayerToTheRight
     {
         get
         {

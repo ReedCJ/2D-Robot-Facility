@@ -15,7 +15,7 @@ public class ContactDamage : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.SetActive(false);
+           // collision.gameObject.SetActive(false);
         }
     }
 }

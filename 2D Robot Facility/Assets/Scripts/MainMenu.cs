@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,8 +7,10 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Transform UIPause; //Will assign our panel to this variable so we can enable/disable it
-   
-    bool isPaused; //Used to determine paused state
+
+    private IEnumerator coroutine;
+
+    public static bool isPaused; //Used to determine paused state
 
 
     void Start()
@@ -20,11 +23,14 @@ public class MainMenu : MonoBehaviour
     public void Update()
     {
         //If player presses escape and game is not paused. Pause game. If game is paused and player presses escape, unpause.
-        if (Input.GetButtonUp("Cancel") && !isPaused && !((SceneManager.GetActiveScene().buildIndex) == 0))
+        if (Input.GetButtonUp("Pause") && !isPaused && !((SceneManager.GetActiveScene().buildIndex) == 0))
             Pause();
                         
-        else if (Input.GetButtonUp("Cancel") && isPaused)
-            UnPause();
+        else if (Input.GetButtonUp("Pause") && isPaused)
+        {
+             UnPause();
+        }
+            
 
     }
 
@@ -56,9 +62,16 @@ public class MainMenu : MonoBehaviour
 
     public void UnPause()
     {
-        isPaused = false;
         UIPause.gameObject.SetActive(false); //turn off pause menu
-        Time.timeScale = 1f; //resume game
+        Time.timeScale = 1f; //resume game 
+        coroutine = UnPauseDelay();
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator UnPauseDelay()
+    {
+        yield return new WaitForSeconds(.1f);
+        isPaused = false;
     }
 
     public void Restart()

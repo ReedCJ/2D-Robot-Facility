@@ -23,7 +23,8 @@ public class CharacterController2D : MonoBehaviour
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
-	[Header("Events")]
+
+    [Header("Events")]
 	[Space]
 
 	public UnityEvent OnLandEvent;
@@ -50,6 +51,7 @@ public class CharacterController2D : MonoBehaviour
 	{
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
+        PlayerController.animator.SetBool("Grounded", false);
 
         if (wasGrounded == false)
             player.fallThrough = false;
@@ -60,11 +62,13 @@ public class CharacterController2D : MonoBehaviour
         Collider2D[] thinColliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsThin);
 
         for (int i = 0; i < colliders.Length; i++)
+
 		{
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
-				if (!wasGrounded)
+                PlayerController.animator.SetBool("Grounded", true);
+                if (!wasGrounded  )//&& m_Rigidbody2D.velocity.y < 0
 					OnLandEvent.Invoke();
 			}
         }
@@ -124,8 +128,9 @@ public class CharacterController2D : MonoBehaviour
 
 			// Move the character by finding the target velocity
 			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
-			// And then smoothing it out and applying it to the character
-			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+
+            // And then smoothing it out and applying it to the character
+            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
 			if (move > 0 && !m_FacingRight)
@@ -143,9 +148,10 @@ public class CharacterController2D : MonoBehaviour
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
-			// Add a vertical force to the player.
-			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            // Add a vertical force to the player.
+            //			m_Grounded = false;
+          //  PlayerController.animator.SetBool("Grounded", false);
+            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
         if (doubleJump)
         {

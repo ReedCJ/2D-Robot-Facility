@@ -13,6 +13,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
     private float sm;
     private float lf;
     private float la;
+    private float fl;
     [SerializeField] private GameObject TankMortar;
     private GameObject laserParent;
     private GameObject laserTrace;
@@ -60,17 +61,21 @@ public class EnemyControllerTank : EnemyControllerTemplate
                 FacePlayer();
             }
             //fire laser every x mortars if player is in right area
-            if (mc >= mortarCount && PlayerOnLevel() && DistanceToPlayer > 3.0f & HorizontalDistanceToPlayer > 4.0f)
+            if (mc >= mortarCount && PlayerOnLevel() && DistanceToPlayer > 3.0f & HorizontalDistanceToPlayer > 4.0f || DistanceToPlayer < 10 && Timer > fl + laserDuration + 0.5)
             {
                 mc = 0;
                 FireLaser();
+                fl = Timer;
             }
             //not shooting laser yet and mortars off off cd, fire mortars
             else if (Timer > sm + mortarCD)
             {
-                Instantiate(TankMortar, MortarSpawn, placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn, player.transform.position);
-                mc++;
-                sm = Timer;
+                if (DistanceToPlayer > 10)
+                {
+                    FireMortar();
+                    mc++;
+                    sm = Timer;
+                }
             }
         }
         //controls and deactivates laser
@@ -93,6 +98,10 @@ public class EnemyControllerTank : EnemyControllerTemplate
     {
         get { return new Vector2(body.transform.position.x, body.transform.position.y + 2); }
     }
+    private void FireMortar()
+    {
+        Instantiate(TankMortar, MortarSpawn, placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn, player.transform.position, this.gameObject);
+    }
     //fires the laser
     private void FireLaser()
     {
@@ -102,7 +111,6 @@ public class EnemyControllerTank : EnemyControllerTemplate
         laserParent.SetActive(true);
         laserTrace.SetActive(true);
         lf = Timer;
-        Debug.Log("Shot a laser");
     }
     /*Old code from when angles were being tested
     private void RotateLaser(float laserAngle, bool atPlayer)

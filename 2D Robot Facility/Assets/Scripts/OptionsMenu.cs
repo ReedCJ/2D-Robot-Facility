@@ -15,7 +15,7 @@ public class OptionsMenu : MonoBehaviour
 
 
     public Dropdown resolutionDropdown;
-    public Toggle fullscreen;
+    private Toggle fullscreen;
 
     Resolution[] resolutions;
 
@@ -74,7 +74,7 @@ public class OptionsMenu : MonoBehaviour
     public void Update()
     {
         //If player presses escape 
-        if (Input.GetButtonUp("Cancel"))
+        if (Input.GetButtonUp("Back"))
             backButton.onClick.Invoke();
     }
 
