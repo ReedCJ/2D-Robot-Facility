@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
             // animate.SetTrigger("Jumping");
             if (grounded) { jump = true; }
             //double jump
-            else if (!grounded && (canDouble || swinging)) { doubleJump = true; canDouble = false; }
+            else if (!grounded && canDouble) { doubleJump = true; canDouble = false; }
         }
 
         if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
@@ -122,7 +122,10 @@ public class PlayerController : MonoBehaviour
         else if (swinging && doubleJump)
         {
             if (teatherSwinging)
-                grappleController.StartRetracting();
+            {
+                grappleController.retracting = true;
+                grappleController.Retract();
+            }
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         }
         else if (swinging)
@@ -137,8 +140,8 @@ public class PlayerController : MonoBehaviour
 
         //Assign grounded
         grounded = controller.m_Grounded;
-        //Reset double jump if player is grounded
-        if (grounded) { canDouble = true; }
+        //Reset double jump if player is grounded, or is swinging 
+        if (grounded || swinging) { canDouble = true; }
 
         //Fire if enough time has passed between shots and fire button is pressed
         if (fire && timer > fireRate)
