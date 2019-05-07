@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject attack;         // A hitbox representing a melee weapon
     [SerializeField] private GameObject cam;            // The primary virtual camera
 
-    [SerializeField] private CharacterController2D controller;      // The script that processes our movement inputs
     [SerializeField] private float speed = 0.0f;   // Character ground speed
     [SerializeField] private Transform teatherSpawn;
 #pragma warning restore 0649
@@ -34,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private TeatherController grappleController;     // Script for swinging player
     static public Animator animator;
     private Rigidbody2D body;
+    public CharacterController2D controller;      // The script that processes our movement inputs
     [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
     [System.NonSerialized] public float vMove = 0.0f;               // Vertical Input and climbing
     [System.NonSerialized] public bool teatherOut;                  // Grappling hook deployed?
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
 
-    //Run when p;ayer is created
+    //Run when player is created
     void Start()
     {
         thinGround = false;
@@ -60,26 +60,7 @@ public class PlayerController : MonoBehaviour
         //assign rigidbody to variable
         body = GetComponent<Rigidbody2D>();
         SetInitialState();
-        animator = transform.GetChild(2).GetComponent<Animator>();
-    }
-
-    void SetInitialState()      // Sets variables 
-    {
-        camFollow = true;
-    }
-
-    //Run when p;ayer is created
-    void Start()
-    {
-        thinGround = false;
-        //Player starts facing right
-        facing = true;
-        //Player has not double jumped
-        doubleJump = false;
-        //assign rigidbody to variable
-        body = GetComponent<Rigidbody2D>();
-        SetInitialState();
-        animator = transform.GetChild(2).GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     void SetInitialState()      // Sets variables 
@@ -234,7 +215,7 @@ public class PlayerController : MonoBehaviour
         //animator.SetBool("Swinging", false);
     }
 
-    void CastTeather()           // Currently non functional
+    void CastTeather()                  // Deploys grapple
     {
         if (!teatherOut && !swinging)
         {

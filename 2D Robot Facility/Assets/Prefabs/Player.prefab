@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 2032221761826024852}
   - component: {fileID: 7460801178375015411}
   - component: {fileID: 6977748559787591073}
+  - component: {fileID: 1942296397465939967}
   - component: {fileID: 1128176177644544060}
   - component: {fileID: 207978481919975758}
   m_Layer: 0
@@ -683,7 +684,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8931401961466127111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d05142683ae4a4d90540198c9fc298, type: 3}
+  m_Script: {fileID: 11500000, guid: c3e600c956254164f91206b58a9e5841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_JumpForce: 1200
@@ -718,7 +719,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8931401961466127111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0e24de7ed6387d41a035f6c5c0a7933, type: 3}
+  m_Script: {fileID: 11500000, guid: b6c435d5f12196b4ab7ec162bdd2e7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hook: {fileID: 8208748433622882811, guid: e47df48187dbcbe4eb28744823bdc0c5, type: 3}
@@ -731,6 +732,21 @@ MonoBehaviour:
   fireRate: 0.5
   enabledDouble: 0
   jump: 0
+  animator: {fileID: 0}
+--- !u!114 &1942296397465939967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931401961466127111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 775ee919a08f9e948b5f9e1f7817059b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  invulnFrames: 4
 --- !u!232 &1128176177644544060
 DistanceJoint2D:
   m_ObjectHideFlags: 0
