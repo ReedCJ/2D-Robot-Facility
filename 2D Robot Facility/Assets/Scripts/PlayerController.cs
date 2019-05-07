@@ -68,25 +68,6 @@ public class PlayerController : MonoBehaviour
         camFollow = true;
     }
 
-    //Run when p;ayer is created
-    void Start()
-    {
-        thinGround = false;
-        //Player starts facing right
-        facing = true;
-        //Player has not double jumped
-        doubleJump = false;
-        //assign rigidbody to variable
-        body = GetComponent<Rigidbody2D>();
-        SetInitialState();
-        animator = transform.GetChild(2).GetComponent<Animator>();
-    }
-
-    void SetInitialState()      // Sets variables 
-    {
-        camFollow = true;
-    }
-
     // Update is called once per frame
     void Update()
     {

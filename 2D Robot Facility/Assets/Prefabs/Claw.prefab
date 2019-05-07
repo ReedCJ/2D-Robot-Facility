@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f43025b5b0d4e24187cee28cb19713f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracting: 0
   deployAngle: 75
   speed: 25
   teatherRange: 10
