@@ -119,6 +119,6 @@ public class GameController : MonoBehaviour
     //put player in camera, used by camera script
     public void CameraGetPlayer()
     {
-        followCam.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
+       // followCam.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
     }
 }

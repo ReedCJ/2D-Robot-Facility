@@ -109,7 +109,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Fall A Land To Run Forward
       takeName: mixamo.com
-      firstFrame: 0
+      firstFrame: 1
       lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0

@@ -127,12 +127,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2211785857085361117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88e97f0d312f2d646b4fa30cd88e507e, type: 3}
+  m_Script: {fileID: 11500000, guid: cd3fc56f5f4afa84eacc84a7ff91b8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 5
-  travelTime: 10
-  tank: {fileID: 0}
+  height: 4
+  travelTime: 0.8
+  tank: {fileID: 8078804377546338604, guid: 397cd8fd1b9e05b419f81fb0399dec73, type: 3}
 --- !u!114 &8428741712791963987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2211785857085361117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91349898230543c4fae226480b10c912, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dammage: 1
