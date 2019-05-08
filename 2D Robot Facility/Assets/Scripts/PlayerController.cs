@@ -351,8 +351,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnLanding ()
     {
+        Debug.Log("Landed");
         animator.SetTrigger("Landing");
-      //  Debug.Log("Landed Event");
         animator.SetBool("Jumping", false);
         animator.SetBool("Grounded", true);
 
