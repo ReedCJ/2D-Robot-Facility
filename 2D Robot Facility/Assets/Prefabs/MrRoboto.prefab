@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 2273663979706724169}
   - component: {fileID: 1353147268811288123}
   - component: {fileID: 7770694891249658993}
+  - component: {fileID: 1965328221131335811}
   m_Layer: 0
   m_Name: MrRoboto
   m_TagString: Player
@@ -175,12 +176,12 @@ MonoBehaviour:
   shot: {fileID: 2406125701766486348, guid: 132cd9eaca0e91043ad4311a645f93c6, type: 3}
   attack: {fileID: 0}
   cam: {fileID: 0}
-  controller: {fileID: 7060801079325029928}
   speed: 60
   teatherSpawn: {fileID: 8972695426720726024}
   fireRate: 0.5
   enabledDouble: 0
   jump: 0
+  controller: {fileID: 7060801079325029928}
 --- !u!50 &6804002588173108448
 Rigidbody2D:
   serializedVersion: 4
@@ -315,6 +316,20 @@ MonoBehaviour:
   gameOverScreen: {fileID: 0}
   restartGame: {fileID: 0}
   inGameUI: {fileID: 0}
+--- !u!114 &1965328221131335811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770694891249658994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5a07fa9e4109440bb8519d8c3244f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  invulnFrames: 4
 --- !u!1 &8972695426720726025
 GameObject:
   m_ObjectHideFlags: 0
