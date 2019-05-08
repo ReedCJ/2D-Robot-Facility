@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         //assign rigidbody to variable
         body = GetComponent<Rigidbody2D>();
         SetInitialState();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
 
     }
 
