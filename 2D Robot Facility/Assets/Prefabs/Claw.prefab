@@ -127,17 +127,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8208748433622882811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f43025b5b0d4e24187cee28cb19713f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e04a7dbdf9ca47408ed8a817e05cea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  retracting: 0
+  gravUp: 4
   deployAngle: 75
-  speed: 25
+  speed: 30
   teatherRange: 10
   maxSwing: 7
   minSwing: 0.5
-  accel: 120
-  maxSwingSpeed: 50
-  pushRange: 0
+  accel: 180
+  maxSwingSpeed: 35
+  pushRange: 80
   climbSpeed: 12
   pullRate: 4
 --- !u!234 &2254403234361016256
