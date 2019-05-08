@@ -13,11 +13,14 @@ public class TeatherController : MonoBehaviour
     private bool contact;                       // Is the hook currently touching a grappable surface?
     private bool belowAnchor;                   // Is the player below the anchor?
     private float distance;                     // Current distance of teather from player
+    private float angle;                        // Current angle of the player relative to downwards line from the grapple
     private bool m_FacingRight;                 // Used for flipping the player, true == right
     private float currentSwing;                 // Current swing range, is steadily reduced to max when above max
     private float currentSpeed;                 // Current speed of swing
     private Vector3 teatherVelocity;            // Base direction of grapple
 
+
+    public float gravUp;                        // Rate of gravity increase.
     public float deployAngle;                   // Tether deploy angle relative to the character's front in degrees
     public float speed;                         // Teather movement speed
     public float teatherRange;                  // Max travel distance
@@ -57,6 +60,18 @@ public class TeatherController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
+                new Vector2(transform.position.x, transform.position.y));       /// Calculate the current distance between the hook and the player
+        angle = Vector2.SignedAngle(new Vector2(0,- distance), new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y));
+        currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+        Debug.Log(currentSpeed);
+
+
+        if (Mathf.Abs(angle) < pushRange && playerBody.gravityScale > 4)
+        {
+            playerBody.gravityScale = 4;
+        }
+
         if (Input.GetButtonDown("Teather"))                 // Input to retract teather
             retracting = true;
         else if (distance > teatherRange && !contact)       // Start retracting after reaching the maximum teatherRange
@@ -64,9 +79,6 @@ public class TeatherController : MonoBehaviour
         if (transform.position.y < player.transform.position.y)
             belowAnchor = false;
         else belowAnchor = true;
-
-        distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
-                new Vector2(transform.position.x, transform.position.y));       /// Calculate the current distance between the hook and the player
 
         if (playerBody.velocity.x > 0 && !m_FacingRight && contact && belowAnchor)      // Flip the player if the hook is attached, and he is moving right, but facing left
             Flip();
@@ -88,7 +100,7 @@ public class TeatherController : MonoBehaviour
             && other.gameObject.GetComponent<PlatformController>() != null && other.gameObject.GetComponent<PlatformController>().grappable && !contact && !retracting)
         {
             m_FacingRight = player.facing;
-            if ((player.transform.position.x > transform.position.x && m_FacingRight)
+            if ((player.transform.position.x > transform.position.x && m_FacingRight)           // Face the player towards the grapple
                 || player.transform.position.x < transform.position.x && !m_FacingRight)
                 Flip();
 
@@ -167,32 +179,25 @@ public class TeatherController : MonoBehaviour
                     currentSwing = maxSwing;
             }
 
-
-            float currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
-            
-            if (player.transform.position.y >= -pushRange + transform.position.y        // Is the player too high? Push him towards the center
-                && player.transform.position.x <= transform.position.x)
+            if (angle <= -(pushRange - 20))        // Is the player too high? Push him towards the center
             {
-                Accelerate(new Vector2(transform.position.x - distance - player.transform.position.x,
-                     transform.position.y - player.transform.position.y));
+                Deaccel();
             }
-            else if (player.transform.position.y >= -pushRange + transform.position.y   // Is the player too high? Push him towards the center
-                && player.transform.position.x > transform.position.x)
+            else if (angle >= pushRange - 20)   // Is the player too high? Push him towards the center
             {
-                Accelerate(new Vector2(transform.position.x + distance - player.transform.position.x,
-                    transform.position.y - player.transform.position.y));
+                Deaccel();
             }
             else if (player.hMove > 0 && currentSpeed < maxSwingSpeed)                  // If the player is not too high, read his input and accelerate him up to the max
             {
                 if (player.transform.position.x < transform.position.x)
                 {
                     Accelerate(new Vector2(transform.position.x - player.transform.position.x,
-                        transform.position.y - distance - player.transform.position.y));
+                        transform.position.y - distance - player.transform.position.y), 1);
                 }
                 else
                 {
                     Accelerate(new Vector2(transform.position.x + distance - player.transform.position.x,
-                        transform.position.y - player.transform.position.y));
+                        transform.position.y - player.transform.position.y), 1);
                 }
             }
             else if (player.hMove < 0 && currentSpeed < maxSwingSpeed)                  // If the player is not too high, read his input and accelerate him up to the max
@@ -200,26 +205,25 @@ public class TeatherController : MonoBehaviour
                 if (player.transform.position.x > transform.position.x)
                 {
                     Accelerate(new Vector2(transform.position.x - player.transform.position.x,
-                        transform.position.y - distance - player.transform.position.y));
+                        transform.position.y - distance - player.transform.position.y), 1);
                 }
                 else
                 {
                     Accelerate(new Vector2(transform.position.x - distance - player.transform.position.x,
-                        transform.position.y - player.transform.position.y));
+                        transform.position.y - player.transform.position.y), 1);
                 }
             }
             else if (player.hMove == 0)                     // If the player is not pressing any buttons, gradually slow him down
             {
                 SlowDown();
             }
-
             SlowToMaxSpeed();
         }
         else if (Input.GetButtonDown("Focus"))
         {
             // Aim weapon
         }
-        
+
         joint.distance = currentSwing;      // Update the current distance from the hook
     }
 
@@ -228,18 +232,19 @@ public class TeatherController : MonoBehaviour
         // Switch the way the player is labelled as facing.
         m_FacingRight = !m_FacingRight;
         player.facing = m_FacingRight;
+        player.controller.m_FacingRight = m_FacingRight;
 
         player.transform.Rotate(0.0f, 180.0f, 0, Space.Self);
     }
 
-    private void Accelerate(Vector2 destination)        // Accelerate player towards a direction
+    private void Accelerate(Vector2 destination, float rate)        // Accelerate player towards a direction
     {
-        playerBody.AddForce(destination * Time.fixedDeltaTime * accel);
+        playerBody.AddForce(destination * Time.fixedDeltaTime * accel * rate);
     }
 
     private void SlowDown()             // Called to gradually slow the grappling player down
     {
-        float speed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+        float curSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
         Vector2 destination;
 
         if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
@@ -249,7 +254,7 @@ public class TeatherController : MonoBehaviour
                 transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * accel * .25f;
             playerBody.AddForce(destination);
         }
-        else if (speed > .4f)
+        else if (curSpeed > .4f)
         {
             playerBody.velocity = playerBody.velocity * .98f;
         }
@@ -258,13 +263,22 @@ public class TeatherController : MonoBehaviour
             playerBody.velocity = new Vector2(0, 0);
     }
 
+    private void Deaccel()                  // If the player is moving up, increase the gravity and slow him  down further if he past the pushrange
+    {                                       // Called when the player is nearing the push range
+        if (playerBody.velocity.y > 0)
+        {
+            playerBody.gravityScale = playerBody.gravityScale + Time.fixedDeltaTime * gravUp;
+            if (playerBody.velocity.y > 5 && Mathf.Abs(angle) > pushRange)
+                playerBody.velocity = playerBody.velocity * .95f;
+        }
+    }
+
     private void SlowToMaxSpeed()              // Set Velocity to the max speed if it is over the max speed
     {
-        float curSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
         if (currentSpeed > maxSwingSpeed)
         {
-            float speed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
-            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y) / speed * maxSwingSpeed;
+            float curSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y) / curSpeed * maxSwingSpeed;
         }
     }
 }

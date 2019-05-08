@@ -11,6 +11,7 @@ public class ShotController : MonoBehaviour
 
     public bool vertical = true;
     public bool diagonal = false;
+    public float damage;
 
     private Rigidbody2D body;
 
@@ -80,8 +81,12 @@ public class ShotController : MonoBehaviour
         {
             if (collision.gameObject.tag == enemyTag)
             {
-                Destroy(collision.gameObject);
-                Destroy(gameObject);
+                collision.GetComponent<EnemyHealth>().health -= damage;
+                if (collision.GetComponent<EnemyHealth>().health <= 0)
+                {
+                    Destroy(collision.gameObject);
+                    Destroy(gameObject);
+                }
             }
         }
     }

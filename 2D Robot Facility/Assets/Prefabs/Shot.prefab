@@ -97,7 +97,8 @@ MonoBehaviour:
   shootDiagonal: 0
   vertical: 1
   diagonal: 0
-  time: 1
+  damage: 1
+  time: 0
   shooter: {fileID: 0}
   speed: 30
 --- !u!58 &269138628090500250
@@ -135,5 +136,5 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
