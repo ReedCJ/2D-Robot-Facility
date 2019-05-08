@@ -151,19 +151,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2797404201823748351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ff867c1f121844984725c3ad90b6cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c209e49c4ed2f34cbeaccedeed235e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorCheckDistance: 2
+  floorCheckDistance: 0
   jumpRange: 0
   landingCheckDistance: 0
-  moveSpeed: 5
-  aggroRange: 12
-  aggroLeash: 25
-  levelCheckHeight: 3
+  moveSpeed: 0
+  aggroRange: 0
+  aggroLeash: 0
+  levelCheckHeight: 0
   randomMovement: 0
-  chargeCD: 2
-  chargeSpeed: 1000
+  chargeCD: 0
+  chargeSpeed: 0
 --- !u!50 &874573994543536441
 Rigidbody2D:
   serializedVersion: 4

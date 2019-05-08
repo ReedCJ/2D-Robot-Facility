@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         SetInitialState();
         animator = GetComponent<Animator>();
+
     }
 
     void SetInitialState()      // Sets variables 
@@ -73,7 +74,6 @@ public class PlayerController : MonoBehaviour
     {
         //timer
         timer += Time.deltaTime;
-
 
         if (!MainMenu.isPaused)
         {
@@ -94,9 +94,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (grounded)
                 {
-                    jump = true;
-                    animator.SetBool("Jumping", true);
-                    animator.SetBool("Grounded", false);
+                      jump = true;
+                      animator.SetBool("Jumping", true);
+                      animator.SetBool("Grounded", false);
                 }
                 //double jump
                 else if (!grounded && canDouble)
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
             {
                 if (body.velocity.y > 0)
-                    body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
+                body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
             }
 
             // look/aim up
@@ -144,8 +144,8 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Teather"))
             {
-                teather = true;
-                animator.SetTrigger("SwingStart");
+               teather = true;
+               animator.SetTrigger("SwingStart");
             }
 
             animator.SetBool("Swinging", swinging);

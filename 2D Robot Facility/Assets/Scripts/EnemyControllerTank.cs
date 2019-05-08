@@ -98,6 +98,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
     {
         get { return new Vector2(body.transform.position.x, body.transform.position.y + 2); }
     }
+
     private void FireMortar()
     {
         Instantiate(TankMortar, MortarSpawn, placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn, player.transform.position, this.gameObject);
