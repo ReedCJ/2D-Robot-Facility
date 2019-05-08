@@ -89,20 +89,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2503854464916062580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4322169b211b8f41bffcaf98401cb79, type: 3}
+  m_Script: {fileID: 11500000, guid: a9c038e133f1a734a897416b5bedb479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   platformCol: {fileID: 2503854464916062587}
   filter:
     useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
+    useLayerMask: 1
+    useDepth: 1
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 4096
+      m_Bits: 3895
     minDepth: -5
     maxDepth: 5
     minNormalAngle: 0
@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.46908224}
+  m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.061935544}
+  m_Size: {x: 1, y: 0.4}
   m_EdgeRadius: 0
 --- !u!61 &2503854464916062586
 BoxCollider2D:

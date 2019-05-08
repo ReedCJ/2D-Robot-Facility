@@ -64,7 +64,6 @@ public class TeatherController : MonoBehaviour
                 new Vector2(transform.position.x, transform.position.y));       /// Calculate the current distance between the hook and the player
         angle = Vector2.SignedAngle(new Vector2(0,- distance), new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y));
         currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
-        Debug.Log(currentSpeed);
 
 
         if (Mathf.Abs(angle) < pushRange && playerBody.gravityScale > 4)

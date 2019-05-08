@@ -76,6 +76,7 @@ public class CharacterController2D : MonoBehaviour
             if (thinColliders[i].gameObject != gameObject && thinColliders[i].GetComponent<ThinPlatforms>().pCol)
             {
                 m_Grounded = true;
+                PlayerController.animator.SetBool("Grounded", true);
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
             }
