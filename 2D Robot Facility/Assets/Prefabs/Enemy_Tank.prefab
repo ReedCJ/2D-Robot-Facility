@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 1
+  damage: 1
 --- !u!1 &2563208493147741589
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 1
+  damage: 0
 --- !u!61 &7047914963940294686
 BoxCollider2D:
   m_ObjectHideFlags: 0
