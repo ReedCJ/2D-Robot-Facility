@@ -84,7 +84,10 @@ public class PlayerController : MonoBehaviour
             vMove = Input.GetAxisRaw("Vertical");
 
             //Sets animation parameter for speed (Movement)
+            animator.SetFloat("Velocity_x", body.velocity.x);
             animator.SetFloat("Speed", Mathf.Abs(hMove));
+            animator.SetFloat("Vertical_f", (vMove));
+            animator.SetFloat("Horizontal_f", Mathf.Abs(hMove));
 
             //Checks if falling parameter
             animator.SetFloat("Falling", body.velocity.y);
@@ -158,10 +161,12 @@ public class PlayerController : MonoBehaviour
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1"))
             {
+                animator.SetBool("Shooting",true);
                 fire = true;
             }
             else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1"))
             {
+                animator.SetBool("Shooting", false);
                 fire = false;
             }
 
