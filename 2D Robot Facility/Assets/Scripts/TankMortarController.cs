@@ -36,7 +36,7 @@ public class TankMortarController : MonoBehaviour
     private void FixedUpdate()
     {
         currentTime = (Timer - startTime) / travelTime;
-        body.transform.position = Parabola(spawnPosition, playerPosition, height, currentTime);
+        body.transform.position = Parabola(spawnPosition, GetEndPosition(), height, currentTime);
         //they should probably blow up at the end or something
         if(Timer > startTime + travelTime) { Destroy(gameObject); }
     }
