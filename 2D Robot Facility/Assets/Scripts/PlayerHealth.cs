@@ -9,8 +9,17 @@ public class PlayerHealth : MonoBehaviour
     public float health;
     public float invulnFrames;
 
+    private void Start()
+    {
+        time = 0;
+    }
+
     void Update()
     {
         time += Time.deltaTime;
+        if(time < invulnFrames)
+        {
+            Debug.Log("invuln");
+        }
     }
 }

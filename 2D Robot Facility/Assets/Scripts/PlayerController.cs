@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool down;                                               // Down Input
     [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
+    private IEnumerator coroutine;
+
 
     //Run when player is created
     void Start()
@@ -82,7 +84,10 @@ public class PlayerController : MonoBehaviour
             vMove = Input.GetAxisRaw("Vertical");
 
             //Sets animation parameter for speed (Movement)
+            animator.SetFloat("Velocity_x", body.velocity.x);
             animator.SetFloat("Speed", Mathf.Abs(hMove));
+            animator.SetFloat("Vertical_f", (vMove));
+            animator.SetFloat("Horizontal_f", Mathf.Abs(hMove));
 
             //Checks if falling parameter
             animator.SetFloat("Falling", body.velocity.y);
@@ -145,6 +150,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Teather"))
             {
                teather = true;
+               animator.SetLayerWeight(1, 1);
+              // StartCoroutine("TetherTorso");
                animator.SetTrigger("SwingStart");
             }
 
@@ -154,10 +161,12 @@ public class PlayerController : MonoBehaviour
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1"))
             {
+                animator.SetBool("Shooting",true);
                 fire = true;
             }
             else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1"))
             {
+                animator.SetBool("Shooting", false);
                 fire = false;
             }
 
@@ -351,8 +360,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnLanding ()
     {
+        //Debug.Log("Landed");
         animator.SetTrigger("Landing");
-      //  Debug.Log("Landed Event");
         animator.SetBool("Jumping", false);
         animator.SetBool("Grounded", true);
 
@@ -376,5 +385,13 @@ public class PlayerController : MonoBehaviour
         else
             jumpThrough = false;
 
+    }
+
+    IEnumerator TetherTorso()
+    {
+        yield return new WaitForSeconds(.75f);
+        animator.SetLayerWeight(1, 0);
+        
+        
     }
 }

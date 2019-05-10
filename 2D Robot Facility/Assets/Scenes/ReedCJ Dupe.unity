@@ -2443,7 +2443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
 --- !u!58 &624885352
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4019,7 +4019,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 4346468090227627896}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e55096b1d090deb429903b4c4337630d, type: 3}
 --- !u!1 &982469301
@@ -6937,7 +6937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
 --- !u!58 &1750591472
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7075,7 +7075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
 --- !u!58 &1765735242
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8862,14 +8862,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90.461006
       objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: chargeSpeed
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: chargeCD
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: aggroRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: aggroLeash
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: levelCheckHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: floorCheckDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383546816399311365, guid: 30f01760685f83444800b3a1a6237fc8,
+        type: 3}
+      propertyPath: randomMovement
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f01760685f83444800b3a1a6237fc8, type: 3}
---- !u!4 &4346468090227627896 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4671547008208811435, guid: d33fa022de5bd3749852958513921963,
-    type: 3}
-  m_PrefabInstance: {fileID: 8972695428110066387}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5808864800884911990 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5808864800884911990, guid: 185c18b494448aa4fb34a927c91eca61,
@@ -8942,6 +8976,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009445442267612626, guid: e783834f38e94a7499432b5674248ea5,
+        type: 3}
+      propertyPath: damage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e783834f38e94a7499432b5674248ea5, type: 3}
@@ -9096,5 +9135,10 @@ PrefabInstance:
       propertyPath: inGameUI
       value: 
       objectReference: {fileID: 2043796575}
+    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: invulnFrames
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d33fa022de5bd3749852958513921963, type: 3}

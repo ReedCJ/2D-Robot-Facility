@@ -6,6 +6,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
 {
     public float chargeCD;
     public float chargeSpeed;
+    public float chargeDuration;
 
     private float lastCharge = 0.0f;
     private Vector2 chargeRight;
@@ -44,15 +45,25 @@ public class EnemyControllerCharger : EnemyControllerTemplate
             //move around slow
             MoveAround();
         }
-        else if (aggro && Timer > lastCharge + chargeCD)
+        else if (aggro)
         {
-            ChargePlayer();
+            if(Timer > lastCharge + chargeCD)
+            {
+                ChargePlayer();
+            }
+            if (Timer > lastCharge + chargeDuration)
+            {
+                CutSpeed();
+                FacePlayer();
+            }
         }
     }
+
     //charge at the player
     private void ChargePlayer()
     {
         FacePlayer();
+        lastCharge = Timer;
         //Debug.Log("Charged");
         if (PlayerToTheRight)
         {
@@ -64,6 +75,10 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         {
             body.AddForce(chargeLeft);
         }
-        lastCharge = Timer;
+    }
+
+    private void CutSpeed()
+    {
+        body.velocity = new Vector2(body.velocity.x * 0.95f, body.velocity.y);
     }
 }
