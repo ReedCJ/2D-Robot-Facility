@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject cam;            // The primary virtual camera
 
     [SerializeField] private float speed = 0.0f;   // Character ground speed
-    [SerializeField] private Transform teatherSpawn;
 #pragma warning restore 0649
 
     private float timer;
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public bool enabledDouble;              // public bool for enabling/disabling double jumps
 
+    public Transform teatherSpawn;
     private bool teather;                   // Teather key input
     public bool jump;                      // Jump key input
     private bool canDouble;                 // bool for being able to double dump
