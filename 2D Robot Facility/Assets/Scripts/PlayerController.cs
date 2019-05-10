@@ -148,8 +148,8 @@ public class PlayerController : MonoBehaviour
             {
                teather = true;
                animator.SetLayerWeight(1, 1);
-               StartCoroutine("TetherTorso");
-               // animator.SetTrigger("SwingStart");
+              // StartCoroutine("TetherTorso");
+               animator.SetTrigger("SwingStart");
             }
 
             animator.SetBool("Swinging", swinging);
