@@ -2443,7 +2443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 1
+  damage: 0
 --- !u!58 &624885352
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3954,6 +3954,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4382923870804856846, guid: e55096b1d090deb429903b4c4337630d,
+        type: 3}
+      propertyPath: m_TagString
+      value: FollowCam
       objectReference: {fileID: 0}
     - target: {fileID: 4382923870804856844, guid: e55096b1d090deb429903b4c4337630d,
         type: 3}
@@ -6932,7 +6937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 1
+  damage: 0
 --- !u!58 &1750591472
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7070,7 +7075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 1
+  damage: 0
 --- !u!58 &1765735242
 CircleCollider2D:
   m_ObjectHideFlags: 0

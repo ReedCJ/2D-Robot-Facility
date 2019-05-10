@@ -66,7 +66,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			if (colliders[i].gameObject != gameObject)
 			{
-				m_Grounded = true;
+                m_Grounded = true;
                 PlayerController.animator.SetBool("Grounded", true);
                 if (!wasGrounded  )//&& m_Rigidbody2D.velocity.y < 0
 					OnLandEvent.Invoke();
@@ -75,9 +75,12 @@ public class CharacterController2D : MonoBehaviour
         for (int i = 0; i < thinColliders.Length; i++)
             if (thinColliders[i].gameObject != gameObject && thinColliders[i].GetComponent<ThinPlatforms>().pCol)
             {
+                
                 m_Grounded = true;
+                PlayerController.animator.SetBool("Grounded", true);
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
+                    
             }
     }
 

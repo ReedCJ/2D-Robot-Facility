@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool down;                                               // Down Input
     [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
+    private IEnumerator coroutine;
+
 
     //Run when player is created
     void Start()
@@ -145,6 +147,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Teather"))
             {
                teather = true;
+               animator.SetLayerWeight(1, 1);
+              // StartCoroutine("TetherTorso");
                animator.SetTrigger("SwingStart");
             }
 
@@ -351,8 +355,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnLanding ()
     {
+        //Debug.Log("Landed");
         animator.SetTrigger("Landing");
-      //  Debug.Log("Landed Event");
         animator.SetBool("Jumping", false);
         animator.SetBool("Grounded", true);
 
@@ -376,5 +380,13 @@ public class PlayerController : MonoBehaviour
         else
             jumpThrough = false;
 
+    }
+
+    IEnumerator TetherTorso()
+    {
+        yield return new WaitForSeconds(.75f);
+        animator.SetLayerWeight(1, 0);
+        
+        
     }
 }
