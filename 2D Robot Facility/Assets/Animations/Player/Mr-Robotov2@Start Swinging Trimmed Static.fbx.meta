@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dbc05edd8caa9bf408f7a2494b9af86b
+guid: 22b189b5e8b402f41a25a837afd745f3
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -75,7 +75,10 @@ ModelImporter:
     400068: polySurface25.001
     2100000: lambert1
     4300000: polySurface25.001
-    7400000: GunplayStraight
+    7400000: Start Swinging Trimmed
+    7400002: Start Swinging Trimmed 1
+    7400004: Start Swinging Trimmed 1
+    7400006: Start Swinging Trimmed 1
     9500000: //RootNode
     13700000: polySurface25.001
   externalObjects: {}
@@ -96,7 +99,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
+    importAnimatedCustomProperties: 1
     importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
@@ -107,17 +110,17 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: GunplayStraight
+      name: Start Swinging Trimmed 1
       takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 15
+      firstFrame: 27
+      lastFrame: 27
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
