@@ -11,6 +11,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        time = Time.deltaTime;
+        time += Time.deltaTime;
     }
 }

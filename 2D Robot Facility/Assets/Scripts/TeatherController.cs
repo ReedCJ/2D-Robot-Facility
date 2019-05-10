@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TeatherController : MonoBehaviour
 {
-    private DistanceJoint2D joint;              //
+    private DistanceJoint2D joint;              //  Used to keep the player at a specific distance from the "hook"
     private Rigidbody2D body;                   // Used to move the hook to different places.
     private Rigidbody2D playerBody;             // Reference to player body to apply swinging physics
     private PlayerController player;            // Script reference for the player
-    public bool retracting;                    // Is the teather currently retracting?
+    private GameObject teatherPrefab;           // The teather object prefab
+    [SerializeField]private GameObject teather; // The teather object
+    public bool retracting;                     // Is the teather currently retracting?
     private bool extending;                     // Is the teather currently extending?
     private bool contact;                       // Is the hook currently touching a grappable surface?
     private bool belowAnchor;                   // Is the player below the anchor?
@@ -33,8 +35,7 @@ public class TeatherController : MonoBehaviour
     public float pullRate;                      // Rate that the grapple will pull the player into range in
 
 
-    // Start is called before the first frame update
-    void Start()
+    void Start()                                // Setup variables, set initial teather velocity
     {
         body = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
@@ -54,15 +55,16 @@ public class TeatherController : MonoBehaviour
         transform.Rotate(0.0f, 0.0f, deployAngle, Space.Self);
         teatherVelocity = new Vector3(Mathf.Cos(deployAngle / 180 * Mathf.PI) * facing, Mathf.Sin(deployAngle / 180 * Mathf.PI), 0.0f) * speed;
 
+        teather = Instantiate(teather, player.teatherSpawn.transform.position, transform.rotation);
         Shift();
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()                   // Track the current distance, the current angle, and the player's current speed
     {
-        distance = Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
+        distance = Vector2.Distance(new Vector2(player.teatherSpawn.transform.position.x, player.teatherSpawn.transform.position.y),
                 new Vector2(transform.position.x, transform.position.y));       /// Calculate the current distance between the hook and the player
-        angle = Vector2.SignedAngle(new Vector2(0,- distance), new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y));
+        angle = Vector2.SignedAngle(new Vector2(0, -distance), new Vector2(player.teatherSpawn.transform.position.x - transform.position.x, player.teatherSpawn.transform.position.y - transform.position.y));
         currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
 
 
@@ -75,7 +77,7 @@ public class TeatherController : MonoBehaviour
             retracting = true;
         else if (distance > teatherRange && !contact)       // Start retracting after reaching the maximum teatherRange
             retracting = true;
-        if (transform.position.y < player.transform.position.y)
+        if (transform.position.y < player.teatherSpawn.transform.position.y)
             belowAnchor = false;
         else belowAnchor = true;
 
@@ -83,6 +85,13 @@ public class TeatherController : MonoBehaviour
             Flip();
         else if (playerBody.velocity.x < 0 && m_FacingRight && contact && belowAnchor)  // Flip the player if the hook is attached, and he is moving left, but facing right
             Flip();
+        
+        // Position, scale, and rotate the teather into position
+        teather.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
+        float xPos = player.teatherSpawn.position.x - (player.teatherSpawn.position.x - transform.position.x) / 2;
+        float yPos = player.teatherSpawn.position.y - (player.teatherSpawn.position.y - transform.position.y) / 2;
+        teather.transform.position = new Vector3(xPos, yPos, player.transform.position.z);
+        teather.transform.localScale = new Vector3(teather.transform.localScale.x, distance / 2, teather.transform.localScale.z);
     }
 
     void FixedUpdate()
@@ -99,8 +108,8 @@ public class TeatherController : MonoBehaviour
             && other.gameObject.GetComponent<PlatformController>() != null && other.gameObject.GetComponent<PlatformController>().grappable && !contact && !retracting)
         {
             m_FacingRight = player.facing;
-            if ((player.transform.position.x > transform.position.x && m_FacingRight)           // Face the player towards the grapple
-                || player.transform.position.x < transform.position.x && !m_FacingRight)
+            if ((player.teatherSpawn.transform.position.x > transform.position.x && m_FacingRight)           // Face the player towards the grapple
+                || player.teatherSpawn. transform.position.x < transform.position.x && !m_FacingRight)
                 Flip();
 
             body.velocity = Vector2.zero;       // Stop moving the grappling hook
@@ -119,9 +128,10 @@ public class TeatherController : MonoBehaviour
         {
             retracting = true;
         }
-        else if (retracting && other.gameObject.tag == "Player")            // Grapplehook is removed from the game when it comes back to the player
+        else if (retracting && other.gameObject.tag == "Teather Spawn")            // Grapplehook is removed from the game when it comes back to the player
         {
             player.teatherOut = false;
+            Destroy(teather);
             Destroy(gameObject);
         }
     }
@@ -144,10 +154,10 @@ public class TeatherController : MonoBehaviour
 
         if (distance != 0)      // Move towards the player's current location
         {
-            float xT = (transform.position.x - player.transform.position.x) / Mathf.Abs(transform.position.x - player.transform.position.x);
-            float yT = (transform.position.y - player.transform.position.y) / Mathf.Abs(transform.position.y - player.transform.position.y);
-            float x = Mathf.Abs(transform.position.x - player.transform.position.x) / distance * xT;
-            float y = Mathf.Abs(transform.position.y - player.transform.position.y) / distance * yT;
+            float xT = (transform.position.x - player.teatherSpawn.transform.position.x) / Mathf.Abs(transform.position.x - player.teatherSpawn.transform.position.x);
+            float yT = (transform.position.y - player.teatherSpawn.transform.position.y) / Mathf.Abs(transform.position.y - player.teatherSpawn.transform.position.y);
+            float x = Mathf.Abs(transform.position.x - player.teatherSpawn.transform.position.x) / distance * xT;
+            float y = Mathf.Abs(transform.position.y - player.teatherSpawn.transform.position.y) / distance * yT;
             body.velocity = new Vector2(-x, -y) * speed;
         }
     }
