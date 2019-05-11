@@ -17,9 +17,10 @@ public class PlayerHealth : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if(time < invulnFrames)
+        if (time < invulnFrames)
         {
             Debug.Log("invuln");
         }
+        else Debug.Log("NOT invuln");
     }
 }

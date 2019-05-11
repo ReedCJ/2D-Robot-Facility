@@ -49,6 +49,10 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
     private IEnumerator coroutine;
+    private float waitTime;
+    GameObject playerModel;
+    public Renderer rend;
+    private bool dead = false;
 
 
     //Run when player is created
@@ -63,6 +67,8 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         SetInitialState();
         animator = GetComponentInChildren<Animator>();
+        playerModel = this.transform.GetChild(2).GetChild(1).gameObject;
+        rend = playerModel.GetComponent<SkinnedMeshRenderer>();
 
     }
 
@@ -106,6 +112,8 @@ public class PlayerController : MonoBehaviour
                 //double jump
                 else if (!grounded && canDouble)
                 {
+                    animator.SetBool("Jumping", true);
+                    animator.SetBool("Grounded", false);
                     doubleJump = true;
                     canDouble = false;
                 }
@@ -387,11 +395,40 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    IEnumerator TetherTorso()
+    internal void contactAnimate()
     {
-        yield return new WaitForSeconds(.75f);
-        animator.SetLayerWeight(1, 0);
-        
-        
+        animator.SetTrigger("Contact");
     }
+
+    internal void invulnerableAnim(float invulnFrames)
+    {
+        StartCoroutine("Blink", invulnFrames);
+    }
+
+    IEnumerator Blink(float invulnFrames)
+    {
+        for (int i = 0; i <= invulnFrames; i++)
+        {
+            if (rend.enabled)
+                rend.enabled = false;
+            else
+                rend.enabled = true;
+            yield return new WaitForSeconds(.1f);
+        }
+        rend.enabled = true;
+
+           
+    }
+
+    internal void playerDeath()
+    {
+        dead = !dead;
+        animator.SetBool("Death", true);
+        animator.SetLayerWeight(1, 0f);
+        animator.SetLayerWeight(2, 0f);
+        animator.SetLayerWeight(3, 0f);
+        animator.SetLayerWeight(4, 0f);
+        animator.SetLayerWeight(5, 0f);
+    }
+
 }
