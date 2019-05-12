@@ -185,11 +185,6 @@ public class PlayerController : MonoBehaviour
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         else if (swinging && doubleJump)
         {
-            if (teatherSwinging)
-            {
-                grappleController.retracting = true;
-                grappleController.Retract();
-            }
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         }
         else if (swinging)
