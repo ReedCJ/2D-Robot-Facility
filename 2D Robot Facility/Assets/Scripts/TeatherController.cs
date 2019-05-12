@@ -62,18 +62,14 @@ public class TeatherController : MonoBehaviour
     // Update is called once per frame
     void Update()                   // Track the current distance, the current angle, and the player's current speed
     {
-        distance = Vector2.Distance(new Vector2(player.teatherSpawn.transform.position.x, player.teatherSpawn.transform.position.y),
-                new Vector2(transform.position.x, transform.position.y));       /// Calculate the current distance between the hook and the player
-        angle = Vector2.SignedAngle(new Vector2(0, -distance), new Vector2(player.teatherSpawn.transform.position.x - transform.position.x, player.teatherSpawn.transform.position.y - transform.position.y));
-        currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+        DistanceAngleSpeed();
 
-
-        if (Mathf.Abs(angle) < pushRange && playerBody.gravityScale > 4)
+        if (Mathf.Abs(angle) < pushRange && playerBody.gravityScale > 4)        // Reset gravity after the player swings back down to a normal range.
         {
             playerBody.gravityScale = 4;
         }
 
-        if (Input.GetButtonDown("Teather"))                 // Input to retract teather
+        if (Input.GetButtonDown("Teather") || Input.GetButtonDown("Jump"))                 // Input to retract teather
             retracting = true;
         else if (distance > teatherRange && !contact)       // Start retracting after reaching the maximum teatherRange
             retracting = true;
@@ -85,13 +81,9 @@ public class TeatherController : MonoBehaviour
             Flip();
         else if (playerBody.velocity.x < 0 && m_FacingRight && contact && belowAnchor)  // Flip the player if the hook is attached, and he is moving left, but facing right
             Flip();
-        
+
         // Position, scale, and rotate the teather into position
-        teather.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
-        float xPos = player.teatherSpawn.position.x - (player.teatherSpawn.position.x - transform.position.x) / 2;
-        float yPos = player.teatherSpawn.position.y - (player.teatherSpawn.position.y - transform.position.y) / 2;
-        teather.transform.position = new Vector3(xPos, yPos, player.transform.position.z);
-        teather.transform.localScale = new Vector3(teather.transform.localScale.x, distance / 2, teather.transform.localScale.z);
+        SetRopePositionRotation();
     }
 
     void FixedUpdate()
@@ -158,7 +150,7 @@ public class TeatherController : MonoBehaviour
             float yT = (transform.position.y - player.teatherSpawn.transform.position.y) / Mathf.Abs(transform.position.y - player.teatherSpawn.transform.position.y);
             float x = Mathf.Abs(transform.position.x - player.teatherSpawn.transform.position.x) / distance * xT;
             float y = Mathf.Abs(transform.position.y - player.teatherSpawn.transform.position.y) / distance * yT;
-            body.velocity = new Vector2(-x, -y) * speed;
+            body.velocity = new Vector2(-x, -y) * speed + playerBody.velocity;
         }
     }
 
@@ -282,12 +274,29 @@ public class TeatherController : MonoBehaviour
         }
     }
 
-    private void SlowToMaxSpeed()              // Set Velocity to the max speed if it is over the max speed
+    private void SlowToMaxSpeed()           // Set Velocity to the max speed if it is over the max speed
     {
         if (currentSpeed > maxSwingSpeed)
         {
             float curSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
             playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y) / curSpeed * maxSwingSpeed;
         }
+    }
+
+    private void DistanceAngleSpeed()       // Figures out the current distance, angle and speed of the teather
+    {
+        distance = Vector2.Distance(new Vector2(player.teatherSpawn.transform.position.x, player.teatherSpawn.transform.position.y),
+                new Vector2(transform.position.x, transform.position.y));
+        angle = Vector2.SignedAngle(new Vector2(0, -distance), new Vector2(player.teatherSpawn.transform.position.x - transform.position.x, player.teatherSpawn.transform.position.y - transform.position.y));
+        currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+    }
+
+    private void SetRopePositionRotation()  // Position the rope inbetween the teatherSpawn and the claw, rotate into that positon, scale the rope to fit that gap
+    {
+        teather.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
+        float xPos = player.teatherSpawn.position.x - (player.teatherSpawn.position.x - transform.position.x) / 2;
+        float yPos = player.teatherSpawn.position.y - (player.teatherSpawn.position.y - transform.position.y) / 2;
+        teather.transform.position = new Vector3(xPos, yPos, player.transform.position.z);
+        teather.transform.localScale = new Vector3(teather.transform.localScale.x, distance / 2, teather.transform.localScale.z);
     }
 }
