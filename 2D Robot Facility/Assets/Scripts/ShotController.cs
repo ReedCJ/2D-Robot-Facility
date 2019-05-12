@@ -85,8 +85,8 @@ public class ShotController : MonoBehaviour
                 if (collision.GetComponent<EnemyHealth>().health <= 0)
                 {
                     Destroy(collision.gameObject);
-                    Destroy(gameObject);
                 }
+                Destroy(gameObject);
             }
         }
     }

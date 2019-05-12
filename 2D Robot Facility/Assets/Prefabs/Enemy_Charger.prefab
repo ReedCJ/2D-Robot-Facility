@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1383546816399311365}
   - component: {fileID: 4161928970414496704}
   - component: {fileID: 6186882892972388735}
+  - component: {fileID: 5406897786101981922}
   m_Layer: 0
   m_Name: Enemy_Charger
   m_TagString: Enemy1
@@ -133,6 +134,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.45487005, y: 0.49967864}
   m_Size: {x: 1.6817571, y: 2.9993575}
   m_Direction: 0
+--- !u!114 &5406897786101981922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383546816399311366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8d2c87bdde8549a9ba8b624638b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 9
 --- !u!1 &1688599876205911187
 GameObject:
   m_ObjectHideFlags: 0

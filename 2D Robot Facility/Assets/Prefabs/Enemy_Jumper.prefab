@@ -2255,6 +2255,7 @@ GameObject:
   - component: {fileID: 3565958303411726494}
   - component: {fileID: 785914565849952932}
   - component: {fileID: 3532648613184917107}
+  - component: {fileID: 813806537420893364}
   m_Layer: 0
   m_Name: Enemy_Jumper
   m_TagString: Enemy1
@@ -2378,3 +2379,16 @@ CircleCollider2D:
   m_Offset: {x: -0.12046099, y: 1.0795946}
   serializedVersion: 2
   m_Radius: 1.1155019
+--- !u!114 &813806537420893364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3565958305124520790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8d2c87bdde8549a9ba8b624638b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 4
