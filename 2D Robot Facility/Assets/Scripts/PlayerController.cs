@@ -49,6 +49,12 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
     private IEnumerator coroutine;
+    private float waitTime;
+    GameObject playerModel;
+    private Renderer rend;
+    private bool dead;
+    public GameOver gameOverUI;
+    public PlayerHealth playerHealth;
 
 
     //Run when player is created
@@ -64,6 +70,13 @@ public class PlayerController : MonoBehaviour
         SetInitialState();
         animator = GetComponentInChildren<Animator>();
 
+        //aquires the model to flash for invulnerability effect
+        playerModel = this.transform.GetChild(2).GetChild(1).gameObject;
+        rend = playerModel.GetComponent<SkinnedMeshRenderer>();
+
+        //resets death bools after restart just in case
+        dead = false;
+        animator.SetBool("Death", false);
     }
 
     void SetInitialState()      // Sets variables 
@@ -77,7 +90,11 @@ public class PlayerController : MonoBehaviour
         //timer
         timer += Time.deltaTime;
 
-        if (!MainMenu.isPaused)
+        //Checks for invulnerable to display effect
+        if (!dead && playerHealth.invuln)
+            StartCoroutine("Blink");
+
+        if (!MainMenu.isPaused && !dead)
         {
             #region Keys
             hMove = Input.GetAxisRaw("Horizontal");
@@ -106,6 +123,9 @@ public class PlayerController : MonoBehaviour
                 //double jump
                 else if (!grounded && canDouble || swinging)
                 {
+                    animator.SetTrigger("DoubleJumping");
+                    animator.SetBool("Jumping", true);
+                    animator.SetBool("Grounded", false);
                     doubleJump = true;
                     canDouble = false;
                 }
@@ -382,11 +402,43 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    IEnumerator TetherTorso()
+    
+    //plays contact animation - triggered from contactDamage script
+    public void contactAnimate()
     {
-        yield return new WaitForSeconds(.75f);
-        animator.SetLayerWeight(1, 0);
-        
-        
+        animator.SetTrigger("Contact");
     }
+
+    IEnumerator Blink()
+    {
+        while (playerHealth.invuln && !dead)
+        {
+            if (rend.enabled)
+                rend.enabled = false;
+            else
+                rend.enabled = true;
+            yield return new WaitForSeconds(.2f);
+        }
+        rend.enabled = true;
+    }
+
+    //Plays death animation and starts GameoverUI - Triggered from contactDamage Script
+    public void playerDeath()
+    {
+        //Sets playercontroller bool to dead - disables inputs to character controller
+        dead = true;
+
+        //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
+        hMove = 0;
+        vMove = 0;
+
+        //Plays Death animation and disables all other animation events
+        animator.SetBool("Death", true);
+
+        //Start GameOverUI
+        if (gameOverUI != null)
+            gameOverUI.gameOver();
+        else Debug.Log("You need to attach inGameUI to PlayerController");
+    }
+
 }

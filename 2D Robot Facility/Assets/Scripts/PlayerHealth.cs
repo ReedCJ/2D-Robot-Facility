@@ -6,20 +6,27 @@ public class PlayerHealth : MonoBehaviour
 {
     [System.NonSerialized]public float time;
 
+    public bool invuln;
     public float health;
     public float invulnFrames;
 
     private void Start()
     {
-        time = 0;
+        time = invulnFrames;
     }
 
     void Update()
     {
         time += Time.deltaTime;
-        if(time < invulnFrames)
+        if (time < invulnFrames)
         {
-            Debug.Log("invuln");
+            invuln = true;
+            //Debug.Log("invuln");
+        }
+        else
+        {
+            invuln = false;
+            //Debug.Log("NOT invuln");
         }
     }
 }
