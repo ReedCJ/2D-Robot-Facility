@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4161928970414496704}
   - component: {fileID: 6186882892972388735}
   - component: {fileID: 1633157732788258450}
-  - component: {fileID: 8161712577624455977}
+  - component: {fileID: 1651544240468710631}
   m_Layer: 0
   m_Name: Enemy_Charger
   m_TagString: Enemy1
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 9
+--- !u!58 &1651544240468710631
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,9 +161,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.64897215, y: 1.1430681}
+  m_Offset: {x: 0.6157658, y: 1.0971111}
   serializedVersion: 2
-  m_Radius: 0.5956383
+  m_Radius: 0.61180043
 --- !u!1 &1688599876205911187
 GameObject:
   m_ObjectHideFlags: 0
