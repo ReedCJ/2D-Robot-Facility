@@ -69,9 +69,14 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         SetInitialState();
         animator = GetComponentInChildren<Animator>();
+
+        //aquires the model to flash for invulnerability effect
         playerModel = this.transform.GetChild(2).GetChild(1).gameObject;
         rend = playerModel.GetComponent<SkinnedMeshRenderer>();
+
+        //resets death bools after restart just in case
         dead = false;
+        animator.SetBool("Death", false);
     }
 
     void SetInitialState()      // Sets variables 
@@ -85,7 +90,7 @@ public class PlayerController : MonoBehaviour
         //timer
         timer += Time.deltaTime;
 
-        //Checks for invulnerable 
+        //Checks for invulnerable to display effect
         if (!dead && playerHealth.invuln)
             StartCoroutine("Blink");
 
@@ -118,6 +123,7 @@ public class PlayerController : MonoBehaviour
                 //double jump
                 else if (!grounded && canDouble)
                 {
+                    animator.SetTrigger("DoubleJumping");
                     animator.SetBool("Jumping", true);
                     animator.SetBool("Grounded", false);
                     doubleJump = true;
@@ -401,30 +407,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    
+    //plays contact animation - triggered from contactDamage script
     public void contactAnimate()
     {
         animator.SetTrigger("Contact");
     }
 
-    public void invulnerableAnim(float invulnFrames)
-    {
-        if(!dead && playerHealth.invuln)
-            StartCoroutine("Blink", invulnFrames);
-    }
-
     IEnumerator Blink()
     {
-        /* for (int i = 0; i <= invulnFrames*5; i++)
-         {
-             if (rend.enabled)
-                 rend.enabled = false;
-             else
-                 rend.enabled = true;
-             yield return new WaitForSeconds(.2f);
-         }
-         rend.enabled = true;
-     */
-
         while (playerHealth.invuln)
         {
             if (rend.enabled)
@@ -434,20 +425,21 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(.2f);
         }
         rend.enabled = true;
-
     }
 
+    //Plays death animation and starts GameoverUI - Triggered from contactDamage Script
     public void playerDeath()
     {
+        //Sets playercontroller bool to dead - disables inputs to character controller
         dead = true;
+
+        //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
         hMove = 0;
         vMove = 0;
+
+        //Plays Death animation and disables all other animation events
         animator.SetBool("Death", true);
-        animator.SetLayerWeight(1, 0f);
-        animator.SetLayerWeight(2, 0f);
-        animator.SetLayerWeight(3, 0f);
-        animator.SetLayerWeight(4, 0f);
-        animator.SetLayerWeight(5, 0f);
+      
         //Start GameOverUI
         gameOverUI.gameOver();
     }

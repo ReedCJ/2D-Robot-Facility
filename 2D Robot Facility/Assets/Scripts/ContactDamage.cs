@@ -35,7 +35,6 @@ public class ContactDamage : MonoBehaviour
                 }
 
             }
-           // else playerController.invulnerableAnim(player.invulnFrames);
         }
     }
 }
