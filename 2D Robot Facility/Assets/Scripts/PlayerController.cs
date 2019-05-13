@@ -416,7 +416,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Blink()
     {
-        while (playerHealth.invuln)
+        while (playerHealth.invuln && !dead)
         {
             if (rend.enabled)
                 rend.enabled = false;

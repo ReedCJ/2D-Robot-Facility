@@ -20,9 +20,16 @@ public class GameOver : MonoBehaviour
     {
         inGameUI.SetActive(false);
         gameOverScreen.SetActive(true);
+        //restartGame.SetActive(true);
+        coroutine = WaitAndRetry();
+        StartCoroutine(coroutine);
+        Time.timeScale = 0.5f;
+    }
+
+    private IEnumerator WaitAndRetry()
+    {
+        yield return new WaitForSeconds(2f);
         restartGame.SetActive(true);
-       // coroutine = WaitAndRetry();
-       // StartCoroutine(coroutine);
     }
 
 }
