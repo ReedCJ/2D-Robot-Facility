@@ -182,6 +182,8 @@ MonoBehaviour:
   teatherSpawn: {fileID: 8972695426720726024}
   jump: 0
   controller: {fileID: 7060801079325029928}
+  gameOverUI: {fileID: 0}
+  playerHealth: {fileID: 1965328221131335811}
 --- !u!50 &6804002588173108448
 Rigidbody2D:
   serializedVersion: 4
@@ -328,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5a07fa9e4109440bb8519d8c3244f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invuln: 0
   health: 5
   invulnFrames: 2
 --- !u!1 &8972695426720726025
