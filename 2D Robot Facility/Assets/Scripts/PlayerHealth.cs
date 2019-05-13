@@ -21,12 +21,12 @@ public class PlayerHealth : MonoBehaviour
         if (time < invulnFrames)
         {
             invuln = true;
-            Debug.Log("invuln");
+            //Debug.Log("invuln");
         }
         else
         {
             invuln = false;
-            Debug.Log("NOT invuln");
+            //Debug.Log("NOT invuln");
         }
     }
 }

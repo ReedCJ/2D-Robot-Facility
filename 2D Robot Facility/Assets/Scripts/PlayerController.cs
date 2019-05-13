@@ -439,9 +439,11 @@ public class PlayerController : MonoBehaviour
 
         //Plays Death animation and disables all other animation events
         animator.SetBool("Death", true);
-      
+
         //Start GameOverUI
-        gameOverUI.gameOver();
+        if (gameOverUI != null)
+            gameOverUI.gameOver();
+        else Debug.Log("You need to attach inGameUI to PlayerController");
     }
 
 }
