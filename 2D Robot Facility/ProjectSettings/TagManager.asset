@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - FollowCam
   - Teather Spawn
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Thin Platform
   - Player
   - Ramp
-  - 
+  - Projectile
   - 
   - 
   - 
