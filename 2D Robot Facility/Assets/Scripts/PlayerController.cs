@@ -51,8 +51,10 @@ public class PlayerController : MonoBehaviour
     private IEnumerator coroutine;
     private float waitTime;
     GameObject playerModel;
-    public Renderer rend;
-    private bool dead = false;
+    private Renderer rend;
+    private bool dead;
+    public GameOver gameOverUI;
+    public PlayerHealth playerHealth;
 
 
     //Run when player is created
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         playerModel = this.transform.GetChild(2).GetChild(1).gameObject;
         rend = playerModel.GetComponent<SkinnedMeshRenderer>();
-
+        dead = false;
     }
 
     void SetInitialState()      // Sets variables 
@@ -83,7 +85,11 @@ public class PlayerController : MonoBehaviour
         //timer
         timer += Time.deltaTime;
 
-        if (!MainMenu.isPaused)
+        //Checks for invulnerable 
+        if (!dead && playerHealth.invuln)
+            StartCoroutine("Blink");
+
+        if (!MainMenu.isPaused && !dead)
         {
             #region Keys
             hMove = Input.GetAxisRaw("Horizontal");
@@ -395,40 +401,55 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    internal void contactAnimate()
+    public void contactAnimate()
     {
         animator.SetTrigger("Contact");
     }
 
-    internal void invulnerableAnim(float invulnFrames)
+    public void invulnerableAnim(float invulnFrames)
     {
-        StartCoroutine("Blink", invulnFrames);
+        if(!dead && playerHealth.invuln)
+            StartCoroutine("Blink", invulnFrames);
     }
 
-    IEnumerator Blink(float invulnFrames)
+    IEnumerator Blink()
     {
-        for (int i = 0; i <= invulnFrames; i++)
+        /* for (int i = 0; i <= invulnFrames*5; i++)
+         {
+             if (rend.enabled)
+                 rend.enabled = false;
+             else
+                 rend.enabled = true;
+             yield return new WaitForSeconds(.2f);
+         }
+         rend.enabled = true;
+     */
+
+        while (playerHealth.invuln)
         {
             if (rend.enabled)
                 rend.enabled = false;
             else
                 rend.enabled = true;
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.2f);
         }
         rend.enabled = true;
 
-           
     }
 
-    internal void playerDeath()
+    public void playerDeath()
     {
-        dead = !dead;
+        dead = true;
+        hMove = 0;
+        vMove = 0;
         animator.SetBool("Death", true);
         animator.SetLayerWeight(1, 0f);
         animator.SetLayerWeight(2, 0f);
         animator.SetLayerWeight(3, 0f);
         animator.SetLayerWeight(4, 0f);
         animator.SetLayerWeight(5, 0f);
+        //Start GameOverUI
+        gameOverUI.gameOver();
     }
 
 }

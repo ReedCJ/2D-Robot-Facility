@@ -9,13 +9,14 @@ public class GameOver : MonoBehaviour
     public GameObject inGameUI;
     private IEnumerator coroutine;
 
-    private void Start()
+    void Start()
     {
        // gameOverScreen.SetActive(false);
        // restartGame.SetActive(false);
+
     }
 
-    void OnDestroy ()
+    public void gameOver ()
     {
         inGameUI.SetActive(false);
         gameOverScreen.SetActive(true);
@@ -24,9 +25,4 @@ public class GameOver : MonoBehaviour
        // StartCoroutine(coroutine);
     }
 
-    private IEnumerator WaitAndRetry()
-    {
-        yield return new WaitForSeconds(1f);
-        
-    }
 }
