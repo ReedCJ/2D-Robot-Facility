@@ -104,7 +104,8 @@ GameObject:
   - component: {fileID: 2563208492683336289}
   - component: {fileID: 2563208492683336288}
   - component: {fileID: 2563208492683336293}
-  - component: {fileID: 1965180540640371514}
+  - component: {fileID: 1896382013669808490}
+  - component: {fileID: 3095632928634896082}
   m_Layer: 0
   m_Name: Enemy_Tank
   m_TagString: Enemy1
@@ -179,8 +180,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.099977195, y: -0.23598917}
-  m_Size: {x: 1.1999522, y: 3.3301034}
+  m_Offset: {x: 0.15695223, y: -0.022601293}
+  m_Size: {x: 1.0860019, y: 3.0900164}
   m_Direction: 0
 --- !u!114 &2563208492683336288
 MonoBehaviour:
@@ -229,7 +230,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1965180540640371514
+--- !u!114 &1896382013669808490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,7 +242,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a8d2c87bdde8549a9ba8b624638b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 24
+  health: 26
+--- !u!58 &3095632928634896082
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2563208492683336291}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.2, y: -2}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!1 &2563208493074110663
 GameObject:
   m_ObjectHideFlags: 0

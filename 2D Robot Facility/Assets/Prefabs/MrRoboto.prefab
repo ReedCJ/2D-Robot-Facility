@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  invulnFrames: 4
+  invulnFrames: 2
 --- !u!1 &8972695426720726025
 GameObject:
   m_ObjectHideFlags: 0
