@@ -8,9 +8,12 @@ public class TeatherController : MonoBehaviour
     private Rigidbody2D body;                   // Used to move the hook to different places.
     private Rigidbody2D playerBody;             // Reference to player body to apply swinging physics
     private PlayerController player;            // Script reference for the player
-    private GameObject teatherPrefab;           // The teather object prefab
-    [SerializeField]private GameObject teather; // The teather object
-    public bool retracting;                     // Is the teather currently retracting?
+    private Material rope;                      // Rope material, modified to maintain expected visuals
+    private int ropeID;                         // Material ID
+    [SerializeField] private GameObject teatherPrefab;  // The teather object prefab
+    private GameObject teather;                 // The teather object
+
+    private bool retracting;                    // Is the teather currently retracting?
     private bool extending;                     // Is the teather currently extending?
     private bool contact;                       // Is the hook currently touching a grappable surface?
     private bool belowAnchor;                   // Is the player below the anchor?
@@ -55,7 +58,9 @@ public class TeatherController : MonoBehaviour
         transform.Rotate(0.0f, 0.0f, deployAngle, Space.Self);
         teatherVelocity = new Vector3(Mathf.Cos(deployAngle / 180 * Mathf.PI) * facing, Mathf.Sin(deployAngle / 180 * Mathf.PI), 0.0f) * speed;
 
-        teather = Instantiate(teather, player.teatherSpawn.transform.position, transform.rotation);
+        teather = Instantiate(teatherPrefab, player.teatherSpawn.transform.position, transform.rotation);
+        /*rope = teather.GetComponent<Renderer>().material;
+        ropeID = Shader.PropertyToID("_MainTex");*/
         Shift();
     }
 
@@ -298,5 +303,7 @@ public class TeatherController : MonoBehaviour
         float yPos = player.teatherSpawn.position.y - (player.teatherSpawn.position.y - transform.position.y) / 2;
         teather.transform.position = new Vector3(xPos, yPos, player.transform.position.z);
         teather.transform.localScale = new Vector3(teather.transform.localScale.x, distance / 2, teather.transform.localScale.z);
+
+        //rope.SetTextureOffset("_MainTex", new Vector2(0, distance % teather.transform.localScale.y));
     }
 }

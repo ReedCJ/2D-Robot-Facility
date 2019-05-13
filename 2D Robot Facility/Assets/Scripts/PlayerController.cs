@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
                       animator.SetBool("Grounded", false);
                 }
                 //double jump
-                else if (!grounded && canDouble)
+                else if (!grounded && canDouble || swinging)
                 {
                     doubleJump = true;
                     canDouble = false;
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
             {
                 if (body.velocity.y > 0)
-                body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
+                    body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
             }
 
             // look/aim up

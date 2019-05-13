@@ -98,7 +98,7 @@ MonoBehaviour:
   vertical: 1
   diagonal: 0
   damage: 1
-  time: 2
+  time: 1.5
   shooter: {fileID: 0}
   speed: 30
 --- !u!58 &269138628090500250
