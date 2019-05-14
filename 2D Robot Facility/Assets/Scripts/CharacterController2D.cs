@@ -54,11 +54,13 @@ public class CharacterController2D : MonoBehaviour
         PlayerController.animator.SetBool("Grounded", false);
         PlayerController.animator.SetBool("Confined", false);
 
+        // If the character has a ceiling preventing them from standing up confined is true
         if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
         {
             player.confined = true;
             PlayerController.animator.SetBool("Confined", true);
         }
+        else player.confined = false;
 
         if (wasGrounded == false)
             player.fallThrough = false;
@@ -163,7 +165,6 @@ public class CharacterController2D : MonoBehaviour
             if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
             {
                 crouch = true;
-                PlayerController.animator.SetBool("Confined", true);
             }
             else m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             // Add a vertical force to the player.
