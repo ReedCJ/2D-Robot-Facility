@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3565958305124355958}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1412408569911563276
 CircleCollider2D:
@@ -1340,7 +1340,7 @@ Transform:
   - {fileID: 2399256860408236592}
   - {fileID: 2399256860408236598}
   m_Father: {fileID: 3565958305124355958}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!95 &2399256860400788890
 Animator:
@@ -2255,6 +2255,7 @@ GameObject:
   - component: {fileID: 3565958303411726494}
   - component: {fileID: 785914565849952932}
   - component: {fileID: 3532648613184917107}
+  - component: {fileID: 353172511694161700}
   m_Layer: 0
   m_Name: Enemy_Jumper
   m_TagString: Enemy1
@@ -2273,8 +2274,8 @@ Transform:
   m_LocalPosition: {x: 38, y: 18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2399256860408236620}
   - {fileID: 4608115827175748583}
+  - {fileID: 2399256860408236620}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2378,3 +2379,16 @@ CircleCollider2D:
   m_Offset: {x: -0.12046099, y: 1.0795946}
   serializedVersion: 2
   m_Radius: 1.1155019
+--- !u!114 &353172511694161700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3565958305124520790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8d2c87bdde8549a9ba8b624638b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 4

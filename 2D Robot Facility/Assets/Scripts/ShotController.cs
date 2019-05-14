@@ -24,6 +24,7 @@ public class ShotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Physics2D.IgnoreLayerCollision(11, 14, true);
         body = GetComponent<Rigidbody2D>();
 
         //shoot direction
@@ -85,8 +86,8 @@ public class ShotController : MonoBehaviour
                 if (collision.GetComponent<EnemyHealth>().health <= 0)
                 {
                     Destroy(collision.gameObject);
-                    Destroy(gameObject);
                 }
+                Destroy(gameObject);
             }
         }
     }

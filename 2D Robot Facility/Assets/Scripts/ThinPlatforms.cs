@@ -24,9 +24,9 @@ public class ThinPlatforms : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 
-        playerCol = new Collider2D[10];
+        playerCol = new Collider2D[4];
 
-        topLeft = new Vector2(-transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f + transform.position.y -.007f);
+        topLeft = new Vector2(-transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f + transform.position.y + .005f);
         botRight = new Vector2(transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f * .6f + transform.position.y - .007f);
     }
 
@@ -34,11 +34,16 @@ public class ThinPlatforms : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            overlapping = false;
             Physics2D.OverlapArea(topLeft, botRight, filter, playerCol);
+            if (playerCol[0] == null && playerCol[1] == null)
+            {
+                overlapping = false;
+                ToggleCol(false, player.gameObject);
+            }
+            
             for (int i = 0; i < playerCol.Length; i++)      // Test whether or not the player is overlapping with the platform collider
             {
-                if (playerCol[i] != null && playerCol[i].gameObject.GetComponent<PlayerController>() != null && playerCol[i].gameObject.GetComponent<PlayerController>().tag == "Player")
+                if (playerCol[i] != null && playerCol[i].gameObject.GetComponent<PlayerController>() != null && !pCol)
                 {
                     overlapping = true;
                 }
@@ -53,55 +58,57 @@ public class ThinPlatforms : MonoBehaviour
         {
             // Set up variables for toggling thin platform collision
         }
+        playerCol = null;
+        playerCol = new Collider2D[4];
     }
 
-    /*private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            if (enemies != null)
+            /*private void OnTriggerEnter2D(Collider2D other)
             {
-                Collider2D[] temp = new Collider2D[enemies.Length + 1];     // Uncomment these when enemies have an index variable
-                for (int i = 0; i < enemies.Length - 1; i++)
+                if (other.gameObject.tag == "Enemy")
                 {
-                    temp[i] = enemies[i];
-                }
-                //temp[temp.length - 1] = other;
-                //temp[temp.Length - 1].GetComponent<ENEMYCONTROLLERSCRIPTPLACEHOLDER>().index = temp.Length - 1;
-                enemies = temp;
-            }
-            else
-            {
-                enemies = new Collider2D[1];
-                enemies[0] = other;                         // Uncomment these when enemies have an index variable
-                //enemies[0].GetComponent<ENEMYCONTROLLERSCRIPTPLACEHOLDER>().index = 0;
-                //ToggleEnemyCol(enemies[0].GetComponent<ENEMYCONTROLLERSCRIPTPLACEHOLDER>().passThrough, 0);
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            Collider2D[] temp = new Collider2D[enemies.Length - 1];
-
-            if (temp.Length != 0)
-            {
-                int index = 0;
-                for(int i = 0; i < enemies.Length; i++)
-                {                                                   // Uncomment this when enemies have an index variable
-                    //if (i != other.GetComponent<ENEMYSCRIPTPLACEHOLDER>().index)
-                    //{
-                    //    temp[index] = enemies[i];
-                    //    eCol[index] = eCol[i];
-                    //    index++;
-                    //}
+                    if (enemies != null)
+                    {
+                        Collider2D[] temp = new Collider2D[enemies.Length + 1];     // Uncomment these when enemies have an index variable
+                        for (int i = 0; i < enemies.Length - 1; i++)
+                        {
+                            temp[i] = enemies[i];
+                        }
+                        //temp[temp.length - 1] = other;
+                        //temp[temp.Length - 1].GetComponent<ENEMYCONTROLLERSCRIPTPLACEHOLDER>().index = temp.Length - 1;
+                        enemies = temp;
+                    }
+                    else
+                    {
+                        enemies = new Collider2D[1];
+                        enemies[0] = other;                         // Uncomment these when enemies have an index variable
+                        //enemies[0].GetComponent<ENEMYCONTROLLERSCRIPTPLACEHOLDER>().index = 0;
+                        //ToggleEnemyCol(enemies[0].GetComponent<ENEMYCONTROLLERSCRIPTPLACEHOLDER>().passThrough, 0);
+                    }
                 }
             }
-            enemies = temp;
-        }
-    }*/
+
+            private void OnTriggerExit2D(Collider2D other)
+            {
+                if (other.gameObject.tag == "Enemy")
+                {
+                    Collider2D[] temp = new Collider2D[enemies.Length - 1];
+
+                    if (temp.Length != 0)
+                    {
+                        int index = 0;
+                        for(int i = 0; i < enemies.Length; i++)
+                        {                                                   // Uncomment this when enemies have an index variable
+                            //if (i != other.GetComponent<ENEMYSCRIPTPLACEHOLDER>().index)
+                            //{
+                            //    temp[index] = enemies[i];
+                            //    eCol[index] = eCol[i];
+                            //    index++;
+                            //}
+                        }
+                    }
+                    enemies = temp;
+                }
+            }*/
 
     private void FixedUpdate()
     {

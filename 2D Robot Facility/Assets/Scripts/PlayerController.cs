@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject cam;            // The primary virtual camera
 
     [SerializeField] private float speed = 0.0f;   // Character ground speed
-    [SerializeField] private Transform teatherSpawn;
 #pragma warning restore 0649
 
     private float timer;
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public bool enabledDouble;              // public bool for enabling/disabling double jumps
 
+    public Transform teatherSpawn;
     private bool teather;                   // Teather key input
     public bool jump;                      // Jump key input
     private bool canDouble;                 // bool for being able to double dump
@@ -48,6 +48,14 @@ public class PlayerController : MonoBehaviour
     [System.NonSerialized] public bool down;                                               // Down Input
     [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
 
+    private IEnumerator coroutine;
+    private float waitTime;
+    GameObject playerModel;
+    private Renderer rend;
+    private bool dead;
+    public GameOver gameOverUI;
+    public PlayerHealth playerHealth;
+
 
     //Run when player is created
     void Start()
@@ -62,6 +70,13 @@ public class PlayerController : MonoBehaviour
         SetInitialState();
         animator = GetComponentInChildren<Animator>();
 
+        //aquires the model to flash for invulnerability effect
+        playerModel = this.transform.GetChild(2).GetChild(1).gameObject;
+        rend = playerModel.GetComponent<SkinnedMeshRenderer>();
+
+        //resets death bools after restart just in case
+        dead = false;
+        animator.SetBool("Death", false);
     }
 
     void SetInitialState()      // Sets variables 
@@ -75,14 +90,21 @@ public class PlayerController : MonoBehaviour
         //timer
         timer += Time.deltaTime;
 
-        if (!MainMenu.isPaused)
+        //Checks for invulnerable to display effect
+        if (!dead && playerHealth.invuln)
+            StartCoroutine("Blink");
+
+        if (!MainMenu.isPaused && !dead)
         {
             #region Keys
             hMove = Input.GetAxisRaw("Horizontal");
             vMove = Input.GetAxisRaw("Vertical");
 
             //Sets animation parameter for speed (Movement)
+            animator.SetFloat("Velocity_x", body.velocity.x);
             animator.SetFloat("Speed", Mathf.Abs(hMove));
+            animator.SetFloat("Vertical_f", (vMove));
+            animator.SetFloat("Horizontal_f", Mathf.Abs(hMove));
 
             //Checks if falling parameter
             animator.SetFloat("Falling", body.velocity.y);
@@ -99,8 +121,11 @@ public class PlayerController : MonoBehaviour
                       animator.SetBool("Grounded", false);
                 }
                 //double jump
-                else if (!grounded && canDouble)
+                else if (!grounded && canDouble || swinging)
                 {
+                    animator.SetTrigger("DoubleJumping");
+                    animator.SetBool("Jumping", true);
+                    animator.SetBool("Grounded", false);
                     doubleJump = true;
                     canDouble = false;
                 }
@@ -109,7 +134,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
             {
                 if (body.velocity.y > 0)
-                body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
+                    body.velocity = new Vector2(body.velocity.x, body.velocity.y * .5f);
             }
 
             // look/aim up
@@ -145,6 +170,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Teather"))
             {
                teather = true;
+               animator.SetLayerWeight(1, 1);
+              // StartCoroutine("TetherTorso");
                animator.SetTrigger("SwingStart");
             }
 
@@ -154,10 +181,12 @@ public class PlayerController : MonoBehaviour
             //Attack button press/release
             if (Input.GetButtonDown("Attack") || Input.GetButtonDown("Fire1"))
             {
+                animator.SetBool("Shooting",true);
                 fire = true;
             }
             else if (Input.GetButtonUp("Attack") || Input.GetButtonUp("Fire1"))
             {
+                animator.SetBool("Shooting", false);
                 fire = false;
             }
 
@@ -176,11 +205,6 @@ public class PlayerController : MonoBehaviour
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         else if (swinging && doubleJump)
         {
-            if (teatherSwinging)
-            {
-                grappleController.retracting = true;
-                grappleController.Retract();
-            }
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         }
         else if (swinging)
@@ -351,8 +375,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnLanding ()
     {
+        //Debug.Log("Landed");
         animator.SetTrigger("Landing");
-      //  Debug.Log("Landed Event");
         animator.SetBool("Jumping", false);
         animator.SetBool("Grounded", true);
 
@@ -377,4 +401,44 @@ public class PlayerController : MonoBehaviour
             jumpThrough = false;
 
     }
+
+    
+    //plays contact animation - triggered from contactDamage script
+    public void contactAnimate()
+    {
+        animator.SetTrigger("Contact");
+    }
+
+    IEnumerator Blink()
+    {
+        while (playerHealth.invuln && !dead)
+        {
+            if (rend.enabled)
+                rend.enabled = false;
+            else
+                rend.enabled = true;
+            yield return new WaitForSeconds(.2f);
+        }
+        rend.enabled = true;
+    }
+
+    //Plays death animation and starts GameoverUI - Triggered from contactDamage Script
+    public void playerDeath()
+    {
+        //Sets playercontroller bool to dead - disables inputs to character controller
+        dead = true;
+
+        //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
+        hMove = 0;
+        vMove = 0;
+
+        //Plays Death animation and disables all other animation events
+        animator.SetBool("Death", true);
+
+        //Start GameOverUI
+        if (gameOverUI != null)
+            gameOverUI.gameOver();
+        else Debug.Log("You need to attach inGameUI to PlayerController");
+    }
+
 }

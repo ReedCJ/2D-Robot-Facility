@@ -9,24 +9,27 @@ public class GameOver : MonoBehaviour
     public GameObject inGameUI;
     private IEnumerator coroutine;
 
-    private void Start()
+    void Start()
     {
        // gameOverScreen.SetActive(false);
        // restartGame.SetActive(false);
+
     }
 
-    void OnDestroy ()
+    public void gameOver ()
     {
         inGameUI.SetActive(false);
         gameOverScreen.SetActive(true);
-        restartGame.SetActive(true);
-       // coroutine = WaitAndRetry();
-       // StartCoroutine(coroutine);
+        //restartGame.SetActive(true);
+        coroutine = WaitAndRetry();
+        StartCoroutine(coroutine);
+        Time.timeScale = 0.5f;
     }
 
     private IEnumerator WaitAndRetry()
     {
-        yield return new WaitForSeconds(1f);
-        
+        yield return new WaitForSeconds(2f);
+        restartGame.SetActive(true);
     }
+
 }

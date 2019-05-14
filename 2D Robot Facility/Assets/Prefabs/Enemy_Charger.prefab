@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1383546816399311365}
   - component: {fileID: 4161928970414496704}
   - component: {fileID: 6186882892972388735}
+  - component: {fileID: 1633157732788258450}
+  - component: {fileID: 1651544240468710631}
   m_Layer: 0
   m_Name: Enemy_Charger
   m_TagString: Enemy1
@@ -85,16 +87,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c209e49c4ed2f34cbeaccedeed235e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorCheckDistance: 0
+  floorCheckDistance: 5
   jumpRange: 3
   landingCheckDistance: 5
-  moveSpeed: 0
-  aggroRange: 0
-  aggroLeash: 0
-  levelCheckHeight: 0
+  moveSpeed: 10
+  aggroRange: 10
+  aggroLeash: 15
+  levelCheckHeight: 3
   randomMovement: 1
-  chargeCD: 0
-  chargeSpeed: 0
+  chargeCD: 2
+  chargeSpeed: 1000
+  chargeDuration: 1
 --- !u!50 &4161928970414496704
 Rigidbody2D:
   serializedVersion: 4
@@ -129,9 +132,38 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.45487005, y: 0.49967864}
-  m_Size: {x: 1.6817571, y: 2.9993575}
+  m_Offset: {x: -0.45487016, y: -0.026187498}
+  m_Size: {x: 1.6817577, y: 1.9476244}
   m_Direction: 0
+--- !u!114 &1633157732788258450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383546816399311366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8d2c87bdde8549a9ba8b624638b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 9
+--- !u!58 &1651544240468710631
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383546816399311366}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.6157658, y: 1.0971111}
+  serializedVersion: 2
+  m_Radius: 0.61180043
 --- !u!1 &1688599876205911187
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3956578231379111139}
   - component: {fileID: 6291759266921100176}
+  - component: {fileID: 8441649537126461779}
   - component: {fileID: 8085557765653535318}
   m_Layer: 0
   m_Name: EnemyChargerTriggerObject
@@ -180,6 +213,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!114 &8441649537126461779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688599876205911187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a8d2c87bdde8549a9ba8b624638b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
 --- !u!114 &8085557765653535318
 MonoBehaviour:
   m_ObjectHideFlags: 0
