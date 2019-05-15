@@ -438,6 +438,8 @@ public class PlayerController : MonoBehaviour
         hMove = 0;
         vMove = 0;
 
+        fire = false;
+
         //Plays Death animation and disables all other animation events
         animator.SetBool("Death", true);
 
