@@ -447,4 +447,22 @@ public class PlayerController : MonoBehaviour
         else Debug.Log("You need to attach inGameUI to PlayerController");
     }
 
+    public void playerDeathFall()
+    {
+        //Sets playercontroller bool to dead - disables inputs to character controller
+        dead = true;
+
+        //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
+        hMove = 0;
+        vMove = 0;
+
+        //Plays Death animation and disables all other animation events
+        animator.SetBool("DeathFall", true);
+
+        //Start GameOverUI
+        if (gameOverUI != null)
+            gameOverUI.gameOver();
+        else Debug.Log("You need to attach inGameUI to PlayerController");
+    }
+
 }

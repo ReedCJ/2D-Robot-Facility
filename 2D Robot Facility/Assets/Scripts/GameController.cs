@@ -121,4 +121,15 @@ public class GameController : MonoBehaviour
     {
         followCam.GetComponent<CinemachineVirtualCamera>().m_Follow = player.transform;
     }
+
+    //Out of bounds Death Trigger
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            player.GetComponent<PlayerController>().playerDeathFall();
+            followCam.GetComponent<CinemachineVirtualCamera>().enabled = false;
+        }
+        
+    }
 }
