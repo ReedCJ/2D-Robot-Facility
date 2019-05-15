@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Transform UIPause; //Will assign our panel to this variable so we can enable/disable it
+    public TextMeshProUGUI healthText;
+    public PlayerHealth player;
 
     private IEnumerator coroutine;
 
@@ -30,6 +33,8 @@ public class MainMenu : MonoBehaviour
         {
              UnPause();
         }
+
+        healthText.text = "Player Health: " + player.health;
             
 
     }
