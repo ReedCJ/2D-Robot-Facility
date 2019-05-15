@@ -2255,7 +2255,7 @@ GameObject:
   - component: {fileID: 3565958303411726494}
   - component: {fileID: 785914565849952932}
   - component: {fileID: 3532648613184917107}
-  - component: {fileID: 353172511694161700}
+  - component: {fileID: 3046916109300687063}
   m_Layer: 0
   m_Name: Enemy_Jumper
   m_TagString: Enemy1
@@ -2353,16 +2353,16 @@ MonoBehaviour:
   jumpRange: 3
   landingCheckDistance: 5
   moveSpeed: 0
-  aggroRange: 0
-  aggroLeash: 0
-  levelCheckHeight: 0
+  aggroRange: 20
+  aggroLeash: 30
+  levelCheckHeight: 3
   randomMovement: 1
-  attackJumpspeed: 800
-  attackJumpheight: 500
-  attackJumpCD: 3
+  attackJumpspeed: 1000
+  attackJumpheight: 650
+  attackJumpCD: 2
   moveJumpheight: 600
   moveJumpspeed: 400
-  moveJumpCD: 2
+  moveJumpCD: 1.3
 --- !u!58 &3532648613184917107
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2379,7 +2379,7 @@ CircleCollider2D:
   m_Offset: {x: -0.12046099, y: 1.0795946}
   serializedVersion: 2
   m_Radius: 1.1155019
---- !u!114 &353172511694161700
+--- !u!114 &3046916109300687063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -78,6 +78,7 @@ public class ShotController : MonoBehaviour
         //instantiate small animations at some point
         if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
         //for each enemy type
+        Debug.Log("Gameobject is" + collision.gameObject);
         foreach (string enemyTag in GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().enemyTypes)
         {
             if (collision.gameObject.tag == enemyTag)
@@ -85,7 +86,7 @@ public class ShotController : MonoBehaviour
                 collision.GetComponent<EnemyHealth>().health -= damage;
                 if (collision.GetComponent<EnemyHealth>().health <= 0)
                 {
-                    Destroy(collision.gameObject);
+                    collision.gameObject.SetActive(false);
                 }
                 Destroy(gameObject);
             }

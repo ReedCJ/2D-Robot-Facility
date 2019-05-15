@@ -33,29 +33,42 @@ public class Enemy1Controller : EnemyControllerTemplate
 
     protected override void Update()
     {
-        //jump around to move when the player is not in attack range, also don't jump immediately after attacking
-        if (jumpedHeight + 0.003 > height && Timer > mJCD && Timer > 2.0f)
+        if (DistanceToPlayer < aggroRange && PlayerOnLevel())
         {
-            //add public cd value to the cd
-            mJCD = Timer + moveJumpCD;
-            if(randomMovement)
+            aggro = true;
+        }
+        //de aggro if you get out of leash range or out of range height wise 4x the height check distance
+        else if (DistanceToPlayer > aggroLeash || DistanceToPlayer > levelCheckHeight * 4 && !PlayerOnLevel())
+        {
+            aggro = false;
+        }
+
+        //jump around to move when the player is not in attack range, also don't jump immediately after attacking
+        if (!aggro)
+        {
+            if (jumpedHeight + 0.003 > height && Timer > mJCD && Timer > 2.0f)
             {
-                if(Random.Range(0,2) == 1)
+                //add public cd value to the cd
+                mJCD = Timer + moveJumpCD;
+                if (randomMovement)
                 {
-                    moveJumpspeed = moveJumpright;
-                    //if facing left and you jump right flip around
-                    if (!facing) { body.transform.Rotate(0, 180, 0, 0); facing = true; }
-                }
-                else
-                {
-                    moveJumpspeed = moveJumpleft;
-                    //if facing right and you jump left flip around
-                    if (facing) { body.transform.Rotate(0, 180, 0, 0); facing = false; }
-                }
-                //jump around if you aren't jumping off things
-                if (LandingSpotExists(facing))
-                {
-                    Jump(moveJumpspeed, moveJumpheight);
+                    if (Random.Range(0, 2) == 1)
+                    {
+                        moveJumpspeed = moveJumpright;
+                        //if facing left and you jump right flip around
+                        if (!facing) { body.transform.Rotate(0, 180, 0, 0); facing = true; }
+                    }
+                    else
+                    {
+                        moveJumpspeed = moveJumpleft;
+                        //if facing right and you jump left flip around
+                        if (facing) { body.transform.Rotate(0, 180, 0, 0); facing = false; }
+                    }
+                    //jump around if you aren't jumping off things
+                    if (LandingSpotExists(facing))
+                    {
+                        Jump(moveJumpspeed, moveJumpheight);
+                    }
                 }
             }
         }
@@ -64,26 +77,29 @@ public class Enemy1Controller : EnemyControllerTemplate
     // Update is called once per frame
     void FixedUpdate()
     {
-        //If the player gets close enough and the enemy can jump
-        if(player != null && jumpedHeight + 0.003 > height && (Vector2.Distance(body.transform.position, player.transform.position) < 14 && Timer > aJCD))
+        if (aggro)
         {
-            //reset Timer
-            aJCD = Timer + attackJumpCD;
-            //If the enemy is to the right of the player face left(default) and inverse jump speed
-            if (body.transform.position.x > player.transform.position.x)
+            //If the player gets close enough and the enemy can jump
+            if (player != null && jumpedHeight + 0.003 > height && Timer > aJCD && PlayerOnLevel())
             {
-                attackJumpspeed = attackJumpleft;
-                //turn if you jump the other direction
-                if (facing) { body.transform.Rotate(0, 180, 0, 0); facing = false; }
+                //reset Timer
+                aJCD = Timer + attackJumpCD;
+                //If the enemy is to the right of the player face left(default) and inverse jump speed
+                if (body.transform.position.x > player.transform.position.x)
+                {
+                    attackJumpspeed = attackJumpleft;
+                    //turn if you jump the other direction
+                    if (facing) { body.transform.Rotate(0, 180, 0, 0); facing = false; }
+                }
+                else
+                {
+                    attackJumpspeed = attackJumpright;
+                    //turn if you jump the other direction
+                    if (!facing) { body.transform.Rotate(0, 180, 0, 0); facing = true; }
+                }
+                //jump at player
+                Jump(attackJumpspeed, attackJumpheight);
             }
-            else
-            {
-                attackJumpspeed = attackJumpright;
-                //turn if you jump the other direction
-                if (!facing) { body.transform.Rotate(0, 180, 0, 0); facing = true; }
-            }
-            //jump at player
-            Jump(attackJumpspeed, attackJumpheight);
         }
     }
 
