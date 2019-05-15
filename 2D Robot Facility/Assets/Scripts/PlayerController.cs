@@ -205,8 +205,7 @@ public class PlayerController : MonoBehaviour
         //
         // Movement input && grapple input processing block
         //
-        Debug.Log("Confined: "+ confined);
-
+        
         if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         else if (swinging && doubleJump)
