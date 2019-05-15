@@ -120,6 +120,8 @@ MonoBehaviour:
   randomMovement: 0
   mortarCount: 3
   mortarCD: 1
+  mortarSpawnHeight: 0
+  mortarSpawnDistance: 0
   laserSpeed: 0.6
   laserDuration: 0.9
   TankMortar: {fileID: 2211785857085361117, guid: 2210ad008cb861e459df6d543a4adb3b,
@@ -327,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 1
+  damage: 0
 --- !u!61 &3621118527461714769
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -414,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dammage: 1
+  damage: 1
 --- !u!1 &8078804378698375011
 GameObject:
   m_ObjectHideFlags: 0

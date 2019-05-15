@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2563208492643910541}
   - component: {fileID: 2563208492643910544}
   - component: {fileID: 2563208492643910547}
-  - component: {fileID: 2563208492643910546}
   m_Layer: 0
   m_Name: LaserTrace
   m_TagString: Untagged
@@ -27,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2563208492643910540}
   m_LocalRotation: {x: 0.7071068, y: -0.00000019861236, z: -0.7071068, w: 0.00000019861236}
-  m_LocalPosition: {x: -0.18878153, y: -0.020000434, z: 16.750011}
-  m_LocalScale: {x: 32.27406, y: 0.79976463, z: 0.07845307}
+  m_LocalPosition: {x: -0.19, y: -0.02, z: 0.97}
+  m_LocalScale: {x: 0.6043177, y: 0.79976463, z: 0.07845307}
   m_Children: []
   m_Father: {fileID: 2563208493897970733}
   m_RootOrder: 0
@@ -58,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 76019779ff6f74143ab18c7996c5accf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,19 +77,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2563208492643910546
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2563208492643910540}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2563208492683336291
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,8 +90,7 @@ GameObject:
   - component: {fileID: 2563208492683336289}
   - component: {fileID: 2563208492683336288}
   - component: {fileID: 2563208492683336293}
-  - component: {fileID: 1896382013669808490}
-  - component: {fileID: 3095632928634896082}
+  - component: {fileID: 6675589106388211813}
   m_Layer: 0
   m_Name: Enemy_Tank
   m_TagString: Enemy1
@@ -195,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2752492cd08ed4a967c1ae0e236b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorCheckDistance: 4
+  floorCheckDistance: 6
   jumpRange: 0
   landingCheckDistance: 0
   moveSpeed: 3
@@ -205,6 +190,8 @@ MonoBehaviour:
   randomMovement: 1
   mortarCount: 3
   mortarCD: 1
+  mortarSpawnHeight: 2.2
+  mortarSpawnDistance: 2.25
   laserSpeed: 0.6
   laserDuration: 0.9
   TankMortar: {fileID: 2211785857085361117, guid: 2210ad008cb861e459df6d543a4adb3b,
@@ -230,7 +217,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1896382013669808490
+--- !u!114 &6675589106388211813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,22 +230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 26
---- !u!58 &3095632928634896082
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2563208492683336291}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.2, y: -2}
-  serializedVersion: 2
-  m_Radius: 0.3
 --- !u!1 &2563208493074110663
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +241,8 @@ GameObject:
   - component: {fileID: 2563208493074110660}
   - component: {fileID: 2563208493074110666}
   - component: {fileID: 2563208493074110661}
+  - component: {fileID: 336654110975241387}
+  - component: {fileID: 7387315593287371537}
   m_Layer: 0
   m_Name: EnemyTankTriggerObject
   m_TagString: Untagged
@@ -285,7 +258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2563208493074110663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.256, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2563208492683336292}
@@ -304,8 +277,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.119919956, y: -0.30107024}
-  m_Size: {x: 1.6315506, y: 3.5946734}
+  m_Offset: {x: -0.119919956, y: -0.24}
+  m_Size: {x: 1.07, y: 3.16}
   m_Direction: 0
 --- !u!114 &2563208493074110661
 MonoBehaviour:
@@ -320,6 +293,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+--- !u!70 &336654110975241387
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2563208493074110663}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.96, y: -0.59}
+  m_Size: {x: 0.59, y: 1.55}
+  m_Direction: 0
+--- !u!58 &7387315593287371537
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2563208493074110663}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.04, y: -2.25}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!1 &2563208493147741589
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +470,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2563208493897970732}
   m_LocalRotation: {x: 0.5, y: 0.50000006, z: -0.50000006, w: 0.5}
-  m_LocalPosition: {x: 0, y: -0.86, z: 0}
+  m_LocalPosition: {x: 0.256, y: -2.19, z: -0}
   m_LocalScale: {x: 0.57162, y: 0.57162, z: 0.57162}
   m_Children:
   - {fileID: 2563208492643910541}
@@ -526,7 +531,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2563208493897970732}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
