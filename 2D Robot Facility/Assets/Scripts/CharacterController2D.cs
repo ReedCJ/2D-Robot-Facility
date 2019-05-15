@@ -52,6 +52,15 @@ public class CharacterController2D : MonoBehaviour
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
         PlayerController.animator.SetBool("Grounded", false);
+        PlayerController.animator.SetBool("Confined", false);
+
+        // If the character has a ceiling preventing them from standing up confined is true
+        if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
+        {
+            player.confined = true;
+            PlayerController.animator.SetBool("Confined", true);
+        }
+        else player.confined = false;
 
         if (wasGrounded == false)
             player.fallThrough = false;
@@ -94,6 +103,7 @@ public class CharacterController2D : MonoBehaviour
 			if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
 			{
 				crouch = true;
+                PlayerController.animator.SetBool("Confined", true);
 			}
 		}
 
@@ -151,10 +161,16 @@ public class CharacterController2D : MonoBehaviour
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
+            // If the character has a ceiling preventing them from standing up, keep them crouching
+            if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
+            {
+                crouch = true;
+            }
+            else m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             // Add a vertical force to the player.
             //			m_Grounded = false;
-          //  PlayerController.animator.SetBool("Grounded", false);
-            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            //  PlayerController.animator.SetBool("Grounded", false);
+            
 		}
         if (doubleJump)
         {

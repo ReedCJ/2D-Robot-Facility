@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private bool dead;
     public GameOver gameOverUI;
     public PlayerHealth playerHealth;
+    public bool confined;
 
 
     //Run when player is created
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
-                if (grounded)
+                if (grounded && !confined)
                 {
                       jump = true;
                       animator.SetBool("Jumping", true);
@@ -169,10 +170,14 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Teather"))
             {
-               teather = true;
-               animator.SetLayerWeight(1, 1);
-              // StartCoroutine("TetherTorso");
-               animator.SetTrigger("SwingStart");
+                if(!confined)
+                {
+                    teather = true;
+                    animator.SetLayerWeight(1, 1);
+                    // StartCoroutine("TetherTorso");
+                    animator.SetTrigger("SwingStart");
+                }
+               
             }
 
             animator.SetBool("Swinging", swinging);
@@ -200,6 +205,7 @@ public class PlayerController : MonoBehaviour
         //
         // Movement input && grapple input processing block
         //
+        Debug.Log("Confined: "+ confined);
 
         if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
