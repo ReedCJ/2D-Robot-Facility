@@ -28,7 +28,7 @@ public class GameOver : MonoBehaviour
 
     private IEnumerator WaitAndRetry()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         restartGame.SetActive(true);
     }
 
