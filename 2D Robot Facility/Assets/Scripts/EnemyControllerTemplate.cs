@@ -28,6 +28,10 @@ public class EnemyControllerTemplate : MonoBehaviour
     protected Quaternion faceLeft;
     protected Quaternion faceRight;
 
+    protected RaycastHit2D hit;
+    protected RaycastHit2D hit2;
+    private Vector2 checkPosition;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -103,7 +107,7 @@ public class EnemyControllerTemplate : MonoBehaviour
         //negative if facing left
         if (!facing) { lcd *= -1.0f; }
         //get the position you will check from
-        Vector2 checkPosition = new Vector2(gameObject.transform.position.x + lcd, gameObject.transform.position.y);
+        checkPosition = new Vector2(gameObject.transform.position.x + lcd, gameObject.transform.position.y);
         //raycast down
         RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, 3.0f);
         //debug
@@ -120,11 +124,11 @@ public class EnemyControllerTemplate : MonoBehaviour
         //negative if facing left
         if (!facing) { fcd *= -1.0f; }
         //get the position you will check from
-        Vector2 checkPosition = new Vector2(gameObject.transform.position.x + fcd, gameObject.transform.position.y);
+        Vector2 checkPosition = new Vector2(body.transform.position.x + fcd, body.transform.position.y);
         //raycast down 3 at the distance specified
-        RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, 3.0f);
+        hit = Physics2D.Raycast(checkPosition, Vector2.down, 3.0f);
         //debug
-        //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 1.0f);
+        //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 4.0f);
         //return true if hit collider isn't null
         return hit.collider != null;
     }
@@ -161,8 +165,9 @@ public class EnemyControllerTemplate : MonoBehaviour
 
     protected void FlipAround()
     {
-        body.transform.Rotate(0, 180, 0, 0);
-        facing = !facing;
+            body.transform.Rotate(0, 180, 0, 0);
+            facing = !facing;
+            //Debug.Log("flip");
     }
     
     //stop sldiing
@@ -177,4 +182,12 @@ public class EnemyControllerTemplate : MonoBehaviour
         return (-Vector2.Angle(body.transform.position, player.transform.position));
     }
 
+    //same as ThereisFloor but below enemy collider
+    protected bool OverGround()
+    {
+        checkPosition = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 2.1f);
+        hit2 = Physics2D.Raycast(checkPosition, Vector2.down, 0.1f);
+        //Debug.DrawRay(checkPosition, Vector2.down * 1, Color.red, 4.0f);
+        return hit2.collider != null;
+    }
 }
