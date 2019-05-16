@@ -33,7 +33,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
             aggro = true;
         }
         //de aggro if you get out of leash range or out of range height wise 4x the height check distance
-        else if (DistanceToPlayer > aggroLeash || DistanceToPlayer > levelCheckHeight * 4 && !PlayerOnLevel())
+        else if (DistanceToPlayer > aggroLeash || DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel())
         {
             aggro = false;
         }

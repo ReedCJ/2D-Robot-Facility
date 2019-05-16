@@ -59,7 +59,7 @@ public class EnemyControllerTemplate : MonoBehaviour
     {
         get { return Vector2.Distance(body.transform.position, player.transform.position); }
     }
-    protected float HorizontalDistanceToPlayer
+    public float HorizontalDistanceToPlayer
     {
         get
         {

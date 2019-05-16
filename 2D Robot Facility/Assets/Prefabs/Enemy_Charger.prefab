@@ -90,12 +90,12 @@ MonoBehaviour:
   jumpRange: 3
   landingCheckDistance: 5
   moveSpeed: 6
-  aggroRange: 10
-  aggroLeash: 28
+  aggroRange: 25
+  aggroLeash: 35
   levelCheckHeight: 3
   randomMovement: 1
   chargeCD: 2
-  chargeSpeed: 1000
+  chargeSpeed: 1500
   chargeDuration: 1
 --- !u!50 &4161928970414496704
 Rigidbody2D:
@@ -132,7 +132,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0, y: 0.39}
-  m_Size: {x: 2.5, y: 2.37}
+  m_Size: {x: 2.43, y: 1.65}
   m_Direction: 0
 --- !u!114 &3387546603988115198
 MonoBehaviour:
