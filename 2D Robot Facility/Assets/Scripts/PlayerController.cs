@@ -56,11 +56,13 @@ public class PlayerController : MonoBehaviour
     public GameOver gameOverUI;
     public PlayerHealth playerHealth;
     public bool confined;
+    public bool knockdown;
 
 
     //Run when player is created
     void Start()
     {
+        knockdown = false;
         thinGround = false;
         //Player starts facing right
         facing = true;
@@ -94,8 +96,8 @@ public class PlayerController : MonoBehaviour
         //Checks for invulnerable to display effect
         if (!dead && playerHealth.invuln)
             StartCoroutine("Blink");
-
-        if (!MainMenu.isPaused && !dead)
+       
+        if (!MainMenu.isPaused && !dead && !knockdown)
         {
             #region Keys
             hMove = Input.GetAxisRaw("Horizontal");
@@ -205,6 +207,7 @@ public class PlayerController : MonoBehaviour
         //
         // Movement input && grapple input processing block
         //
+        Debug.Log("Knocked down: " + knockdown);
         
         if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
@@ -411,7 +414,33 @@ public class PlayerController : MonoBehaviour
     //plays contact animation - triggered from contactDamage script
     public void contactAnimate()
     {
+        Debug.Log("Contact");
         animator.SetTrigger("Contact");
+    }
+
+    //plays contact animation - triggered from contactDamageCharger script
+    public void contactAnimateCharger()
+    {
+        Debug.Log("Contact Charger");
+        knockdown = true;
+        animator.SetTrigger("Knockeddown");
+        animator.SetBool("Knockdown", true);
+        StartCoroutine("knockeddown");
+        
+        fire = false;
+        hMove = 0;
+        vMove = 0;
+    }
+
+    IEnumerator knockeddown()
+    {
+        yield return new WaitForSeconds(1.75f);
+        //facing = !facing;
+        controller.Flip();
+        //controller.m_FacingRight = !controller.m_FacingRight;
+        knockdown = false;
+        animator.SetBool("Knockdown", false);
+        
     }
 
     IEnumerator Blink()

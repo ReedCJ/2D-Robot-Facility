@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ContactDamage : MonoBehaviour
+public class ContactDamageCharger : MonoBehaviour
 {
     [SerializeField] private float damage;
 
@@ -21,7 +21,7 @@ public class ContactDamage : MonoBehaviour
         {
             player = collision.GetComponent<PlayerHealth>();
             playerController = collision.GetComponent<PlayerController>();
-
+            
             if (player.time > player.invulnFrames)
             {
                 player.health -= damage;
@@ -32,8 +32,7 @@ public class ContactDamage : MonoBehaviour
                     // collision.gameObject.SetActive(false);
                     playerController.playerDeath();
                 }
-                else playerController.contactAnimate();
-
+                else playerController.contactAnimateCharger();
             }
         }
     }
