@@ -207,7 +207,8 @@ public class PlayerController : MonoBehaviour
         //
         // Movement input && grapple input processing block
         //
-        Debug.Log("Knocked down: " + knockdown);
+
+        //Debug.Log("Knocked down: " + knockdown);
         
         if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
@@ -419,28 +420,72 @@ public class PlayerController : MonoBehaviour
     }
 
     //plays contact animation - triggered from contactDamageCharger script
-    public void contactAnimateCharger()
+    //parameter is a bool "right" side = true, false is left side of player.
+    public void contactAnimateCharger(bool right)
     {
-        Debug.Log("Contact Charger");
+//      Debug.Log("Contact Charger");
+
+
+        //knockdown bool for locking input while
         knockdown = true;
-        animator.SetTrigger("Knockeddown");
+
+        //animation parameter to disable alternate animations
         animator.SetBool("Knockdown", true);
+
+        //coroutine to reenable parameters/variables after animation
         StartCoroutine("knockeddown");
-        
+
+        //continues invulnerable for duration of stun
+        playerHealth.invuln = true;
+
+        //resets input so it doesn't become locked during animation
         fire = false;
         hMove = 0;
         vMove = 0;
+
+        //checks for direction of contact with enemy.
+        if (right && controller.m_FacingRight)
+        {
+            Debug.Log("Hit on R facing R");
+            animator.SetTrigger("KnockedBack");
+            controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+            controller.Flip();
+        }
+
+        else if (!right && controller.m_FacingRight)
+        {
+            Debug.Log("Hit on L facing R");
+            animator.SetTrigger("KnockedForward");
+            controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+            //controller.Flip();
+        }
+
+        else if (!right && !controller.m_FacingRight)
+        {
+            Debug.Log("Hit on R facing L");
+            animator.SetTrigger("KnockedForward");
+            controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+            //controller.Flip();
+        }
+        else if (right && !controller.m_FacingRight)
+        {
+            Debug.Log("Hit on L facing L");
+            animator.SetTrigger("KnockedBack");
+            controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+            controller.Flip();
+        }
     }
 
     IEnumerator knockeddown()
     {
-        yield return new WaitForSeconds(1.75f);
+        yield return new WaitForSeconds(2f);
         //facing = !facing;
-        controller.Flip();
+        //controller.Flip();
         //controller.m_FacingRight = !controller.m_FacingRight;
         knockdown = false;
         animator.SetBool("Knockdown", false);
-        
+        playerHealth.invuln = false;
+
     }
 
     IEnumerator Blink()
