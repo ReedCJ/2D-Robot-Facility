@@ -29,18 +29,15 @@ public class TimedSmasher : MonoBehaviour
         lowering = false;
         hazard = GetComponentInChildren<InstantDeath>();
         animate = GetComponent<Animator>();
-        animate.updateMode = AnimatorUpdateMode.AnimatePhysics;
         animate.SetFloat("SlamTime", slamTime);
         animate.SetFloat("RetractTime", retractTime);
         hazard.active = false;
         if (initialState)
         {
-            animate.SetTrigger("Retract");
             timer = timeUp;
         }
         else
         {
-            animate.SetTrigger("Slam");
             timer = timeDown;
         }
         timer -= Offset;
@@ -49,17 +46,11 @@ public class TimedSmasher : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        //Debug.Log("Going down? " + lowering + " Going up? " + raising + " Raised? " + raised + " Lowered? " + lowered + " Time left: " + (2 > (animate.GetCurrentAnimatorStateInfo(0).length)));
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        AnimatorStateInfo curAnimation = animate.GetCurrentAnimatorStateInfo(0);
-        //Debug.Log(curAnimation.IsName("Raised") + " " + raised + " " + raising + " " + lowering);
-        //if (!raised && !lowered)
-            //Debug.Log(lowering + " " + curAnimation.IsName("Lowered") + " " + !lowered);
-
         if (raised && timer >= timeUp)
         {
             Animate(true);
@@ -98,14 +89,9 @@ public class TimedSmasher : MonoBehaviour
         lowered = false;
         raising = !lower;
         lowering = lower;
-        if (lower)
-        {
-            animate.SetTrigger("Slam");
-        }
-        else
-        {
-            animate.SetTrigger("Retract");
-        }
         timer = 0;
+
+        if (lower) animate.SetTrigger("Slam");
+        else animate.SetTrigger("Retract");
     }
 }
