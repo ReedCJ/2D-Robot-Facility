@@ -10,6 +10,7 @@ TagManager:
   - Teather Spawn
   - Projectile
   - Hazard
+  - Target
   layers:
   - Default
   - TransparentFX

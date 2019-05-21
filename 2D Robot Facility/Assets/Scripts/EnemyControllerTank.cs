@@ -6,6 +6,8 @@ public class EnemyControllerTank : EnemyControllerTemplate
 {
     public float mortarCount;
     public float mortarCD;
+    public float mortarSpawnHeight;
+    public float mortarSpawnDistance;
     public float laserSpeed;
     public float laserDuration;
 
@@ -14,6 +16,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
     private float lf;
     private float la;
     private float fl;
+    private float mortarSpawnX;
     [SerializeField] private GameObject TankMortar;
     private GameObject laserParent;
     private GameObject laserTrace;
@@ -48,7 +51,11 @@ public class EnemyControllerTank : EnemyControllerTemplate
         if (Timer > 1.0f && !aggro)
         {
             //don't run off edges
-            if (!ThereIsFloor()) { facing = !facing; setMovement(); }
+            if (!ThereIsFloor())
+            {
+                FlipAround();
+                setMovement();
+            }
             //move around slow
             MoveAround();
         }
@@ -61,7 +68,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
                 FacePlayer();
             }
             //fire laser every x mortars if player is in right area
-            if (mc >= mortarCount && PlayerOnLevel() && DistanceToPlayer > 3.0f & HorizontalDistanceToPlayer > 4.0f || DistanceToPlayer < 10 && Timer > fl + laserDuration + 0.5)
+            if (mc >= mortarCount && PlayerOnLevel() && DistanceToPlayer > 7.0f & HorizontalDistanceToPlayer > 7.0f || DistanceToPlayer < 10 && DistanceToPlayer > 7 && Timer > fl + laserDuration + 0.5)
             {
                 mc = 0;
                 FireLaser();
@@ -76,6 +83,10 @@ public class EnemyControllerTank : EnemyControllerTemplate
                     mc++;
                     sm = Timer;
                 }
+            }
+            if(DistanceToPlayer < 7 && !laserParent.activeSelf)
+            {
+                MoveAround();
             }
         }
         //controls and deactivates laser
@@ -94,21 +105,25 @@ public class EnemyControllerTank : EnemyControllerTemplate
         }
     }
     //property that returns a position above the tank enemy
-    private Vector2 MortarSpawn
+    private Vector2 MortarSpawn()
     {
-        get { return new Vector2(body.transform.position.x, body.transform.position.y + 2); }
+        if (facing) { mortarSpawnX = body.transform.position.x + mortarSpawnDistance; }
+        else { mortarSpawnX = body.transform.position.x - mortarSpawnDistance; }
+        return new Vector2(mortarSpawnX, body.transform.position.y + mortarSpawnHeight);
     }
 
     private void FireMortar()
     {
-        Instantiate(TankMortar, MortarSpawn, placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn, player.transform.position, this.gameObject);
+        Debug.Log("Mortar Fired");
+        Instantiate(TankMortar, MortarSpawn(), placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn(), player.transform.position, this.gameObject);
     }
     //fires the laser
     private void FireLaser()
     {
         //RotateLaser(GetAngleToPlayer(), false);
         //RotateLaser(GetAngleToPlayer(), true);
-        laserParent.transform.LookAt(player.transform);
+        Vector3 LaserLookAt = new Vector3(player.transform.position.x, player.transform.position.y, laserParent.transform.position.z);
+        laserParent.transform.LookAt(LaserLookAt);
         laserParent.SetActive(true);
         laserTrace.SetActive(true);
         lf = Timer;

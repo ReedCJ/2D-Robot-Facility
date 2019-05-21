@@ -55,11 +55,16 @@ public class PlayerController : MonoBehaviour
     private bool dead;
     public GameOver gameOverUI;
     public PlayerHealth playerHealth;
+    public bool confined;
+    public bool knockdown;
+    public bool contactRight;
+    public bool contactTop;
 
 
     //Run when player is created
     void Start()
     {
+        knockdown = false;
         thinGround = false;
         //Player starts facing right
         facing = true;
@@ -93,8 +98,8 @@ public class PlayerController : MonoBehaviour
         //Checks for invulnerable to display effect
         if (!dead && playerHealth.invuln)
             StartCoroutine("Blink");
-
-        if (!MainMenu.isPaused && !dead)
+       
+        if (!MainMenu.isPaused && !dead && !knockdown)
         {
             #region Keys
             hMove = Input.GetAxisRaw("Horizontal");
@@ -114,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
-                if (grounded)
+                if (grounded && !confined)
                 {
                       jump = true;
                       animator.SetBool("Jumping", true);
@@ -169,10 +174,14 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Teather"))
             {
-               teather = true;
-               animator.SetLayerWeight(1, 1);
-              // StartCoroutine("TetherTorso");
-               animator.SetTrigger("SwingStart");
+                if(!confined)
+                {
+                    teather = true;
+                    animator.SetLayerWeight(1, 1);
+                    // StartCoroutine("TetherTorso");
+                    animator.SetTrigger("SwingStart");
+                }
+               
             }
 
             animator.SetBool("Swinging", swinging);
@@ -201,6 +210,8 @@ public class PlayerController : MonoBehaviour
         // Movement input && grapple input processing block
         //
 
+        //Debug.Log("Knocked down: " + knockdown);
+        
         if (!swinging && !fallThrough)
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         else if (swinging && doubleJump)
@@ -401,12 +412,87 @@ public class PlayerController : MonoBehaviour
             jumpThrough = false;
 
     }
-
     
+   
     //plays contact animation - triggered from contactDamage script
     public void contactAnimate()
     {
+        Debug.Log("Contact");
         animator.SetTrigger("Contact");
+    }
+
+    //plays contact animation - triggered from contactDamageCharger script
+    //parameter is a bool "right" side = true, false is left side of player.
+    public void contactAnimateCharger()
+    {
+        //knockdown bool for locking input while stunned
+        knockdown = true;
+
+        //animation parameter to disable alternate animations
+        animator.SetBool("Knockdown", true);
+
+        //coroutine to reenable parameters/variables after animation
+        StartCoroutine("knockeddown");
+
+        //continues invulnerable for duration of stun
+        playerHealth.invuln = true;
+
+        //resets input so it doesn't become locked during animation
+        fire = false;
+        hMove = 0;
+        vMove = 0;
+
+        //Plays corresponding animations for direction of enemy contact.
+        if (controller.m_FacingRight)
+        {
+            if(contactRight)
+            {
+                //Debug.Log("Hit on R facing R");
+                animator.SetTrigger("KnockedBack");
+                controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                controller.Flip();
+            }
+            else
+            {
+                //Debug.Log("Hit on L facing R");
+                animator.SetTrigger("KnockedForward");
+                controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                //controller.Flip();
+            }
+
+        }
+
+        else if (!controller.m_FacingRight)
+        {
+            if(contactRight)
+            {
+                //Debug.Log("Hit on R facing L");
+                animator.SetTrigger("KnockedForward");
+                controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                //controller.Flip();
+
+            }
+            else
+            {
+                //Debug.Log("Hit on L facing L");
+                animator.SetTrigger("KnockedBack");
+                controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                controller.Flip();
+            }
+            
+        }
+    }
+
+    IEnumerator knockeddown()
+    {
+        yield return new WaitForSeconds(2f);
+        //facing = !facing;
+        //controller.Flip();
+        //controller.m_FacingRight = !controller.m_FacingRight;
+        knockdown = false;
+        animator.SetBool("Knockdown", false);
+        playerHealth.invuln = false;
+
     }
 
     IEnumerator Blink()
@@ -431,9 +517,28 @@ public class PlayerController : MonoBehaviour
         //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
         hMove = 0;
         vMove = 0;
+        fire = false;
 
         //Plays Death animation and disables all other animation events
         animator.SetBool("Death", true);
+
+        //Start GameOverUI
+        if (gameOverUI != null)
+            gameOverUI.gameOver();
+        else Debug.Log("You need to attach inGameUI to PlayerController");
+    }
+
+    public void playerDeathFall()
+    {
+        //Sets playercontroller bool to dead - disables inputs to character controller
+        dead = true;
+
+        //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
+        hMove = 0;
+        vMove = 0;
+
+        //Plays Death animation and disables all other animation events
+        animator.SetBool("DeathFall", true);
 
         //Start GameOverUI
         if (gameOverUI != null)
