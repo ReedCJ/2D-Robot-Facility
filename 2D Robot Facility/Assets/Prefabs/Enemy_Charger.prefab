@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 3956578231379111139}
   - component: {fileID: 6668133649587976383}
   - component: {fileID: 6926761871986481184}
-  - component: {fileID: 1451676426573116373}
+  - component: {fileID: 6678535664373868320}
   m_Layer: 0
   m_Name: EnemyChargerTriggerObject
   m_TagString: Untagged
@@ -212,7 +212,7 @@ CircleCollider2D:
   m_Offset: {x: -1.56, y: 0.75}
   serializedVersion: 2
   m_Radius: 1.01
---- !u!114 &1451676426573116373
+--- !u!114 &6678535664373868320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

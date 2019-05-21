@@ -57,6 +57,8 @@ public class PlayerController : MonoBehaviour
     public PlayerHealth playerHealth;
     public bool confined;
     public bool knockdown;
+    public bool contactRight;
+    public bool contactTop;
 
 
     //Run when player is created
@@ -410,8 +412,8 @@ public class PlayerController : MonoBehaviour
             jumpThrough = false;
 
     }
-
     
+   
     //plays contact animation - triggered from contactDamage script
     public void contactAnimate()
     {
@@ -421,12 +423,9 @@ public class PlayerController : MonoBehaviour
 
     //plays contact animation - triggered from contactDamageCharger script
     //parameter is a bool "right" side = true, false is left side of player.
-    public void contactAnimateCharger(bool right)
+    public void contactAnimateCharger()
     {
-//      Debug.Log("Contact Charger");
-
-
-        //knockdown bool for locking input while
+        //knockdown bool for locking input while stunned
         knockdown = true;
 
         //animation parameter to disable alternate animations
@@ -443,36 +442,44 @@ public class PlayerController : MonoBehaviour
         hMove = 0;
         vMove = 0;
 
-        //checks for direction of contact with enemy.
-        if (right && controller.m_FacingRight)
+        //Plays corresponding animations for direction of enemy contact.
+        if (controller.m_FacingRight)
         {
-            Debug.Log("Hit on R facing R");
-            animator.SetTrigger("KnockedBack");
-            controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
-            controller.Flip();
+            if(contactRight)
+            {
+                //Debug.Log("Hit on R facing R");
+                animator.SetTrigger("KnockedBack");
+                controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                controller.Flip();
+            }
+            else
+            {
+                //Debug.Log("Hit on L facing R");
+                animator.SetTrigger("KnockedForward");
+                controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                //controller.Flip();
+            }
+
         }
 
-        else if (!right && controller.m_FacingRight)
+        else if (!controller.m_FacingRight)
         {
-            Debug.Log("Hit on L facing R");
-            animator.SetTrigger("KnockedForward");
-            controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
-            //controller.Flip();
-        }
+            if(contactRight)
+            {
+                //Debug.Log("Hit on R facing L");
+                animator.SetTrigger("KnockedForward");
+                controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                //controller.Flip();
 
-        else if (!right && !controller.m_FacingRight)
-        {
-            Debug.Log("Hit on R facing L");
-            animator.SetTrigger("KnockedForward");
-            controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
-            //controller.Flip();
-        }
-        else if (right && !controller.m_FacingRight)
-        {
-            Debug.Log("Hit on L facing L");
-            animator.SetTrigger("KnockedBack");
-            controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
-            controller.Flip();
+            }
+            else
+            {
+                //Debug.Log("Hit on L facing L");
+                animator.SetTrigger("KnockedBack");
+                controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                controller.Flip();
+            }
+            
         }
     }
 
@@ -510,7 +517,6 @@ public class PlayerController : MonoBehaviour
         //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
         hMove = 0;
         vMove = 0;
-
         fire = false;
 
         //Plays Death animation and disables all other animation events

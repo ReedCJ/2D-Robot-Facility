@@ -8,37 +8,34 @@ public class ContactDamageCharger : MonoBehaviour
 
     private PlayerHealth player;
     private PlayerController playerController;
-
-    private bool right;
-    private bool top;
+    private GameObject roboto;
    
     // Start is called before the first frame update
     void Start()
     {
-        
+        roboto = GameObject.FindGameObjectWithTag("Player");
     }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Collider2D collider = collision.collider;
-
-        if (collision.gameObject.tag == "Player")
-        {
-            Vector3 contactPoint = collision.contacts[0].point;
-            Vector3 center = collider.bounds.center;
-
-            right = contactPoint.x > center.x;
-            top = contactPoint.y > center.y;
-        }
-    }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
+        //GameObject collider = collision.GetComponent<GameObject>();
+        
+       if (collision.gameObject.tag == "Player")
+       {
             player = collision.GetComponent<PlayerHealth>();
             playerController = collision.GetComponent<PlayerController>();
+
+            //Determines the side the charger contacts the player
+            if (roboto.transform.position.x < this.transform.position.x)
+            {
+                playerController.contactRight = true;
+                //Debug.Log("Contacted on Right");
+            }
+            else
+            {
+                playerController.contactRight = false;
+                //Debug.Log("Contacted on Left");
+            }
             
             if (player.time > player.invulnFrames)
             {
@@ -50,8 +47,8 @@ public class ContactDamageCharger : MonoBehaviour
                     // collision.gameObject.SetActive(false);
                     playerController.playerDeath();
                 }
-                else playerController.contactAnimateCharger(right);
+                else playerController.contactAnimateCharger();
             }
-        }
+       }
     }
 }

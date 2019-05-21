@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4608115827175748583}
   - component: {fileID: 1412408569911563276}
-  - component: {fileID: 1814060186017692026}
+  - component: {fileID: 3423648672809126247}
   m_Layer: 0
   m_Name: EnemyPlayerTriggerObject
   m_TagString: Untagged
@@ -48,7 +48,7 @@ CircleCollider2D:
   m_Offset: {x: -0.12046099, y: 1.0795946}
   serializedVersion: 2
   m_Radius: 1.1155019
---- !u!114 &1814060186017692026
+--- !u!114 &3423648672809126247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 268732673404059122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fc3d18d2ade4e14189c38ec4d6e6a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
