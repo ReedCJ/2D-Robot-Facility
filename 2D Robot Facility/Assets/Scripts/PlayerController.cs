@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private bool doubleJump;                // double jump bool
     private bool camFollow;                 // Camera is in follow mode?
     private GameObject GrappleHook;         // Active Grappling Hook Object
-    private TeatherController grappleController;     // Script for swinging player
+    public TeatherController grappleController;     // Script for swinging player
     static public Animator animator;
     private Rigidbody2D body;
     public CharacterController2D controller;      // The script that processes our movement inputs
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     private float waitTime;
     GameObject playerModel;
     private Renderer rend;
-    private bool dead;
+    public bool dead;
     public GameOver gameOverUI;
     public PlayerHealth playerHealth;
     public bool confined;
@@ -438,6 +438,7 @@ public class PlayerController : MonoBehaviour
         playerHealth.invuln = true;
 
         //resets input so it doesn't become locked during animation
+        
         fire = false;
         hMove = 0;
         vMove = 0;
@@ -515,6 +516,7 @@ public class PlayerController : MonoBehaviour
         dead = true;
 
         //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
+
         hMove = 0;
         vMove = 0;
         fire = false;

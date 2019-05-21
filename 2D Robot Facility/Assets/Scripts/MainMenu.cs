@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Transform UIPause; //Will assign our panel to this variable so we can enable/disable it
     public TextMeshProUGUI healthText;
     public PlayerHealth player;
+    public Image healthBar;
+    private float startHealth;
 
     private IEnumerator coroutine;
 
@@ -18,6 +21,7 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        startHealth = player.health; 
         UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts
         isPaused = false; //make sure isPaused is always false when our scene opens
     }
@@ -35,6 +39,7 @@ public class MainMenu : MonoBehaviour
         }
 
         healthText.text = "Player Health: " + player.health;
+        healthBar.fillAmount = player.health/startHealth;
             
 
     }

@@ -74,7 +74,7 @@ public class TeatherController : MonoBehaviour
             playerBody.gravityScale = 4;
         }
 
-        if (Input.GetButtonDown("Teather") || Input.GetButtonDown("Jump"))                 // Input to retract teather
+        if (Input.GetButtonDown("Teather") || Input.GetButtonDown("Jump") || player.knockdown || player.dead)                 // Input to retract teather
             retracting = true;
         else if (distance > teatherRange && !contact)       // Start retracting after reaching the maximum teatherRange
             retracting = true;
