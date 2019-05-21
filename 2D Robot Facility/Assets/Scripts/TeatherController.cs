@@ -125,7 +125,11 @@ public class TeatherController : MonoBehaviour
         {
             retracting = true;
         }
-        else if (retracting && other.gameObject.tag == "Teather Spawn")            // Grapplehook is removed from the game when it comes back to the player
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (retracting && other.gameObject.tag == "Teather Spawn")            // Grapplehook is removed from the game when it comes back to the player
         {
             player.teatherOut = false;
             Destroy(teather);

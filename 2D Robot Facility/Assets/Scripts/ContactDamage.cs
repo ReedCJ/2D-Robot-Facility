@@ -29,11 +29,9 @@ public class ContactDamage : MonoBehaviour
                 player.time = 0;
                 if (collision.GetComponent<PlayerHealth>().health <= 0)
                 {
-                    // collision.gameObject.SetActive(false);
                     playerController.playerDeath();
                 }
                 else playerController.contactAnimate();
-
             }
         }
     }

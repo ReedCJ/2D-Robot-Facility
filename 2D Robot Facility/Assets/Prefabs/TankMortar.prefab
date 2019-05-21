@@ -130,7 +130,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3fc56f5f4afa84eacc84a7ff91b8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 2
+  floorCheckDistance: 0
+  jumpRange: 0
+  landingCheckDistance: 0
+  moveSpeed: 0
+  aggroRange: 0
+  aggroLeash: 0
+  levelCheckHeight: 0
+  randomMovement: 0
+  mortarHeight: -2
   travelTime: 1
   tank: {fileID: 8078804377546338604, guid: 397cd8fd1b9e05b419f81fb0399dec73, type: 3}
 --- !u!114 &8428741712791963987

@@ -184,8 +184,8 @@ MonoBehaviour:
   jumpRange: 0
   landingCheckDistance: 0
   moveSpeed: 3
-  aggroRange: 20
-  aggroLeash: 25
+  aggroRange: 25
+  aggroLeash: 35
   levelCheckHeight: 6
   randomMovement: 1
   mortarCount: 3
