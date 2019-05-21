@@ -9,6 +9,7 @@ TagManager:
   - FollowCam
   - Teather Spawn
   - Projectile
+  - Hazard
   - Target
   layers:
   - Default
@@ -26,7 +27,7 @@ TagManager:
   - Player
   - Ramp
   - Projectile
-  - 
+  - Hazard
   - 
   - 
   - 
