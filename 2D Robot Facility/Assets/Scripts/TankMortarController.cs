@@ -42,8 +42,17 @@ public class TankMortarController : EnemyControllerTemplate
         shooter = s;
         playerPosition = new Vector2(player.gameObject.transform.position.x, player.gameObject.transform.position.y - 0.6f);
         hdp = shooter.gameObject.GetComponent<EnemyControllerTank>().HorizontalDistanceToPlayer;
-        ep = GetEndPosition();
-        mh = (playerPosition.y - 8) / 3;
+        mh = (playerPosition.y - 8) / 2;
+        if (player.transform.position.y > shooter.transform.position.y + 1)
+        {
+            ep = GetEndPosition();
+        }
+        else
+        {
+            ep = playerPosition;
+            travelTime /= 2;
+            mh = 3;
+        }
     }
     //destroy these on terrain collision
     private void OnTriggerEnter(Collider other)
