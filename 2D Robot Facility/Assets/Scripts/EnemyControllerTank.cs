@@ -114,6 +114,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
 
     private void FireMortar()
     {
+        Debug.Log("Mortar Fired");
         Instantiate(TankMortar, MortarSpawn(), placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn(), player.transform.position, this.gameObject);
     }
     //fires the laser

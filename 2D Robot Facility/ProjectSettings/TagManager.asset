@@ -9,6 +9,7 @@ TagManager:
   - FollowCam
   - Teather Spawn
   - Projectile
+  - Target
   layers:
   - Default
   - TransparentFX
