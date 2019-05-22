@@ -43,6 +43,7 @@ public class EnemyControllerTemplate : MonoBehaviour
         //get gamecontroller
         gameController = GameObject.FindWithTag("GameController");
         //Set movement for enemies that move
+        facing = false;
         setMovement();
     }
 
@@ -134,20 +135,22 @@ public class EnemyControllerTemplate : MonoBehaviour
         return hit.collider != null;
     }
 
-    protected bool ThereIsWall(int x)
+    protected bool ThereIsWall(float x, float y)
     {
         if(facing)
         {
             direction = Vector2.right;
-            checkPosition = new Vector2(body.transform.position.x + x, body.transform.position.y);
+            checkPosition = new Vector2(body.transform.position.x + x, body.transform.position.y + y);
         }
-        else
+        else if (!facing)
         {
             direction = Vector2.left;
-            checkPosition = new Vector2(body.transform.position.x + x, body.transform.position.y);
+            checkPosition = new Vector2(body.transform.position.x - x, body.transform.position.y + y);
         }
-        hit = Physics2D.Raycast(checkPosition, direction, 0.1f);
-        return hit.collider != null;
+        hit = Physics2D.Raycast(checkPosition, direction, 0.5f);
+        //Debug.DrawRay(checkPosition, direction * 0.5f, Color.red, 0.7f);
+        if (hit.collider != null) { return hit.collider.gameObject.tag == "Terrain"; }
+        return false;
     }
 
     //sets the movement of an enemy

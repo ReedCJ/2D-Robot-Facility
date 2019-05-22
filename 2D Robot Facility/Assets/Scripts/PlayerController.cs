@@ -211,9 +211,11 @@ public class PlayerController : MonoBehaviour
         //
 
         //Debug.Log("Knocked down: " + knockdown);
-        
+
         if (!swinging && !fallThrough)
+        {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
+        }
         else if (swinging && doubleJump)
         {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);

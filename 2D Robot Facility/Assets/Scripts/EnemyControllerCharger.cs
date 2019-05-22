@@ -44,7 +44,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         //move around normally
         if (Timer > 1.0f && !aggro)
         {
-            if (!ThereIsFloor() && OverGround())
+            if (!ThereIsFloor() && OverGround() || ThereIsWall(3,0))
             {
                 //nofloor++;
                 FlipAround();
