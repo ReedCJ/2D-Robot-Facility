@@ -27,7 +27,7 @@ public class ThinPlatforms : MonoBehaviour
         playerCol = new Collider2D[4];
 
         topLeft = new Vector2(-transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f + transform.position.y + .005f);
-        botRight = new Vector2(transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f * .6f + transform.position.y - .007f);
+        botRight = new Vector2(transform.localScale.x / 2.0f + transform.position.x, transform.localScale.y / 2.0f * .2f + transform.position.y - .007f);
     }
 
     private void OnTriggerStay2D(Collider2D other)
