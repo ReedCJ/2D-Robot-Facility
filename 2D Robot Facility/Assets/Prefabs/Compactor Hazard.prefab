@@ -347,7 +347,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7e85bbafad5a47242843af58196efb65, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -366,9 +366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8671e1af0d439e44be0ed77c8b0d02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeUp: 2
-  timeDown: 2
-  slamTime: 0.8
-  retractTime: 0.8
+  timeUp: 1.5
+  timeDown: 1
+  slamSpeed: 6
+  retractSpeed: 2
   Offset: 0
   initialState: 1
