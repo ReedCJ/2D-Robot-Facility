@@ -56,18 +56,23 @@ public class Enemy1Controller : EnemyControllerTemplate
                     {
                         moveJumpspeed = moveJumpright;
                         //if facing left and you jump right flip around
-                        if (!facing) { body.transform.Rotate(0, 180, 0, 0); facing = true; }
+                        if (!facing) { FlipAround(); }
                     }
                     else
                     {
                         moveJumpspeed = moveJumpleft;
                         //if facing right and you jump left flip around
-                        if (facing) { body.transform.Rotate(0, 180, 0, 0); facing = false; }
+                        if (facing) { FlipAround(); }
                     }
                     //jump around if you aren't jumping off things
-                    if (LandingSpotExists(facing))
+                    if (LandingSpotExists(facing) && !ThereIsWall(1.5f, 1f))
                     {
                         Jump(moveJumpspeed, moveJumpheight);
+                    }
+                    else
+                    {
+                        FlipAround();
+                        Jump(-moveJumpspeed, moveJumpheight);
                     }
                 }
             }
@@ -77,6 +82,7 @@ public class Enemy1Controller : EnemyControllerTemplate
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Debug.Log(facing);
         if (aggro)
         {
             //If the player gets close enough and the enemy can jump
@@ -105,7 +111,7 @@ public class Enemy1Controller : EnemyControllerTemplate
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Terrain") { StopSliding(); }
+        if(collision.gameObject.tag == "Terrain" && Timer > whenJumped + 0.3) { StopSliding(); }
     }
 
     //jump method
