@@ -20,6 +20,8 @@ public class Enemy1Controller : EnemyControllerTemplate
     private float whenJumped;
     private float jumpedHeight;
 
+    public Animator jumperAnim;
+    
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -111,6 +113,7 @@ public class Enemy1Controller : EnemyControllerTemplate
     //jump method
     protected override void Jump(float speed, float height)
     {
+        jumperAnim.SetTrigger("Jump");
         base.Jump(speed, height);
         whenJumped = Timer;
         jumpedHeight = body.transform.position.y;
