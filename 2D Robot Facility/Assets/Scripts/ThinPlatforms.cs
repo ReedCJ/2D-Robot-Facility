@@ -113,6 +113,13 @@ public class ThinPlatforms : MonoBehaviour
     private void FixedUpdate()
     {
         player.MoveThroughPlatform();                                                   // Update the player variables
+        /*if(player.fallThrough || (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded) || player.jumpThrough || overlapping)
+        {
+            Debug.Log("player.fallThrough " + player.fallThrough);
+            Debug.Log("mathF " + (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded));
+            Debug.Log("jumpThrough " + player.jumpThrough);
+            Debug.Log("overlapping " + overlapping);
+        }*/
         ToggleCol(((player.fallThrough || (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded)) || player.jumpThrough || overlapping), player.gameObject);      // Send the proper boolean statement to toggle collision and the player's gameObject
 
         /*for (int i = 0; i < eCol.Length; i++)     // Uncomment this when enemies have a passThrough variable
@@ -124,7 +131,6 @@ public class ThinPlatforms : MonoBehaviour
     private void ToggleCol(bool passThrough, GameObject chara)      // Toggle Collision. Call this to update the collision between this platform and the player
     {                                                               // Passthrough should be the truth value of whether or not the player should collide with the platform.
         pCol = !passThrough;
-
         Physics2D.IgnoreCollision(platformCol, chara.GetComponent<BoxCollider2D>(), passThrough);
         Physics2D.IgnoreCollision(platformCol, chara.GetComponent<CircleCollider2D>(), passThrough);
     }

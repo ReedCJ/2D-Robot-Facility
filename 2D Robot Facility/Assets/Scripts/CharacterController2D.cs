@@ -158,6 +158,7 @@ public class CharacterController2D : MonoBehaviour
 				Flip();
 			}
 		}
+
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
@@ -172,6 +173,7 @@ public class CharacterController2D : MonoBehaviour
             //  PlayerController.animator.SetBool("Grounded", false);
             
 		}
+
         if (doubleJump)
         {
             //cancel vertical velocity
