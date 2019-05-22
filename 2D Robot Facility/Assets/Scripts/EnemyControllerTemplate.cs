@@ -30,7 +30,8 @@ public class EnemyControllerTemplate : MonoBehaviour
 
     protected RaycastHit2D hit;
     protected RaycastHit2D hit2;
-    private Vector2 checkPosition;
+    protected Vector2 checkPosition;
+    protected Vector2 direction;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -42,6 +43,7 @@ public class EnemyControllerTemplate : MonoBehaviour
         //get gamecontroller
         gameController = GameObject.FindWithTag("GameController");
         //Set movement for enemies that move
+        facing = false;
         setMovement();
     }
 
@@ -124,13 +126,31 @@ public class EnemyControllerTemplate : MonoBehaviour
         //negative if facing left
         if (!facing) { fcd *= -1.0f; }
         //get the position you will check from
-        Vector2 checkPosition = new Vector2(body.transform.position.x + fcd, body.transform.position.y);
+        checkPosition = new Vector2(body.transform.position.x + fcd, body.transform.position.y);
         //raycast down 3 at the distance specified
         hit = Physics2D.Raycast(checkPosition, Vector2.down, 3.0f);
         //debug
         //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 4.0f);
         //return true if hit collider isn't null
         return hit.collider != null;
+    }
+
+    protected bool ThereIsWall(float x, float y)
+    {
+        if(facing)
+        {
+            direction = Vector2.right;
+            checkPosition = new Vector2(body.transform.position.x + x, body.transform.position.y + y);
+        }
+        else if (!facing)
+        {
+            direction = Vector2.left;
+            checkPosition = new Vector2(body.transform.position.x - x, body.transform.position.y + y);
+        }
+        hit = Physics2D.Raycast(checkPosition, direction, 0.5f);
+        //Debug.DrawRay(checkPosition, direction * 0.5f, Color.red, 0.7f);
+        if (hit.collider != null) { return hit.collider.gameObject.tag == "Terrain"; }
+        return false;
     }
 
     //sets the movement of an enemy
