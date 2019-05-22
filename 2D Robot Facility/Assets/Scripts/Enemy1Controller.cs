@@ -67,7 +67,12 @@ public class Enemy1Controller : EnemyControllerTemplate
                     //jump around if you aren't jumping off things
                     if (LandingSpotExists(facing))
                     {
+                        if(!ThereIsWall(1))
                         Jump(moveJumpspeed, moveJumpheight);
+                    }
+                    else
+                    {
+                        Jump(-moveJumpspeed, moveJumpheight);
                     }
                 }
             }

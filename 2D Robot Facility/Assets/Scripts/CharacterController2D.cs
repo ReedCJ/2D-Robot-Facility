@@ -158,9 +158,11 @@ public class CharacterController2D : MonoBehaviour
 				Flip();
 			}
 		}
+
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
+            Debug.Log(Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround));
             // If the character has a ceiling preventing them from standing up, keep them crouching
             if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
             {
@@ -172,6 +174,7 @@ public class CharacterController2D : MonoBehaviour
             //  PlayerController.animator.SetBool("Grounded", false);
             
 		}
+
         if (doubleJump)
         {
             //cancel vertical velocity
