@@ -37,10 +37,23 @@ public class MainMenu : MonoBehaviour
         {
              UnPause();
         }
-
-        healthText.text = "Player Health: " + player.health;
+        //percentage conversion
+        healthText.text = (player.health/startHealth) * 100 + "%";
+        //bar 0-1 float conversion
         healthBar.fillAmount = player.health/startHealth;
-            
+
+        if (healthBar.fillAmount <= 1 && healthBar.fillAmount >= .76)
+            healthBar.color = new Color(0f / 255.0f, 234.0f / 255.0f, 0f / 255.0f);
+
+        if (healthBar.fillAmount <= .75 && healthBar.fillAmount >= .51)
+            healthBar.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 0f / 255.0f);
+
+        if (healthBar.fillAmount <= .50 && healthBar.fillAmount >= .26)
+            healthBar.color = new Color(255.0f / 255.0f, 150.0f / 255.0f, 0f / 255.0f);
+
+        if (healthBar.fillAmount <= .25 && healthBar.fillAmount >= 0)
+            healthBar.color = new Color(255.0f / 0f, 0f / 255.0f, 0f / 255.0f);
+
 
     }
 
