@@ -75,22 +75,22 @@ public class ShotController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Gameobject is" + collision.gameObject);
         //instantiate small animations at some point
         if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
-        //for each enemy type
-        Debug.Log("Gameobject is" + collision.gameObject);
-        foreach (string enemyTag in GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().enemyTypes)
-        {
-            if (collision.gameObject.tag == enemyTag)
+        else if (collision.gameObject.layer == 16)
+            foreach (string enemyTag in GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().enemyTypes)
             {
-                collision.GetComponent<EnemyHealth>().health -= damage;
-                if (collision.GetComponent<EnemyHealth>().health <= 0)
+                if (collision.gameObject.tag == enemyTag)
                 {
-                    collision.gameObject.SetActive(false);
+                    collision.GetComponent<EnemyHealth>().health -= damage;
+                    if (collision.GetComponent<EnemyHealth>().health <= 0)
+                    {
+                        collision.gameObject.SetActive(false);
+                    }
+                    Destroy(gameObject);
                 }
-                Destroy(gameObject);
             }
-        }
     }
 
     private void Update()
