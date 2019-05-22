@@ -211,9 +211,11 @@ public class PlayerController : MonoBehaviour
         //
 
         //Debug.Log("Knocked down: " + knockdown);
-        
+
         if (!swinging && !fallThrough)
+        {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
+        }
         else if (swinging && doubleJump)
         {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
@@ -402,7 +404,9 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log(" " + grounded + " " + crouch + " " + jump + " " + thinGround + " " + (body.velocity.y == 0.0f));
         if ((grounded && crouch && jump && thinGround && body.velocity.y == 0.0f))
+        {
             fallThrough = true;
+        }
         else if (!grounded && body.velocity.y > 0 || jump)
         {
             jumpThrough = true;
@@ -410,7 +414,6 @@ public class PlayerController : MonoBehaviour
         }
         else
             jumpThrough = false;
-
     }
     
    

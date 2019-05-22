@@ -51,7 +51,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
         if (Timer > 1.0f && !aggro)
         {
             //don't run off edges
-            if (!ThereIsFloor())
+            if (!ThereIsFloor() || ThereIsWall(5.5f, 0))
             {
                 FlipAround();
                 setMovement();
