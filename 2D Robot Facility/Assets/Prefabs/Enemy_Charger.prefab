@@ -90,7 +90,7 @@ MonoBehaviour:
   jumpRange: 3
   landingCheckDistance: 5
   moveSpeed: 6
-  aggroRange: 25
+  aggroRange: 22
   aggroLeash: 35
   levelCheckHeight: 3
   randomMovement: 1
@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 9
+  invulnFrames: 0
+  time: 0
 --- !u!1 &1688599876205911187
 GameObject:
   m_ObjectHideFlags: 0
