@@ -18,7 +18,7 @@ public class InstantDeath : MonoBehaviour
     {
         if (active)
         {
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player")       // Ignores player invulnerability frames, just kills them outright on contact
             {
                 player = collision.GetComponent<PlayerHealth>();
                 playerController = collision.GetComponent<PlayerController>();

@@ -7346,7 +7346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 220, y: 10.09191, z: -30}
+  m_LocalPosition: {x: 78, y: 15.09191, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8560,6 +8560,11 @@ PrefabInstance:
       propertyPath: health
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2399256860400788890, guid: a06db0ca9abfc8843bc51eae0acdb2d1,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cba65ae0a94872744893d93b987ba0fa, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a06db0ca9abfc8843bc51eae0acdb2d1, type: 3}
 --- !u!1 &634589991
@@ -13336,12 +13341,12 @@ PrefabInstance:
     - target: {fileID: 4382923870804856844, guid: e55096b1d090deb429903b4c4337630d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 220
+      value: 78
       objectReference: {fileID: 0}
     - target: {fileID: 4382923870804856844, guid: e55096b1d090deb429903b4c4337630d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.09191
+      value: 15.09191
       objectReference: {fileID: 0}
     - target: {fileID: 4382923870804856844, guid: e55096b1d090deb429903b4c4337630d,
         type: 3}
@@ -25626,7 +25631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2023456267
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25643,7 +25648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -910.00916, y: 0}
+  m_AnchoredPosition: {x: -955, y: -220}
   m_SizeDelta: {x: 200, y: 1000.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2023456268
@@ -25677,14 +25682,15 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
+  m_fontColorGradientPreset: {fileID: 11400000, guid: c5dc939b3cee38d4bba9d5c5cde0b344,
+    type: 2}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_overrideHtmlColors: 0
@@ -25701,7 +25707,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 257
+  m_textAlignment: 258
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -36823,6 +36829,11 @@ PrefabInstance:
       propertyPath: health
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8057322466814447998, guid: a06db0ca9abfc8843bc51eae0acdb2d1,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cba65ae0a94872744893d93b987ba0fa, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a06db0ca9abfc8843bc51eae0acdb2d1, type: 3}
 --- !u!1001 &8972695428110066387
@@ -36837,15 +36848,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: MrRoboto
       objectReference: {fileID: 0}
+    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: invuln
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: invulnFrames
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4671547008208811435, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 220
+      value: 78
       objectReference: {fileID: 0}
     - target: {fileID: 4671547008208811435, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4671547008208811435, guid: d33fa022de5bd3749852958513921963,
         type: 3}
@@ -36907,21 +36933,6 @@ PrefabInstance:
       propertyPath: inGameUI
       value: 
       objectReference: {fileID: 2043796575}
-    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: health
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: invuln
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: invulnFrames
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7265923704967026710, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: GameOverUI

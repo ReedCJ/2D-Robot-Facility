@@ -14,8 +14,8 @@ public class TimedSmasher : MonoBehaviour
 #pragma warning disable 0649
     [SerializeField] private float timeUp;          // Time it spends staying still after retracting back to the top
     [SerializeField] private float timeDown;        // Time it spends staying still after extending to the max range
-    [SerializeField] private float slamTime;        // How long it takes to finish the slam animation
-    [SerializeField] private float retractTime;     // How long it takes to finish the retract animation
+    [SerializeField] private float slamSpeed;        // How long it takes to finish the slam animation
+    [SerializeField] private float retractSpeed;     // How long it takes to finish the retract animation
     [SerializeField] private float Offset;          // How long until it starts moving
     [SerializeField] private bool initialState;     // Does it start raised or lowered? true == raised
 #pragma warning restore 0649
@@ -29,8 +29,8 @@ public class TimedSmasher : MonoBehaviour
         lowering = false;
         hazard = GetComponentInChildren<InstantDeath>();
         animate = GetComponent<Animator>();
-        animate.SetFloat("SlamTime", slamTime);
-        animate.SetFloat("RetractTime", retractTime);
+        animate.SetFloat("SlamSpeed", slamSpeed);
+        animate.SetFloat("RetractSpeed", retractSpeed);
         hazard.active = false;
         if (initialState)
         {
@@ -51,33 +51,31 @@ public class TimedSmasher : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        AnimatorStateInfo curAnimation = animate.GetCurrentAnimatorStateInfo(0);
+        
         if (raised && timer >= timeUp)
         {
             Animate(true);
-            Debug.Log("Going down");
         }
         else if (lowered && timer >= timeDown)
         {
             Animate(false);
-            Debug.Log("Going up");
         }
-        else if (!raised && !lowered)
+        else if (!raised && !lowered)       // Freeze platform in place once it retracts or slams to the max distance.
         {
-            if (lowering && timer >= slamTime)
+            if (lowering && curAnimation.normalizedTime >= 1)
             {
                 lowering = false;
                 lowered = true;
                 timer = 0;
                 animate.SetTrigger("Transistion");
-                Debug.Log("Lowered.");
             }
-            else if (raising && timer >= retractTime)
+            else if (raising && curAnimation.normalizedTime >= 1)
             {
                 raising = false;
                 raised = true;
                 timer = 0;
                 animate.SetTrigger("Transistion");
-                Debug.Log("Raised.");
             }
         }
     }
