@@ -97,7 +97,7 @@ MonoBehaviour:
     useTriggers: 0
     useLayerMask: 1
     useDepth: 1
-    useOutsideDepth: 1
+    useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:

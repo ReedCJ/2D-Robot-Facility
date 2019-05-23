@@ -407,7 +407,7 @@ public class PlayerController : MonoBehaviour
         {
             fallThrough = true;
         }
-        else if (!grounded && body.velocity.y > 0 || jump)
+        else if (!grounded && body.velocity.y > 0 || jump || doubleJump)
         {
             jumpThrough = true;
             fallThrough = false;
