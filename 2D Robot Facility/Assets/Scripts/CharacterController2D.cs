@@ -63,7 +63,10 @@ public class CharacterController2D : MonoBehaviour
         else player.confined = false;
 
         if (wasGrounded == false)
+        {
+            player.thinGround = false;
             player.fallThrough = false;
+        }
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -82,14 +85,13 @@ public class CharacterController2D : MonoBehaviour
 			}
         }
         for (int i = 0; i < thinColliders.Length; i++)
-            if (thinColliders[i].gameObject != gameObject && thinColliders[i].GetComponent<ThinPlatforms>().pCol)
+            if (thinColliders[i].gameObject != gameObject && thinColliders[i].GetComponent<ThinPlatforms>().pCol && m_Rigidbody2D.velocity.y <= 0)
             {
-                
                 m_Grounded = true;
+                player.thinGround = true;
                 PlayerController.animator.SetBool("Grounded", true);
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
-                    
             }
     }
 

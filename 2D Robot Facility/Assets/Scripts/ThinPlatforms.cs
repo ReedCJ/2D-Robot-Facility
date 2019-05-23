@@ -35,12 +35,12 @@ public class ThinPlatforms : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Physics2D.OverlapArea(topLeft, botRight, filter, playerCol);
-            if (playerCol[0] == null && playerCol[1] == null)
+            if (playerCol[0] == null && playerCol[1] == null)       // If the player is no longer overlapping, 
             {
                 overlapping = false;
                 ToggleCol(false, player.gameObject);
             }
-            
+
             for (int i = 0; i < playerCol.Length; i++)      // Test whether or not the player is overlapping with the platform collider
             {
                 if (playerCol[i] != null && playerCol[i].gameObject.GetComponent<PlayerController>() != null && !pCol)
@@ -48,11 +48,6 @@ public class ThinPlatforms : MonoBehaviour
                     overlapping = true;
                 }
             }
-
-            if (player.transform.position.y > transform.position.y && player.grounded)      // Is the player on top of the thin platform?
-                player.thinGround = true;
-            else
-                player.thinGround = false;
         }
         else if (other.gameObject.tag == "Enemy")
         {
@@ -112,14 +107,6 @@ public class ThinPlatforms : MonoBehaviour
 
     private void FixedUpdate()
     {
-        player.MoveThroughPlatform();                                                   // Update the player variables
-        /*if(player.fallThrough || (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded) || player.jumpThrough || overlapping)
-        {
-            Debug.Log("player.fallThrough " + player.fallThrough);
-            Debug.Log("mathF " + (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded));
-            Debug.Log("jumpThrough " + player.jumpThrough);
-            Debug.Log("overlapping " + overlapping);
-        }*/
         ToggleCol(((player.fallThrough || (Mathf.Abs(player.transform.position.x - transform.position.x) > transform.localScale.x / 2.0f + .4 && !player.grounded)) || player.jumpThrough || overlapping), player.gameObject);      // Send the proper boolean statement to toggle collision and the player's gameObject
 
         /*for (int i = 0; i < eCol.Length; i++)     // Uncomment this when enemies have a passThrough variable
