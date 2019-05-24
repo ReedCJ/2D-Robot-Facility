@@ -158,7 +158,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: transform1
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -166,7 +166,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
+    importConstraints: 1
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -199,8 +199,106 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
-      maskType: 3
+      transformMask:
+      - path: 
+        weight: 1
+      - path: transform1
+        weight: 1
+      - path: transform1/joint1
+        weight: 1
+      - path: transform1/joint1/Cannon_Controller
+        weight: 1
+      - path: transform1/joint1/Cannon_Controller/ikHandle5
+        weight: 1
+      - path: transform1/joint1/Front_Left_Controller
+        weight: 1
+      - path: transform1/joint1/Front_Left_Controller/ikHandle1
+        weight: 1
+      - path: transform1/joint1/Front_Right_Controller
+        weight: 1
+      - path: transform1/joint1/Front_Right_Controller/ikHandle1 1
+        weight: 1
+      - path: transform1/joint1/Front_Right_Controller/ikHandle2
+        weight: 1
+      - path: transform1/joint1/joint2
+        weight: 1
+      - path: transform1/joint1/joint2/joint3
+        weight: 1
+      - path: transform1/joint1/joint2/joint3/joint17
+        weight: 1
+      - path: transform1/joint1/joint2/joint3/pCylinder9
+        weight: 1
+      - path: transform1/joint1/joint2/pSphere6
+        weight: 1
+      - path: transform1/joint1/joint4
+        weight: 1
+      - path: transform1/joint1/joint4/joint5
+        weight: 1
+      - path: transform1/joint1/joint4/joint5/joint18
+        weight: 1
+      - path: transform1/joint1/joint4/joint5/pCylinder11
+        weight: 1
+      - path: transform1/joint1/joint4/pSphere7
+        weight: 1
+      - path: transform1/joint1/joint6
+        weight: 1
+      - path: transform1/joint1/joint6/joint7
+        weight: 1
+      - path: transform1/joint1/joint6/joint7/joint19
+        weight: 1
+      - path: transform1/joint1/joint6/joint7/pCylinder13
+        weight: 1
+      - path: transform1/joint1/joint6/pSphere5
+        weight: 1
+      - path: transform1/joint1/joint8
+        weight: 1
+      - path: transform1/joint1/joint8/joint9
+        weight: 1
+      - path: transform1/joint1/joint8/joint9/joint20
+        weight: 1
+      - path: transform1/joint1/joint8/joint9/pCylinder12
+        weight: 1
+      - path: transform1/joint1/joint8/pSphere4
+        weight: 1
+      - path: transform1/joint1/joint10
+        weight: 1
+      - path: transform1/joint1/joint10/joint11
+        weight: 1
+      - path: transform1/joint1/joint10/joint11/joint12
+        weight: 1
+      - path: transform1/joint1/joint10/joint11/joint13
+        weight: 1
+      - path: transform1/joint1/joint10/joint11/joint13/joint14
+        weight: 1
+      - path: transform1/joint1/joint10/joint11/joint13/pCube2
+        weight: 1
+      - path: transform1/joint1/joint10/joint11/pCube1
+        weight: 1
+      - path: transform1/joint1/joint15
+        weight: 1
+      - path: transform1/joint1/joint15/joint16
+        weight: 1
+      - path: transform1/joint1/joint15/pSphere8
+        weight: 1
+      - path: transform1/joint1/Mouth_Controller
+        weight: 1
+      - path: transform1/joint1/Mouth_Controller/ikHandle7
+        weight: 1
+      - path: transform1/joint1/pCylinder4
+        weight: 1
+      - path: transform1/joint1/pCylinder4/ikHandle6
+        weight: 1
+      - path: transform1/joint1/pCylinder4/pCylinder10
+        weight: 1
+      - path: transform1/joint1/Rear_Left_Controller
+        weight: 1
+      - path: transform1/joint1/Rear_Left_Controller/ikHandle3
+        weight: 1
+      - path: transform1/joint1/Rear_Right_Controller
+        weight: 1
+      - path: transform1/joint1/Rear_Right_Controller/ikHandle4
+        weight: 1
+      maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
@@ -311,7 +409,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
