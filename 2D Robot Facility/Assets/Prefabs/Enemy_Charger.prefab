@@ -90,7 +90,7 @@ MonoBehaviour:
   jumpRange: 3
   landingCheckDistance: 5
   moveSpeed: 6
-  aggroRange: 25
+  aggroRange: 22
   aggroLeash: 35
   levelCheckHeight: 3
   randomMovement: 1

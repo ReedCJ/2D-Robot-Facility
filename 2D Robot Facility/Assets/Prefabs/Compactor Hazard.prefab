@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5118842755710559288}
   m_Layer: 0
   m_Name: Compactor Hazard
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 960974987884803530}
   m_Layer: 0
   m_Name: Trash Compactor
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

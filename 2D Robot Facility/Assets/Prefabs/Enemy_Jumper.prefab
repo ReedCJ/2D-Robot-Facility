@@ -172,7 +172,7 @@ MonoBehaviour:
   jumpRange: 3
   landingCheckDistance: 5
   moveSpeed: 0
-  aggroRange: 25
+  aggroRange: 22
   aggroLeash: 35
   levelCheckHeight: 3
   randomMovement: 1
@@ -214,6 +214,7 @@ MonoBehaviour:
   health: 4
   invulnFrames: 0
   time: 0
+
 --- !u!1001 &2905885717467086589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -287,3 +288,4 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 2905885717467086589}
   m_PrefabAsset: {fileID: 0}
+
