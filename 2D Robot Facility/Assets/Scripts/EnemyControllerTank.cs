@@ -23,6 +23,8 @@ public class EnemyControllerTank : EnemyControllerTemplate
     private GameObject laser;
     private Quaternion placeHolderRotation;
 
+    public Animator TankAnim;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -58,10 +60,12 @@ public class EnemyControllerTank : EnemyControllerTemplate
             }
             //move around slow
             MoveAround();
+            TankAnim.SetBool("Walking", true);
         }
         //when the player is aggro
         if(aggro)
         {
+            TankAnim.SetBool("Walking", false);
             //don't spin around while firing laser
             if (!laserParent.activeSelf)
             {
@@ -87,6 +91,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
             if(DistanceToPlayer < 7 && !laserParent.activeSelf)
             {
                 MoveAround();
+                TankAnim.SetBool("Walking", true);
             }
         }
         //controls and deactivates laser
@@ -94,6 +99,7 @@ public class EnemyControllerTank : EnemyControllerTemplate
         {
             if(Timer > lf + laserSpeed)
             {
+                TankAnim.SetBool("Charging", false);
                 laserTrace.SetActive(false);
                 laser.SetActive(true);
             }
@@ -125,7 +131,9 @@ public class EnemyControllerTank : EnemyControllerTemplate
         Vector3 LaserLookAt = new Vector3(player.transform.position.x, player.transform.position.y, laserParent.transform.position.z);
         laserParent.transform.LookAt(LaserLookAt);
         laserParent.SetActive(true);
+        TankAnim.SetBool("Charging", true);
         laserTrace.SetActive(true);
+        TankAnim.SetTrigger("Shoot");
         lf = Timer;
     }
     /*Old code from when angles were being tested
