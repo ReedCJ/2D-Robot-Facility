@@ -61,7 +61,7 @@ public class TimedSmasher : MonoBehaviour
         {
             Animate(false);
         }
-        else if (!raised && !lowered)       // Freeze platform in place once it retracts or slams to the max distance.
+        else if (!raised && !lowered)       // Freeze compactor in place once it retracts or slams to the max distance.
         {
             if (lowering && curAnimation.normalizedTime >= 1)
             {
