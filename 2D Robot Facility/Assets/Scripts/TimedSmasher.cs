@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TimedSmasher : MonoBehaviour
 {
-    private InstantDeath hazard;
-    private Animator animate;
+    private InstantDeath hazard;    // Script handling what happens when the hazard harmfully makes contact with the player
+    private Animator animate;       // Animator used for handling the movement of the hazard
     private bool raising;           // Is it currently retract back up?
     private bool lowering;          // Is it currently lowering down to the ground?
     private bool raised;            // Is the compactor currently fully raised?

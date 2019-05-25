@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ContactDamage : MonoBehaviour
 {
-    [SerializeField] private float damage;
+    [SerializeField] private float damage;          // Damage the player will take if hit
 
-    private PlayerHealth player;
-    private PlayerController playerController;
+    private PlayerHealth player;                    // Script that handles player damage
+    private PlayerController playerController;      // Primary player script. Handles player animation
    
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,7 @@ public class ContactDamage : MonoBehaviour
                 player.health -= damage;
                 Debug.Log("Health Remaining: " + player.health);
                 player.time = 0;
-                if (collision.GetComponent<PlayerHealth>().health <= 0)
+                if (player.health <= 0)
                 {
                     playerController.playerDeath();
                 }
