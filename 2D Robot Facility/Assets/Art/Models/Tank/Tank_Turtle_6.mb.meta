@@ -1,107 +1,111 @@
 fileFormatVersion: 2
-
-guid: 45cb44f8627ac774b9484dc81f67e151
+guid: 307f3de3fc52193439448107c87a40a5
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Cannon_Controller
-    100002: Front_Left_Controller
-    100004: Front_Right_Controller
-    100006: ikHandle1
-    100008: ikHandle1 1
-    100010: ikHandle2
-    100012: ikHandle3
-    100014: ikHandle4
-    100016: ikHandle5
-    100018: ikHandle6
-    100020: ikHandle7
-    100022: joint1
-    100024: joint10
-    100026: joint11
-    100028: joint12
-    100030: joint13
-    100032: joint14
-    100034: joint15
-    100036: joint16
-    100038: joint17
-    100040: joint18
-    100042: joint19
-    100044: joint2
-    100046: joint20
-    100048: joint3
-    100050: joint4
-    100052: joint5
-    100054: joint6
-    100056: joint7
-    100058: joint8
-    100060: joint9
-    100062: Mouth_Controller
-    100064: pCube1
-    100066: pCube2
-    100068: pCylinder10
-    100070: pCylinder11
-    100072: pCylinder12
-    100074: pCylinder13
-    100076: pCylinder4
-    100078: pCylinder9
-    100080: pSphere4
-    100082: pSphere5
-    100084: pSphere6
-    100086: pSphere7
-    100088: pSphere8
-    100090: Rear_Left_Controller
-    100092: Rear_Right_Controller
-    100094: //RootNode
-    100096: transform1
-    400000: Cannon_Controller
-    400002: Front_Left_Controller
-    400004: Front_Right_Controller
-    400006: ikHandle1
-    400008: ikHandle1 1
-    400010: ikHandle2
-    400012: ikHandle3
-    400014: ikHandle4
-    400016: ikHandle5
-    400018: ikHandle6
-    400020: ikHandle7
-    400022: joint1
-    400024: joint10
-    400026: joint11
-    400028: joint12
-    400030: joint13
-    400032: joint14
-    400034: joint15
-    400036: joint16
-    400038: joint17
-    400040: joint18
-    400042: joint19
-    400044: joint2
-    400046: joint20
-    400048: joint3
-    400050: joint4
-    400052: joint5
-    400054: joint6
-    400056: joint7
-    400058: joint8
-    400060: joint9
-    400062: Mouth_Controller
-    400064: pCube1
-    400066: pCube2
-    400068: pCylinder10
-    400070: pCylinder11
-    400072: pCylinder12
-    400074: pCylinder13
-    400076: pCylinder4
-    400078: pCylinder9
-    400080: pSphere4
-    400082: pSphere5
-    400084: pSphere6
-    400086: pSphere7
-    400088: pSphere8
-    400090: Rear_Left_Controller
-    400092: Rear_Right_Controller
-    400094: //RootNode
-    400096: transform1
+    100000: Body_Controller
+    100002: bottom1
+    100004: Cannon_Controller
+    100006: Front_Left_Controller
+    100008: Front_Right_Controller
+    100010: ikHandle1
+    100012: ikHandle1 1
+    100014: ikHandle2
+    100016: ikHandle3
+    100018: ikHandle4
+    100020: ikHandle5
+    100022: ikHandle6
+    100024: ikHandle7
+    100026: joint1
+    100028: joint10
+    100030: joint11
+    100032: joint12
+    100034: joint13
+    100036: joint14
+    100038: joint15
+    100040: joint16
+    100042: joint17
+    100044: joint18
+    100046: joint19
+    100048: joint2
+    100050: joint20
+    100052: joint3
+    100054: joint4
+    100056: joint5
+    100058: joint6
+    100060: joint7
+    100062: joint8
+    100064: joint9
+    100066: Mouth_Controller
+    100068: pCube1
+    100070: pCube2
+    100072: pCylinder10
+    100074: pCylinder11
+    100076: pCylinder12
+    100078: pCylinder13
+    100080: pCylinder4
+    100082: pCylinder9
+    100084: pSphere4
+    100086: pSphere5
+    100088: pSphere6
+    100090: pSphere7
+    100092: pSphere8
+    100094: Rear_Left_Controller
+    100096: Rear_Right_Controller
+    100098: //RootNode
+    100100: transform1
+    400000: Body_Controller
+    400002: bottom1
+    400004: Cannon_Controller
+    400006: Front_Left_Controller
+    400008: Front_Right_Controller
+    400010: ikHandle1
+    400012: ikHandle1 1
+    400014: ikHandle2
+    400016: ikHandle3
+    400018: ikHandle4
+    400020: ikHandle5
+    400022: ikHandle6
+    400024: ikHandle7
+    400026: joint1
+    400028: joint10
+    400030: joint11
+    400032: joint12
+    400034: joint13
+    400036: joint14
+    400038: joint15
+    400040: joint16
+    400042: joint17
+    400044: joint18
+    400046: joint19
+    400048: joint2
+    400050: joint20
+    400052: joint3
+    400054: joint4
+    400056: joint5
+    400058: joint6
+    400060: joint7
+    400062: joint8
+    400064: joint9
+    400066: Mouth_Controller
+    400068: pCube1
+    400070: pCube2
+    400072: pCylinder10
+    400074: pCylinder11
+    400076: pCylinder12
+    400078: pCylinder13
+    400080: pCylinder4
+    400082: pCylinder9
+    400084: pSphere4
+    400086: pSphere5
+    400088: pSphere6
+    400090: pSphere7
+    400092: pSphere8
+    400094: Rear_Left_Controller
+    400096: Rear_Right_Controller
+    400098: //RootNode
+    400100: transform1
+    2000000: bottom1
     2100000: lambert1
     2300000: pCube1
     2300002: pCube2
@@ -176,7 +180,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -197,7 +201,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.25
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

@@ -5,12 +5,12 @@ using UnityEngine;
 public class HazardContactDamage : MonoBehaviour
 {
 #pragma warning disable 0649
-    [SerializeField] private float pDamage;
-    [SerializeField] private float eDamage;
+    [SerializeField] private float pDamage;     // Damage hazard does to player
+    [SerializeField] private float eDamage;     // Damage hazard does to enemies
 #pragma warning restore 0649
 
-    private PlayerHealth player;
-    private PlayerController playerController;
+    private PlayerHealth player;                // Script handling damage the player takes
+    private PlayerController playerController;  // Primary player script, handles animation
 
     [System.NonSerialized] public bool active;
 
@@ -34,7 +34,7 @@ public class HazardContactDamage : MonoBehaviour
                     player.health -= pDamage;
                     Debug.Log("Health Remaining: " + player.health);
                     player.time = 0;
-                    if (collision.GetComponent<PlayerHealth>().health <= 0)
+                    if (player.health <= 0)
                     {
                         playerController.playerDeath();
                     }
@@ -48,7 +48,7 @@ public class HazardContactDamage : MonoBehaviour
                 {
                     enemy.health -= eDamage;
                     enemy.time = 0;
-                    if (collision.GetComponent<EnemyHealth>().health <= 0)
+                    if (enemy.health <= 0)
                         Destroy(collision.gameObject);
                 }
             }
