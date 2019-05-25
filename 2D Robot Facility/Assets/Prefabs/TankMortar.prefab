@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2211785857085361106}
   - component: {fileID: 2211785857085361107}
   - component: {fileID: 2211785857085361116}
-  - component: {fileID: 8428741712791963987}
+  - component: {fileID: 6201164834104318025}
   m_Layer: 0
   m_Name: TankMortar
   m_TagString: Untagged
@@ -138,10 +138,9 @@ MonoBehaviour:
   aggroLeash: 0
   levelCheckHeight: 0
   randomMovement: 0
-  mortarHeight: -2
   travelTime: 1
   tank: {fileID: 8078804377546338604, guid: 397cd8fd1b9e05b419f81fb0399dec73, type: 3}
---- !u!114 &8428741712791963987
+--- !u!114 &6201164834104318025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2211785857085361117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c23f17d01ca241429119214e41aeb7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fc3d18d2ade4e14189c38ec4d6e6a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
