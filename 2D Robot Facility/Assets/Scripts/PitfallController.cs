@@ -66,6 +66,11 @@ public class PitfallController : MonoBehaviour
             else
                 followCam.SetActive(true);
         }
+        else if (collision.gameObject.tag == "Enemy1" && collision.transform.position.y < transform.position.y)
+        {
+            collision.gameObject.GetComponent<EnemyHealth>().health = 0;
+            Destroy(collision.gameObject);
+        }
     }
 
     private void Respawn()          // Place the player on safe ground
