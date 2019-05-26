@@ -40,7 +40,7 @@ public class HazardContactDamage : MonoBehaviour
                     }
                 }
             }
-            else if (collision.gameObject.tag == "Enemy")
+            else if (collision.gameObject.tag == "Enemy1")
             {
                 EnemyHealth enemy = collision.GetComponent<EnemyHealth>();
 
