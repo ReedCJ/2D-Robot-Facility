@@ -32,8 +32,8 @@ public class PlayerController : MonoBehaviour
     private GameObject GrappleHook;         // Active Grappling Hook Object
     public TeatherController grappleController;     // Script for swinging player
     static public Animator animator;
-    private Rigidbody2D body;
     public CharacterController2D controller;      // The script that processes our movement inputs
+    [System.NonSerialized] public Rigidbody2D body;
     [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
     [System.NonSerialized] public float vMove = 0.0f;               // Vertical Input and climbing
     [System.NonSerialized] public bool teatherOut;                  // Grappling hook deployed?

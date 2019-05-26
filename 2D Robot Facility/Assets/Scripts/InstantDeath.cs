@@ -28,7 +28,7 @@ public class InstantDeath : MonoBehaviour
                 Debug.Log("Health Remaining: " + player.health);
                 playerController.playerDeath();
             }
-            else if (collision.gameObject.tag == "Enemy")
+            else if (collision.gameObject.tag == "Enemy1")
             {
                 EnemyHealth enemy = collision.GetComponent<EnemyHealth>();
 
