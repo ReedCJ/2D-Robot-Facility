@@ -17,30 +17,23 @@ public class TimedSmasher : MonoBehaviour
     [SerializeField] private float slamSpeed;        // How long it takes to finish the slam animation
     [SerializeField] private float retractSpeed;     // How long it takes to finish the retract animation
     [SerializeField] private float Offset;          // How long until it starts moving
-    [SerializeField] private bool initialState;     // Does it start raised or lowered? true == raised
 #pragma warning restore 0649
 
     // Start is called before the first frame update
     void Start()
     {
-        raised = initialState;
-        lowered = !initialState;
+        raised = false;
+        lowered = true;
         raising = false;
         lowering = false;
+        timer = -Offset;
+
         hazard = GetComponentInChildren<InstantDeath>();
+        hazard.active = false;
+
         animate = GetComponent<Animator>();
         animate.SetFloat("SlamSpeed", slamSpeed);
         animate.SetFloat("RetractSpeed", retractSpeed);
-        hazard.active = false;
-        if (initialState)
-        {
-            timer = timeUp;
-        }
-        else
-        {
-            timer = timeDown;
-        }
-        timer -= Offset;
     }
 
     private void Update()
@@ -52,13 +45,15 @@ public class TimedSmasher : MonoBehaviour
     void FixedUpdate()
     {
         AnimatorStateInfo curAnimation = animate.GetCurrentAnimatorStateInfo(0);
-        
+
         if (raised && timer >= timeUp)
         {
+            Debug.Log("Up, going down.");
             Animate(true);
         }
         else if (lowered && timer >= timeDown)
         {
+            Debug.Log("Down, going up.");
             Animate(false);
         }
         else if (!raised && !lowered)       // Freeze compactor in place once it retracts or slams to the max distance.
@@ -69,6 +64,7 @@ public class TimedSmasher : MonoBehaviour
                 lowered = true;
                 timer = 0;
                 animate.SetTrigger("Transistion");
+                Debug.Log("Lowered");
             }
             else if (raising && curAnimation.normalizedTime >= 1)
             {
@@ -76,6 +72,7 @@ public class TimedSmasher : MonoBehaviour
                 raised = true;
                 timer = 0;
                 animate.SetTrigger("Transistion");
+                Debug.Log("Raised");
             }
         }
     }
