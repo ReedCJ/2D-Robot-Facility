@@ -12,6 +12,7 @@ TagManager:
   - Hazard
   - Target
   - Keycard
+  - Menu
   layers:
   - Default
   - TransparentFX

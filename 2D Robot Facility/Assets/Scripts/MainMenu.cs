@@ -13,7 +13,9 @@ public class MainMenu : MonoBehaviour
     public PlayerHealth player;
     public Image healthBar;
     private float startHealth;
-
+    private Animator animator;
+    private GameObject menuPlayer;
+    
     private IEnumerator coroutine;
 
     public static bool isPaused; //Used to determine paused state
@@ -21,8 +23,18 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        if(player != null)
-        startHealth = player.health; 
+        //assigns animation controller if main menu
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            menuPlayer = GameObject.FindWithTag("Menu");
+            animator = menuPlayer.GetComponent<Animator>();
+            //Debug.Log("menuPlayer Animator=" + animator.ToString());
+        }
+
+        //if in-game menu 
+        if (player != null)
+        startHealth = player.health;
+        
         UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts
         isPaused = false; //make sure isPaused is always false when our scene opens
     }
@@ -65,7 +77,10 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //starts delayed StartGame function
+        coroutine = StartGame();
+        StartCoroutine(coroutine);
+        animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
     }
 
     public void QuitGame()
@@ -101,6 +116,12 @@ public class MainMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(.1f);
         isPaused = false;
+    }
+
+    private IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Restart()

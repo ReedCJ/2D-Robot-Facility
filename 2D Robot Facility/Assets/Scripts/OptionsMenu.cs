@@ -57,7 +57,7 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
 
         //updates fullscreen toggle position
-        fullscreen.enabled = Screen.fullScreen;
+      //  fullscreen.enabled = Screen.fullScreen;
 
         //Saves audio changes to persistent playerpref values
         volSlider.value = PlayerPrefs.GetFloat("MVolume", 1f);

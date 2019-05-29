@@ -7835,7 +7835,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 374, y: -31.808092, z: -30}
+  m_LocalPosition: {x: 54.19, y: 15.29191, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -13830,12 +13830,12 @@ PrefabInstance:
     - target: {fileID: 4382923870804856844, guid: e55096b1d090deb429903b4c4337630d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 374
+      value: 54.19
       objectReference: {fileID: 0}
     - target: {fileID: 4382923870804856844, guid: e55096b1d090deb429903b4c4337630d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -31.808092
+      value: 15.29191
       objectReference: {fileID: 0}
     - target: {fileID: 4382923870804856844, guid: e55096b1d090deb429903b4c4337630d,
         type: 3}
@@ -37263,30 +37263,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: MrRoboto
       objectReference: {fileID: 0}
-    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: health
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: invuln
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: invulnFrames
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4671547008208811435, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 374
+      value: 54.19
       objectReference: {fileID: 0}
     - target: {fileID: 4671547008208811435, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -32.9
+      value: 14.2
       objectReference: {fileID: 0}
     - target: {fileID: 4671547008208811435, guid: d33fa022de5bd3749852958513921963,
         type: 3}
@@ -37333,21 +37318,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: gameOverScreen
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: restartGame
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
-        type: 3}
-      propertyPath: inGameUI
-      value: 
-      objectReference: {fileID: 2043796575}
     - target: {fileID: 7265923704967026710, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: GameOverUI
@@ -37367,6 +37337,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: restartGame
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: inGameUI
+      value: 
+      objectReference: {fileID: 2043796575}
+    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: invuln
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965328221131335811, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: invulnFrames
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8972695426720726025, guid: d33fa022de5bd3749852958513921963,
         type: 3}
