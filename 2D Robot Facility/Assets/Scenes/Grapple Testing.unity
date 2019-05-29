@@ -668,7 +668,7 @@ PrefabInstance:
     - target: {fileID: 5118842755710559288, guid: 66e40074cc30e2640bff57c0eacfdce1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.44
+      value: -24.91
       objectReference: {fileID: 0}
     - target: {fileID: 5118842755710559288, guid: 66e40074cc30e2640bff57c0eacfdce1,
         type: 3}
@@ -723,7 +723,27 @@ PrefabInstance:
     - target: {fileID: 960974987884803530, guid: 66e40074cc30e2640bff57c0eacfdce1,
         type: 3}
       propertyPath: Offset
-      value: 1.2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 960974987884803530, guid: 66e40074cc30e2640bff57c0eacfdce1,
+        type: 3}
+      propertyPath: timeDown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 960974987884803530, guid: 66e40074cc30e2640bff57c0eacfdce1,
+        type: 3}
+      propertyPath: timeUp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 960974987884803530, guid: 66e40074cc30e2640bff57c0eacfdce1,
+        type: 3}
+      propertyPath: slamSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 960974987884803530, guid: 66e40074cc30e2640bff57c0eacfdce1,
+        type: 3}
+      propertyPath: retractSpeed
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66e40074cc30e2640bff57c0eacfdce1, type: 3}
