@@ -40,6 +40,7 @@ public class PitfallController : MonoBehaviour
         if (collision.gameObject.tag == "Player" && playerController.transform.position.y < transform.position.y + transform.localScale.y / 5.0f)
         {
             followCam.SetActive(false);
+            PlayerController.animator.SetBool("DeathFall", true);
         }
     }
 
@@ -52,16 +53,12 @@ public class PitfallController : MonoBehaviour
             if (player.transform.position.y < transform.position.y)
             {
                 player.health -= damage;
-                Debug.Log("Health Remaining: " + player.health);
                 player.time = 0;
-                if (player.health <= 0)
-                {
-                    playerController.playerDeathFall();
-                }
-                else
-                {
+
+                if (player.health > 0)
                     Respawn();
-                }
+                else
+                    playerController.playerDeathFall();
             }
             else
                 followCam.SetActive(true);
@@ -76,6 +73,7 @@ public class PitfallController : MonoBehaviour
     private void Respawn()          // Place the player on safe ground
     {
         playerController.body.velocity = Vector3.zero;
+        PlayerController.animator.SetBool("DeathFall", false);
         if (respawnLeft && respawnRight)        // If both spots are available, choose one
         {
             if (respawn)
