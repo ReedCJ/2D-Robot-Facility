@@ -48,12 +48,10 @@ public class TimedSmasher : MonoBehaviour
 
         if (raised && timer >= timeUp)
         {
-            Debug.Log("Up, going down.");
             Animate(true);
         }
         else if (lowered && timer >= timeDown)
         {
-            Debug.Log("Down, going up.");
             Animate(false);
         }
         else if (!raised && !lowered)       // Freeze compactor in place once it retracts or slams to the max distance.
@@ -64,7 +62,6 @@ public class TimedSmasher : MonoBehaviour
                 lowered = true;
                 timer = 0;
                 animate.SetTrigger("Transistion");
-                Debug.Log("Lowered");
             }
             else if (raising && curAnimation.normalizedTime >= 1)
             {
@@ -72,7 +69,6 @@ public class TimedSmasher : MonoBehaviour
                 raised = true;
                 timer = 0;
                 animate.SetTrigger("Transistion");
-                Debug.Log("Raised");
             }
         }
     }

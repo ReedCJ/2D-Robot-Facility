@@ -210,8 +210,6 @@ public class PlayerController : MonoBehaviour
         // Movement input && grapple input processing block
         //
 
-        //Debug.Log("Knocked down: " + knockdown);
-
         if (!swinging && !fallThrough)
         {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
@@ -233,7 +231,7 @@ public class PlayerController : MonoBehaviour
         //Assign grounded
         grounded = controller.m_Grounded;
         //Reset double jump if player is grounded, or is swinging 
-        if (grounded || swinging) { canDouble = true; }
+        if (grounded) { canDouble = true; }
 
         //Fire if enough time has passed between shots and fire button is pressed
         if (fire && timer > fireRate)
