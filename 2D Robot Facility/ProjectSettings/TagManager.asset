@@ -12,6 +12,7 @@ TagManager:
   - Hazard
   - Target
   - Keycard
+  - Door
   layers:
   - Default
   - TransparentFX

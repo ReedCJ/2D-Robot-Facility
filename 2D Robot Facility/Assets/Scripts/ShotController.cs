@@ -75,7 +75,7 @@ public class ShotController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Gameobject is" + collision.gameObject);
+        //Debug.Log("Gameobject is" + collision.gameObject);
         //instantiate small animations at some point
         if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
         else if (collision.gameObject.layer == 16)
