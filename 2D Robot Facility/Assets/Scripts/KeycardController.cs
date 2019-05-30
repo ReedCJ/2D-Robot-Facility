@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeycardController : MonoBehaviour
 {
-    List<string> keycards = new List<string>();
+    public List<string> keycards = new List<string>();
     // Start is called before the first frame update
     void Start()
     {
