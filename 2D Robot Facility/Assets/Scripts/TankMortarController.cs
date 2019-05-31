@@ -42,7 +42,7 @@ public class TankMortarController : EnemyControllerTemplate
         shooter = s;
         playerPosition = new Vector2(player.gameObject.transform.position.x, player.gameObject.transform.position.y - 0.6f);
         hdp = shooter.gameObject.GetComponent<EnemyControllerTank>().HorizontalDistanceToPlayer;
-        mh = (playerPosition.y - 8) / 2;
+        mh = (playerPosition.y - shooter.transform.position.y) + 0.6f;
         if (player.transform.position.y > shooter.transform.position.y + 1)
         {
             ep = GetEndPosition();
