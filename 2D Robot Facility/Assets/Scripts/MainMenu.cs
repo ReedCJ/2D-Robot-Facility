@@ -12,7 +12,6 @@ public class MainMenu : MonoBehaviour
     public TextMeshProUGUI healthText;
     public PlayerHealth player;
     public Image healthBar;
-    private float startHealth;
     private Animator animator;
     private GameObject menuPlayer;
     
@@ -32,8 +31,6 @@ public class MainMenu : MonoBehaviour
         }
 
         //if in-game menu 
-        if (player != null)
-        startHealth = player.health;
         
         UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts
         isPaused = false; //make sure isPaused is always false when our scene opens
@@ -54,9 +51,9 @@ public class MainMenu : MonoBehaviour
         if (player != null)
         {
             //percentage conversion
-            healthText.text = (player.health/startHealth) * 100 + "%";
+            healthText.text = (player.health/player.maxHealth) * 100 + "%";
             //bar 0-1 float conversion
-            healthBar.fillAmount = player.health/startHealth;
+            healthBar.fillAmount = player.health/player.maxHealth;
 
             if (healthBar.fillAmount <= 1 && healthBar.fillAmount >= .76)
                 healthBar.color = new Color(0f / 255.0f, 234.0f / 255.0f, 0f / 255.0f);
