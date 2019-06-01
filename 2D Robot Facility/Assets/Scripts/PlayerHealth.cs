@@ -7,7 +7,8 @@ public class PlayerHealth : MonoBehaviour
     [System.NonSerialized]public float time;
 
     public bool invuln;
-    public float health;
+    public float maxHealth;
+    [System.NonSerialized] public float health;
     public float invulnFrames;
 
     private void Start()
