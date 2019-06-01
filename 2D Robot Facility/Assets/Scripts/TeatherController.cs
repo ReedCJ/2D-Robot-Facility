@@ -93,11 +93,15 @@ public class TeatherController : MonoBehaviour
         if (extending)
             Shift();
         if (retracting)
+        {
             Retract();
+            //Debug.Log("Retracting");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)     // What happens when the grappling hook collides with a valid surface
     {
+        //Debug.Log(other.gameObject + " " + contact);
         if (other.gameObject.tag == "Terrain" && other.GetComponent<Collider2D>().gameObject.GetComponent<Rigidbody2D>()
             && other.gameObject.GetComponent<PlatformController>() != null && other.gameObject.GetComponent<PlatformController>().grappable && !contact && !retracting)
         {
@@ -117,6 +121,7 @@ public class TeatherController : MonoBehaviour
             contact = true;
             player.swinging = true;
             player.teatherSwinging = true;
+            //Debug.Log(retracting);
         }
     }
 

@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
     private bool fire;                      // Attack key input
     public float fireRate;                  // How fast you can shoot
+    private float lf;                       //last time you fired
     private float nextFire;                 //counter for fire rate
     private GameObject settingshot;
 
@@ -29,6 +30,12 @@ public class PlayerController : MonoBehaviour
     private bool canDouble;                 // bool for being able to double dump
     private bool doubleJump;                // double jump bool
     private bool camFollow;                 // Camera is in follow mode?
+
+    private bool canTeleport;               //Are you on a teleporter?
+    private GameObject teleporter;          //What teleporter are you on?
+    private bool teleport;                  //Are you teleporting?
+    private float lt;                       //When did you last teleport?
+
     private GameObject GrappleHook;         // Active Grappling Hook Object
     public TeatherController grappleController;     // Script for swinging player
     static public Animator animator;
@@ -136,6 +143,14 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            if(Input.GetButtonDown("Interact"))
+            {
+                if(grounded && canTeleport && timer > lt + 0.5f)
+                {
+                    teleport = true;
+                }
+            }
+
             if (Input.GetButtonUp("Jump") && !grounded)     // Short hop code
             {
                 if (body.velocity.y > 0)
@@ -234,10 +249,16 @@ public class PlayerController : MonoBehaviour
         if (grounded) { canDouble = true; }
 
         //Fire if enough time has passed between shots and fire button is pressed
-        if (fire && timer > fireRate)
+        if (fire && timer > lf + fireRate)
         {
             Attack();
-            timer = 0.0f;
+            lf = timer;
+        }
+
+        if(teleport)
+        {
+            this.gameObject.transform.position = teleporter.GetComponent<TeleporterController>().Destination.transform.GetChild(0).gameObject.transform.position;
+            lt = timer;
         }
 
         //If grapple key is pressed
@@ -247,6 +268,7 @@ public class PlayerController : MonoBehaviour
         jump = false;
         doubleJump = false;
         teather = false;
+        teleport = false;
         //animator.SetBool("Swinging", false);
     }
 
@@ -270,6 +292,18 @@ public class PlayerController : MonoBehaviour
         settingshot = Instantiate(shot, attackSpawn, placeholderRotation);
         //set the shot direction
         SetShotDirection();
+    }
+
+    public bool CanTeleport
+    {
+        get { return canTeleport; }
+        set { canTeleport = value; }
+    }
+
+    public GameObject Teleporter
+    {
+        get { return teleporter; }
+        set { teleporter = value; }
     }
 
     private Vector3 GetShotSpawn()
