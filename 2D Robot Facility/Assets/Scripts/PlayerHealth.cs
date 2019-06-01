@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         time = invulnFrames;
+        health = maxHealth;
     }
 
     void Update()
