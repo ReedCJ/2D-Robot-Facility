@@ -54,11 +54,11 @@ public class TankMortarController : EnemyControllerTemplate
             mh = 3;
         }
     }
-    //destroy these on terrain collision
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(other.gameObject.tag == "Terrain") { Destroy(gameObject); }
+        if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
     }
+    
     //get position
     Vector2 Parabola(Vector2 start, Vector2 end, float height, float t)
     {

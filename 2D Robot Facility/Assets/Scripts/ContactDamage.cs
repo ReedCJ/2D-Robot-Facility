@@ -29,7 +29,7 @@ public class ContactDamage : MonoBehaviour
                 player.time = 0;
                 if (player.health <= 0)
                 {
-                    playerController.playerDeath();
+                    //playerController.playerDeath();
                 }
                 else playerController.contactAnimate();
             }
