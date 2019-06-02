@@ -8,7 +8,7 @@ public class KeycardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        keycards.Add("none");
     }
 
     private void OnTriggerEnter2D(Collider2D other)

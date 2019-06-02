@@ -86,6 +86,10 @@ public class ShotController : MonoBehaviour
                     collision.GetComponent<EnemyHealth>().health -= damage;
                     if (collision.GetComponent<EnemyHealth>().health <= 0)
                     {
+                        if(collision.GetComponent<Drop>() != null)
+                        {
+                            collision.GetComponent<Drop>().DropObject();
+                        }
                         collision.gameObject.SetActive(false);
                     }
                     Destroy(gameObject);
