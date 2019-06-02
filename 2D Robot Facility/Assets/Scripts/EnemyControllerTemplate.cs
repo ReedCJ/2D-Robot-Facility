@@ -16,6 +16,7 @@ public class EnemyControllerTemplate : MonoBehaviour
     public float aggroLeash;
     public float levelCheckHeight;
     public bool randomMovement;
+    [SerializeField] private GameObject drop;
 
     protected float height;
     protected bool aggro;
@@ -44,6 +45,7 @@ public class EnemyControllerTemplate : MonoBehaviour
         gameController = GameObject.FindWithTag("GameController");
         //Set movement for enemies that move
         facing = false;
+        aggro = false;
         setMovement();
     }
 
@@ -128,9 +130,9 @@ public class EnemyControllerTemplate : MonoBehaviour
         //get the position you will check from
         checkPosition = new Vector2(body.transform.position.x + fcd, body.transform.position.y);
         //raycast down 3 at the distance specified
-        hit = Physics2D.Raycast(checkPosition, Vector2.down, 3.0f);
+        hit = Physics2D.Raycast(checkPosition, Vector2.down, 4.0f);
         //debug
-        //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 4.0f);
+        Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 4.0f);
         //return true if hit collider isn't null
         return hit.collider != null;
     }
@@ -149,7 +151,7 @@ public class EnemyControllerTemplate : MonoBehaviour
         }
         hit = Physics2D.Raycast(checkPosition, direction, 0.5f);
         //Debug.DrawRay(checkPosition, direction * 0.5f, Color.red, 0.7f);
-        if (hit.collider != null) { return hit.collider.gameObject.tag == "Terrain"; }
+        if (hit.collider != null) { return hit.collider.gameObject.tag == "Terrain" || hit.collider.gameObject.tag == "Door"; }
         return false;
     }
 

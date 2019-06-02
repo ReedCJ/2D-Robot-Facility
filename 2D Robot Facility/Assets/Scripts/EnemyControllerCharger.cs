@@ -13,6 +13,8 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     private Vector2 chargeLeft;
     private int nofloor = 0;
 
+    [SerializeField] private bool boss;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -33,7 +35,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
             aggro = true;
         }
         //de aggro if you get out of leash range or out of range height wise 4x the height check distance
-        else if (DistanceToPlayer > aggroLeash || DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel())
+        else if (!boss && DistanceToPlayer > aggroLeash || !boss && DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel())
         {
             aggro = false;
         }
@@ -44,7 +46,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         //move around normally
         if (Timer > 1.0f && !aggro)
         {
-            if (!ThereIsFloor() && OverGround() || ThereIsWall(3,0))
+            if (!boss && !ThereIsFloor() && OverGround() || ThereIsWall(4f,0))
             {
                 //nofloor++;
                 FlipAround();
