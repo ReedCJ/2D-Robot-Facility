@@ -71,13 +71,14 @@ GameObject:
   - component: {fileID: 4671547008208811435}
   - component: {fileID: 7060801079325029928}
   - component: {fileID: 7265923704967026710}
+  - component: {fileID: 1965328221131335811}
+  - component: {fileID: 7770694891249658993}
+  - component: {fileID: 5134024460772185464}
   - component: {fileID: 6804002588173108448}
   - component: {fileID: 8049772698203906667}
   - component: {fileID: 870986908883215073}
   - component: {fileID: 2273663979706724169}
   - component: {fileID: 1353147268811288123}
-  - component: {fileID: 7770694891249658993}
-  - component: {fileID: 1965328221131335811}
   m_Layer: 12
   m_Name: MrRoboto
   m_TagString: Player
@@ -190,6 +191,48 @@ MonoBehaviour:
   knockdown: 0
   contactRight: 0
   contactTop: 0
+--- !u!114 &1965328221131335811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770694891249658994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5a07fa9e4109440bb8519d8c3244f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invuln: 0
+  maxHealth: 10
+  invulnFrames: 2
+--- !u!114 &7770694891249658993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770694891249658994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a1ad11832fa6b4bbf8bab95f79a35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverScreen: {fileID: 0}
+  restartGame: {fileID: 0}
+  inGameUI: {fileID: 0}
+--- !u!114 &5134024460772185464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770694891249658994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41beb9ac345e9a7448531b5b38ec592d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &6804002588173108448
 Rigidbody2D:
   serializedVersion: 4
@@ -309,36 +352,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7770694891249658993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7770694891249658994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80a1ad11832fa6b4bbf8bab95f79a35c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
-  restartGame: {fileID: 0}
-  inGameUI: {fileID: 0}
---- !u!114 &1965328221131335811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7770694891249658994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5a07fa9e4109440bb8519d8c3244f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invuln: 0
-  health: 5
-  invulnFrames: 2
 --- !u!1 &8972695426720726025
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class ConveyorBeltController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && active)
+        if (collision.CompareTag("Player") && active)
         {
             Move(collision.gameObject);
         }

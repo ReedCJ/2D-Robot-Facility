@@ -13,6 +13,9 @@ TagManager:
   - Target
   - Keycard
   - Menu
+  - Door
+  - GameMaster
+  - Pick Up
   layers:
   - Default
   - TransparentFX

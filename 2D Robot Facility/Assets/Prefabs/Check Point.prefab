@@ -117,3 +117,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514f47404148e014b9f3718f70dcfbed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  howToUseCheckPoints: Hover over "How to use"
