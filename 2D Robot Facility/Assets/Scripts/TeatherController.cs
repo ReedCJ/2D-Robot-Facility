@@ -8,8 +8,6 @@ public class TeatherController : MonoBehaviour
     private Rigidbody2D body;                   // Used to move the hook to different places.
     private Rigidbody2D playerBody;             // Reference to player body to apply swinging physics
     private PlayerController player;            // Script reference for the player
-    private Material rope;                      // Rope material, modified to maintain expected visuals
-    private int ropeID;                         // Material ID
     [SerializeField] private GameObject teatherPrefab;  // The teather object prefab
     private GameObject teather;                 // The teather object
 
@@ -59,9 +57,8 @@ public class TeatherController : MonoBehaviour
         teatherVelocity = new Vector3(Mathf.Cos(deployAngle / 180 * Mathf.PI) * facing, Mathf.Sin(deployAngle / 180 * Mathf.PI), 0.0f) * speed;
 
         teather = Instantiate(teatherPrefab, player.teatherSpawn.transform.position, transform.rotation);
-        /*rope = teather.GetComponent<Renderer>().material;
-        ropeID = Shader.PropertyToID("_MainTex");*/
         Shift();
+        Debug.Log("Starting");
     }
 
     // Update is called once per frame
@@ -74,7 +71,7 @@ public class TeatherController : MonoBehaviour
             playerBody.gravityScale = 4;
         }
 
-        if (Input.GetButtonDown("Teather") || Input.GetButtonDown("Jump") || player.knockdown || player.dead)                 // Input to retract teather
+        if (Input.GetButtonDown("Teather") || (Input.GetButtonDown("Jump") && contact) || player.knockdown || player.dead)                 // Input to retract teather
             retracting = true;
         else if (distance > teatherRange && !contact)       // Start retracting after reaching the maximum teatherRange
             retracting = true;
@@ -126,11 +123,6 @@ public class TeatherController : MonoBehaviour
             player.teatherSwinging = true;
             //Debug.Log(retracting);
         }
-        else if (other.gameObject.tag == "Terrain" && contact == false)     // Grapple hook starts retracting if the colliding surface is invalid
-        {
-            retracting = true;
-            //Debug.Log(retracting);
-        }
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -140,6 +132,10 @@ public class TeatherController : MonoBehaviour
             player.teatherOut = false;
             Destroy(teather);
             Destroy(gameObject);
+        }
+        else if (other.gameObject.tag == "Terrain" && contact == false)     // Grapple hook starts retracting if the colliding surface is invalid
+        {
+            retracting = true;
         }
     }
 
@@ -298,7 +294,7 @@ public class TeatherController : MonoBehaviour
         }
     }
 
-    private void DistanceAngleSpeed()       // Figures out the current distance, angle and speed of the teather
+    private void DistanceAngleSpeed()       // Figures out the current distance from the player, the direction the teather is in and the speed of the player
     {
         distance = Vector2.Distance(new Vector2(player.teatherSpawn.transform.position.x, player.teatherSpawn.transform.position.y),
                 new Vector2(transform.position.x, transform.position.y));
@@ -313,7 +309,5 @@ public class TeatherController : MonoBehaviour
         float yPos = player.teatherSpawn.position.y - (player.teatherSpawn.position.y - transform.position.y) / 2;
         teather.transform.position = new Vector3(xPos, yPos, player.transform.position.z);
         teather.transform.localScale = new Vector3(teather.transform.localScale.x, distance / 2, teather.transform.localScale.z);
-
-        //rope.SetTextureOffset("_MainTex", new Vector2(0, distance % teather.transform.localScale.y));
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConeyorBeltController : MonoBehaviour
+public class ConveyorBeltController : MonoBehaviour
 {
 #pragma warning disable 0649
     [SerializeField] private Transform leftEnd;      // The left end of the belt. Used for moving things to the left
