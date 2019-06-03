@@ -80,7 +80,7 @@ public class CharacterController2D : MonoBehaviour
 			{
                 m_Grounded = true;
                 PlayerController.animator.SetBool("Grounded", true);
-                if (!wasGrounded  )//&& m_Rigidbody2D.velocity.y < 0
+                if (!wasGrounded)
 					OnLandEvent.Invoke();
 			}
         }

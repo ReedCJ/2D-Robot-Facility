@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SaveData : MonoBehaviour
+public class SaveData
 {
-    float []playerPos;
-    float health;
+    public float []playerPos;
+    public float health;
 
     public SaveData(PlayerController player)
     {
