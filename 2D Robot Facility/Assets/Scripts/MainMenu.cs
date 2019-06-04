@@ -30,6 +30,9 @@ public class MainMenu : MonoBehaviour
             //Debug.Log("menuPlayer Animator=" + animator.ToString());
         }
 
+        //assigns player health to player gameobject
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+
         //if in-game menu 
         
         UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts

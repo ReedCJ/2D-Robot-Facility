@@ -98,7 +98,7 @@ MonoBehaviour:
   chargeCD: 2
   chargeSpeed: 1500
   chargeDuration: 1
-  animator: {fileID: 0}
+  animator: {fileID: 3617284184416174668}
   boss: 0
 --- !u!50 &4161928970414496704
 Rigidbody2D:
@@ -311,6 +311,12 @@ PrefabInstance:
 --- !u!4 &3617284184408927662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: bd4610dc84f2fe14e9eb6483494c2dcd,
+    type: 3}
+  m_PrefabInstance: {fileID: 3617284184408799020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3617284184416174668 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: bd4610dc84f2fe14e9eb6483494c2dcd,
     type: 3}
   m_PrefabInstance: {fileID: 3617284184408799020}
   m_PrefabAsset: {fileID: 0}
