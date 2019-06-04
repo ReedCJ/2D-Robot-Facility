@@ -98,6 +98,7 @@ MonoBehaviour:
   chargeCD: 2
   chargeSpeed: 1500
   chargeDuration: 1
+  animator: {fileID: 0}
   boss: 0
 --- !u!50 &4161928970414496704
 Rigidbody2D:
@@ -295,6 +296,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f7595f64f6a228e48a499d7ca60bfbfc, type: 2}
+    - target: {fileID: 9500000, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
