@@ -30,7 +30,7 @@ public class GameOver : MonoBehaviour
     private IEnumerator WaitAndRetry()
     {
         yield return new WaitForSeconds(1f);
-        gameOverScreen.GetComponent<TextMeshProUGUI>().text = "T R Y  A G A I N";
+        gameOverScreen.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "T R Y  A G A I N ?";
         restartGame.SetActive(true);
     }
 
