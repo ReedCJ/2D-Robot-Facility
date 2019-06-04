@@ -11,6 +11,11 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     private float lastCharge = 0.0f;
     private Vector2 chargeRight;
     private Vector2 chargeLeft;
+    private int nofloor = 0;
+
+    public Animator animator;
+
+    [SerializeField] private bool boss;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -23,13 +28,16 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     // Update is called once per frame
     protected override void Update()
     {
+        //Debug.Log("Player to the right " + PlayerToTheRight);
+        //Debug.Log("Facing right " + facing);
+        //Debug.Log("moveVector.x " + moveVector.x);
         //if player gets to close aggro on them
-        if (Vector2.Distance(body.transform.position, player.transform.position) < aggroRange && PlayerOnLevel())
+        if (DistanceToPlayer < aggroRange && PlayerOnLevel())
         {
             aggro = true;
         }
         //de aggro if you get out of leash range or out of range height wise 4x the height check distance
-        else if (Vector2.Distance(body.transform.position, player.transform.position) > aggroLeash || Vector2.Distance(body.transform.position, player.transform.position) > levelCheckHeight * 4 && !PlayerOnLevel())
+        else if (!boss && DistanceToPlayer > aggroLeash || !boss && DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel())
         {
             aggro = false;
         }
@@ -40,19 +48,29 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         //move around normally
         if (Timer > 1.0f && !aggro)
         {
-            //don't run off edges
-            if (!ThereIsFloor()) { facing = !facing; setMovement(); }
-            //move around slow
-            MoveAround();
+            if (!boss && !ThereIsFloor() && OverGround() || ThereIsWall(4f,0))
+            {
+                //nofloor++;
+                FlipAround();
+                setMovement();
+                //Debug.Log(hit2.collider);
+            }
+            if (!boss && OverGround())
+            {
+                MoveAround();
+                animator.SetBool("Walking", true);
+            }
         }
-        else if (aggro)
+        else if (aggro && OverGround())
         {
             if(Timer > lastCharge + chargeCD)
             {
+                animator.SetBool("Charging", true);
                 ChargePlayer();
             }
             if (Timer > lastCharge + chargeDuration)
             {
+                animator.SetBool("Charging", false);
                 CutSpeed();
                 FacePlayer();
             }
@@ -79,6 +97,6 @@ public class EnemyControllerCharger : EnemyControllerTemplate
 
     private void CutSpeed()
     {
-        body.velocity = new Vector2(body.velocity.x * 0.95f, body.velocity.y);
+        body.velocity = new Vector2(body.velocity.x * 0.9f, body.velocity.y);
     }
 }

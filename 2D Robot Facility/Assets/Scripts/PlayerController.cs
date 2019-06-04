@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
     private bool fire;                      // Attack key input
     public float fireRate;                  // How fast you can shoot
+    private float lf;                       //last time you fired
     private float nextFire;                 //counter for fire rate
     private GameObject settingshot;
 
@@ -29,11 +30,17 @@ public class PlayerController : MonoBehaviour
     private bool canDouble;                 // bool for being able to double dump
     private bool doubleJump;                // double jump bool
     private bool camFollow;                 // Camera is in follow mode?
+
+    private bool canTeleport;               //Are you on a teleporter?
+    private GameObject teleporter;          //What teleporter are you on?
+    private bool teleport;                  //Are you teleporting?
+    private float lt;                       //When did you last teleport?
+
     private GameObject GrappleHook;         // Active Grappling Hook Object
-    private TeatherController grappleController;     // Script for swinging player
+    public TeatherController grappleController;     // Script for swinging player
     static public Animator animator;
-    private Rigidbody2D body;
     public CharacterController2D controller;      // The script that processes our movement inputs
+    [System.NonSerialized] public Rigidbody2D body;
     [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
     [System.NonSerialized] public float vMove = 0.0f;               // Vertical Input and climbing
     [System.NonSerialized] public bool teatherOut;                  // Grappling hook deployed?
@@ -52,14 +59,19 @@ public class PlayerController : MonoBehaviour
     private float waitTime;
     GameObject playerModel;
     private Renderer rend;
-    private bool dead;
+    public bool dead;
     public GameOver gameOverUI;
     public PlayerHealth playerHealth;
+    public bool confined;
+    public bool knockdown;
+    public bool contactRight;
+    public bool contactTop;
 
 
     //Run when player is created
     void Start()
     {
+        knockdown = false;
         thinGround = false;
         //Player starts facing right
         facing = true;
@@ -93,8 +105,8 @@ public class PlayerController : MonoBehaviour
         //Checks for invulnerable to display effect
         if (!dead && playerHealth.invuln)
             StartCoroutine("Blink");
-
-        if (!MainMenu.isPaused && !dead)
+       
+        if (!MainMenu.isPaused && !dead && !knockdown)
         {
             #region Keys
             hMove = Input.GetAxisRaw("Horizontal");
@@ -114,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
-                if (grounded)
+                if (grounded && !confined)
                 {
                       jump = true;
                       animator.SetBool("Jumping", true);
@@ -128,6 +140,14 @@ public class PlayerController : MonoBehaviour
                     animator.SetBool("Grounded", false);
                     doubleJump = true;
                     canDouble = false;
+                }
+            }
+
+            if(Input.GetButtonDown("Interact"))
+            {
+                if(grounded && canTeleport && timer > lt + 0.5f)
+                {
+                    teleport = true;
                 }
             }
 
@@ -169,10 +189,14 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Teather"))
             {
-               teather = true;
-               animator.SetLayerWeight(1, 1);
-              // StartCoroutine("TetherTorso");
-               animator.SetTrigger("SwingStart");
+                if(!confined)
+                {
+                    teather = true;
+                    animator.SetLayerWeight(1, 1);
+                    // StartCoroutine("TetherTorso");
+                    animator.SetTrigger("SwingStart");
+                }
+               
             }
 
             animator.SetBool("Swinging", swinging);
@@ -202,7 +226,9 @@ public class PlayerController : MonoBehaviour
         //
 
         if (!swinging && !fallThrough)
+        {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
+        }
         else if (swinging && doubleJump)
         {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
@@ -220,13 +246,19 @@ public class PlayerController : MonoBehaviour
         //Assign grounded
         grounded = controller.m_Grounded;
         //Reset double jump if player is grounded, or is swinging 
-        if (grounded || swinging) { canDouble = true; }
+        if (grounded) { canDouble = true; }
 
         //Fire if enough time has passed between shots and fire button is pressed
-        if (fire && timer > fireRate)
+        if (fire && timer > lf + fireRate)
         {
             Attack();
-            timer = 0.0f;
+            lf = timer;
+        }
+
+        if(teleport)
+        {
+            this.gameObject.transform.position = teleporter.GetComponent<TeleporterController>().Destination.transform.GetChild(0).gameObject.transform.position;
+            lt = timer;
         }
 
         //If grapple key is pressed
@@ -236,6 +268,7 @@ public class PlayerController : MonoBehaviour
         jump = false;
         doubleJump = false;
         teather = false;
+        teleport = false;
         //animator.SetBool("Swinging", false);
     }
 
@@ -259,6 +292,18 @@ public class PlayerController : MonoBehaviour
         settingshot = Instantiate(shot, attackSpawn, placeholderRotation);
         //set the shot direction
         SetShotDirection();
+    }
+
+    public bool CanTeleport
+    {
+        get { return canTeleport; }
+        set { canTeleport = value; }
+    }
+
+    public GameObject Teleporter
+    {
+        get { return teleporter; }
+        set { teleporter = value; }
     }
 
     private Vector3 GetShotSpawn()
@@ -391,22 +436,99 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log(" " + grounded + " " + crouch + " " + jump + " " + thinGround + " " + (body.velocity.y == 0.0f));
         if ((grounded && crouch && jump && thinGround && body.velocity.y == 0.0f))
+        {
             fallThrough = true;
-        else if (!grounded && body.velocity.y > 0 || jump)
+        }
+        else if (!grounded && body.velocity.y > 0 || jump || doubleJump)
         {
             jumpThrough = true;
             fallThrough = false;
         }
         else
             jumpThrough = false;
-
     }
-
     
+   
     //plays contact animation - triggered from contactDamage script
     public void contactAnimate()
     {
+        Debug.Log("Contact");
         animator.SetTrigger("Contact");
+    }
+
+    //plays contact animation - triggered from contactDamageCharger script
+    //parameter is a bool "right" side = true, false is left side of player.
+    public void contactAnimateCharger()
+    {
+        //knockdown bool for locking input while stunned
+        knockdown = true;
+
+        //animation parameter to disable alternate animations
+        animator.SetBool("Knockdown", true);
+
+        //coroutine to reenable parameters/variables after animation
+        StartCoroutine("knockeddown");
+
+        //continues invulnerable for duration of stun
+        playerHealth.invuln = true;
+
+        //resets input so it doesn't become locked during animation
+        
+        fire = false;
+        hMove = 0;
+        vMove = 0;
+
+        //Plays corresponding animations for direction of enemy contact.
+        if (controller.m_FacingRight)
+        {
+            if(contactRight)
+            {
+                //Debug.Log("Hit on R facing R");
+                animator.SetTrigger("KnockedBack");
+                controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                controller.Flip();
+            }
+            else
+            {
+                //Debug.Log("Hit on L facing R");
+                animator.SetTrigger("KnockedForward");
+                controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                //controller.Flip();
+            }
+
+        }
+
+        else if (!controller.m_FacingRight)
+        {
+            if(contactRight)
+            {
+                //Debug.Log("Hit on R facing L");
+                animator.SetTrigger("KnockedForward");
+                controller.Move(-2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                //controller.Flip();
+
+            }
+            else
+            {
+                //Debug.Log("Hit on L facing L");
+                animator.SetTrigger("KnockedBack");
+                controller.Move(2 * speed * Time.fixedDeltaTime * 10, crouch, jump, doubleJump);
+                controller.Flip();
+            }
+            
+        }
+    }
+
+    IEnumerator knockeddown()
+    {
+        yield return new WaitForSeconds(2f);
+        //facing = !facing;
+        //controller.Flip();
+        //controller.m_FacingRight = !controller.m_FacingRight;
+        knockdown = false;
+        animator.SetBool("Knockdown", false);
+        playerHealth.invuln = false;
+
     }
 
     IEnumerator Blink()
@@ -429,11 +551,31 @@ public class PlayerController : MonoBehaviour
         dead = true;
 
         //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
+
+        hMove = 0;
+        vMove = 0;
+        fire = false;
+
+        //Plays Death animation and disables all other animation events
+        animator.SetBool("Death", true);
+
+        //Start GameOverUI
+        if (gameOverUI != null)
+            gameOverUI.gameOver();
+        else Debug.Log("You need to attach inGameUI to PlayerController");
+    }
+
+    public void playerDeathFall()
+    {
+        //Sets playercontroller bool to dead - disables inputs to character controller
+        dead = true;
+
+        //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
         hMove = 0;
         vMove = 0;
 
         //Plays Death animation and disables all other animation events
-        animator.SetBool("Death", true);
+        animator.SetBool("DeathFall", true);
 
         //Start GameOverUI
         if (gameOverUI != null)

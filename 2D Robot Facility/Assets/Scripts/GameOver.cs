@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameOver : MonoBehaviour
@@ -28,7 +29,8 @@ public class GameOver : MonoBehaviour
 
     private IEnumerator WaitAndRetry()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        gameOverScreen.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "T R Y  A G A I N ?";
         restartGame.SetActive(true);
     }
 

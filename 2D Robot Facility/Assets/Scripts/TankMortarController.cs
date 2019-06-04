@@ -3,61 +3,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankMortarController : MonoBehaviour
+public class TankMortarController : EnemyControllerTemplate
 {
-    public float height;
     public float travelTime;
     //public float speed;
 
     public GameObject tank;
 
-    private bool facing;
+    private bool tankFacing;
     private float startTime;
     private float currentTime;
     private Vector2 spawnPosition;
     private Vector2 playerPosition;
     private Vector2 p1;
     private Vector2 p2;
-    private Rigidbody2D body;
+    private float hdp;
+    private Vector2 ep;
+    private float mh;
     private GameObject shooter;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        body = GetComponent<Rigidbody2D>();
-        startTime = Timer;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         currentTime = (Timer - startTime) / travelTime;
-        body.transform.position = Parabola(spawnPosition, GetEndPosition(), height, currentTime);
+        body.transform.position = Parabola(spawnPosition, ep, mh, currentTime);
         //they should probably blow up at the end or something
         if(Timer > startTime + travelTime) { Destroy(gameObject); }
-    }
-    //get the stuff you need to draw the curve
-    private float Timer
-    {
-        get { return GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().timer; }
     }
 
     public void SetMortar(bool f, Vector2 sp, Vector2 pp, GameObject s)
     {
-        facing = f;
+        base.Start();
+        startTime = Timer;
+        tankFacing = f;
         spawnPosition = sp;
-        playerPosition = pp;
         shooter = s;
+        playerPosition = new Vector2(player.gameObject.transform.position.x, player.gameObject.transform.position.y - 0.6f);
+        hdp = shooter.gameObject.GetComponent<EnemyControllerTank>().HorizontalDistanceToPlayer;
+        mh = (playerPosition.y - shooter.transform.position.y) + 0.6f;
+        if (player.transform.position.y > shooter.transform.position.y + 1)
+        {
+            ep = GetEndPosition();
+        }
+        else
+        {
+            ep = playerPosition;
+            travelTime /= 2;
+            mh = 3;
+        }
     }
-    //destroy these on terrain collision
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(other.gameObject.tag == "Terrain") { Destroy(gameObject); }
+        if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
     }
+    
     //get position
     Vector2 Parabola(Vector2 start, Vector2 end, float height, float t)
     {
@@ -72,13 +73,13 @@ public class TankMortarController : MonoBehaviour
     {
         Vector2 endPosition = spawnPosition;
         endPosition.y -= 2;
-        if(shooter.GetComponent<EnemyControllerTank>().PlayerToTheRight)
+        if(PlayerToTheRight)
         {
-            endPosition.x += (Parabola(spawnPosition, playerPosition, height, 0.5f).x - spawnPosition.x) * 2;
+            endPosition.x += hdp * 2;
         }
         else
         {
-            endPosition.x -= (spawnPosition.x - Parabola(spawnPosition, playerPosition, height, 0.5f).x) * 2;
+            endPosition.x -= hdp * 2;
         }
         return endPosition;
     }

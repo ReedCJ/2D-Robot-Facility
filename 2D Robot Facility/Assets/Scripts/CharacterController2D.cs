@@ -52,9 +52,21 @@ public class CharacterController2D : MonoBehaviour
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
         PlayerController.animator.SetBool("Grounded", false);
+        PlayerController.animator.SetBool("Confined", false);
+
+        // If the character has a ceiling preventing them from standing up confined is true
+        if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
+        {
+            player.confined = true;
+            PlayerController.animator.SetBool("Confined", true);
+        }
+        else player.confined = false;
 
         if (wasGrounded == false)
+        {
+            player.thinGround = false;
             player.fallThrough = false;
+        }
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -68,19 +80,18 @@ public class CharacterController2D : MonoBehaviour
 			{
                 m_Grounded = true;
                 PlayerController.animator.SetBool("Grounded", true);
-                if (!wasGrounded  )//&& m_Rigidbody2D.velocity.y < 0
+                if (!wasGrounded)
 					OnLandEvent.Invoke();
 			}
         }
         for (int i = 0; i < thinColliders.Length; i++)
-            if (thinColliders[i].gameObject != gameObject && thinColliders[i].GetComponent<ThinPlatforms>().pCol)
+            if (thinColliders[i].gameObject != gameObject && thinColliders[i].GetComponent<ThinPlatforms>().pCol && m_Rigidbody2D.velocity.y <= 0)
             {
-                
                 m_Grounded = true;
+                player.thinGround = true;
                 PlayerController.animator.SetBool("Grounded", true);
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
-                    
             }
     }
 
@@ -94,6 +105,7 @@ public class CharacterController2D : MonoBehaviour
 			if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
 			{
 				crouch = true;
+                PlayerController.animator.SetBool("Confined", true);
 			}
 		}
 
@@ -148,14 +160,22 @@ public class CharacterController2D : MonoBehaviour
 				Flip();
 			}
 		}
+
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
+            // If the character has a ceiling preventing them from standing up, keep them crouching
+            if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
+            {
+                crouch = true;
+            }
+            else m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             // Add a vertical force to the player.
             //			m_Grounded = false;
-          //  PlayerController.animator.SetBool("Grounded", false);
-            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            //  PlayerController.animator.SetBool("Grounded", false);
+            
 		}
+
         if (doubleJump)
         {
             //cancel vertical velocity
@@ -166,7 +186,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	private void Flip()
+	public void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;

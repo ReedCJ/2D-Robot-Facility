@@ -9,6 +9,13 @@ TagManager:
   - FollowCam
   - Teather Spawn
   - Projectile
+  - Hazard
+  - Target
+  - Keycard
+  - Menu
+  - Door
+  - GameMaster
+  - Pick Up
   layers:
   - Default
   - TransparentFX
@@ -25,8 +32,8 @@ TagManager:
   - Player
   - Ramp
   - Projectile
-  - 
-  - 
+  - Hazard
+  - Enemy
   - 
   - 
   - 

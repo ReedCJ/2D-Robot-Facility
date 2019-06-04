@@ -7,12 +7,14 @@ public class PlayerHealth : MonoBehaviour
     [System.NonSerialized]public float time;
 
     public bool invuln;
+    public float maxHealth;
     public float health;
     public float invulnFrames;
 
     private void Start()
     {
         time = invulnFrames;
+        health = maxHealth;
     }
 
     void Update()
@@ -28,5 +30,10 @@ public class PlayerHealth : MonoBehaviour
             invuln = false;
             //Debug.Log("NOT invuln");
         }
+    }
+
+    public void Heal(float regen)       // Gain health, but cap out at the max.
+    {
+        health = (health + regen) % maxHealth;
     }
 }

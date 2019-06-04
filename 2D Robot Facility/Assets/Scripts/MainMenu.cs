@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] Transform UIPause; //Will assign our panel to this variable so we can enable/disable it
-
+    public TextMeshProUGUI healthText;
+    public PlayerHealth player;
+    public Image healthBar;
+    private Animator animator;
+    private GameObject menuPlayer;
+    
     private IEnumerator coroutine;
 
     public static bool isPaused; //Used to determine paused state
@@ -15,6 +22,16 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        //assigns animation controller if main menu
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            menuPlayer = GameObject.FindWithTag("Menu");
+            animator = menuPlayer.GetComponent<Animator>();
+            //Debug.Log("menuPlayer Animator=" + animator.ToString());
+        }
+
+        //if in-game menu 
+        
         UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts
         isPaused = false; //make sure isPaused is always false when our scene opens
     }
@@ -30,13 +47,37 @@ public class MainMenu : MonoBehaviour
         {
              UnPause();
         }
-            
+
+        if (player != null)
+        {
+            //percentage conversion
+            healthText.text = (player.health/player.maxHealth) * 100 + "%";
+            //bar 0-1 float conversion
+            healthBar.fillAmount = player.health/player.maxHealth;
+
+            if (healthBar.fillAmount <= 1 && healthBar.fillAmount >= .76)
+                healthBar.color = new Color(0f / 255.0f, 234.0f / 255.0f, 0f / 255.0f);
+
+            if (healthBar.fillAmount <= .75 && healthBar.fillAmount >= .51)
+                healthBar.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 0f / 255.0f);
+
+            if (healthBar.fillAmount <= .50 && healthBar.fillAmount >= .26)
+                healthBar.color = new Color(255.0f / 255.0f, 150.0f / 255.0f, 0f / 255.0f);
+
+            if (healthBar.fillAmount <= .25 && healthBar.fillAmount >= 0)
+                healthBar.color = new Color(255.0f / 0f, 0f / 255.0f, 0f / 255.0f);
+
+        }
+        
 
     }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //starts delayed StartGame function
+        coroutine = StartGame();
+        StartCoroutine(coroutine);
+        animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
     }
 
     public void QuitGame()
@@ -72,6 +113,12 @@ public class MainMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(.1f);
         isPaused = false;
+    }
+
+    private IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Restart()
