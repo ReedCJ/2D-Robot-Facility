@@ -12,6 +12,9 @@ public class SavePointController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject tempPlayer = GameObject.FindWithTag("Player");
+        player = tempPlayer.GetComponent<PlayerController>();
+        playerHP = tempPlayer.GetComponent<PlayerHealth>();
         near = false;
         safe = true;
     }
@@ -23,7 +26,19 @@ public class SavePointController : MonoBehaviour
         {
             playerHP.health = playerHP.maxHealth;
             SaveSystem.SaveGame(player);
+            Debug.Log("Location saved");
         }
+        /*else if (Input.GetKeyDown("y"))
+        {
+            SaveData save = SaveSystem.LoadGame();
+            if (save != null)
+            {
+                Vector3 location = new Vector3(save.playerPos[0], save.playerPos[1], save.playerPos[2]);
+                player.transform.position = location;
+                if (save.health > 0)
+                    playerHP.health = save.health;
+            }
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

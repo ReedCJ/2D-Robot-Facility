@@ -31,4 +31,9 @@ public class PlayerHealth : MonoBehaviour
             //Debug.Log("NOT invuln");
         }
     }
+
+    public void Heal(float regen)       // Gain health, but cap out at the max.
+    {
+        health = (health + regen) % maxHealth;
+    }
 }
