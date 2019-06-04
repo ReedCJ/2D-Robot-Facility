@@ -23,7 +23,6 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         base.Start();
         chargeRight = new Vector2(chargeSpeed, 0);
         chargeLeft = new Vector2(chargeSpeed * -1.0f, 0);
-        animator.SetBool("Walking", true);
     }
 
     // Update is called once per frame
@@ -36,13 +35,11 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         if (DistanceToPlayer < aggroRange && PlayerOnLevel())
         {
             aggro = true;
-            animator.SetBool("Charging", true);
         }
         //de aggro if you get out of leash range or out of range height wise 4x the height check distance
         else if (!boss && DistanceToPlayer > aggroLeash || !boss && DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel())
         {
             aggro = false;
-            animator.SetBool("Charging", false);
         }
     }
 
@@ -58,16 +55,22 @@ public class EnemyControllerCharger : EnemyControllerTemplate
                 setMovement();
                 //Debug.Log(hit2.collider);
             }
-            if (OverGround()) { MoveAround(); }
+            if (!boss && OverGround())
+            {
+                MoveAround();
+                animator.SetBool("Walking", true);
+            }
         }
         else if (aggro && OverGround())
         {
             if(Timer > lastCharge + chargeCD)
             {
+                animator.SetBool("Charging", true);
                 ChargePlayer();
             }
             if (Timer > lastCharge + chargeDuration)
             {
+                animator.SetBool("Charging", false);
                 CutSpeed();
                 FacePlayer();
             }

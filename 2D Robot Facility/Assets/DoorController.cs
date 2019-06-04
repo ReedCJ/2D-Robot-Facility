@@ -6,23 +6,30 @@ public class DoorController : MonoBehaviour
 {
     private GameObject player;
     private GameObject blocker;
+    private bool locked;
     [SerializeField] private string doorCode;
+    [SerializeField] private bool lockLeft;
+    [SerializeField] private bool lockRight;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         blocker = gameObject.transform.GetChild(0).gameObject;
+        locked = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == player)
+        if (!locked)
         {
-            foreach(string k in player.GetComponent<KeycardController>().keycards)
+            if (collision.gameObject == player)
             {
-                if(k == doorCode)
+                foreach (string k in player.GetComponent<KeycardController>().keycards)
                 {
-                    blocker.SetActive(false);
+                    if (k == doorCode)
+                    {
+                        blocker.SetActive(false);
+                    }
                 }
             }
         }
@@ -34,5 +41,26 @@ public class DoorController : MonoBehaviour
         {
             blocker.SetActive(true);
         }
+        if (lockLeft)
+        {
+            if (player.transform.position.x < this.transform.position.x)
+            {
+                locked = true;
+                lockLeft = false;
+            }
+        }
+        if(lockRight)
+        {
+            if (player.transform.position.x > this.transform.position.x)
+            {
+                locked = true;
+                lockRight = false;
+            }
+        }
+    }
+
+    public void Unlock()
+    {
+        locked = false;
     }
 }
