@@ -15,6 +15,14 @@ public class TeleporterController : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerController>().CanTeleport = false;
+        }
+    }
+
     public GameObject Destination
     {
         get { return destination; }

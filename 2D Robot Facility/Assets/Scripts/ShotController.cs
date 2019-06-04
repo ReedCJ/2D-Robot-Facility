@@ -90,6 +90,10 @@ public class ShotController : MonoBehaviour
                         {
                             collision.GetComponent<Drop>().DropObject();
                         }
+                        if (collision.GetComponent<OnDeath>() != null)
+                        {
+                            collision.GetComponent<OnDeath>().DoAllTheThings();
+                        }
                         collision.gameObject.SetActive(false);
                     }
                     Destroy(gameObject);
