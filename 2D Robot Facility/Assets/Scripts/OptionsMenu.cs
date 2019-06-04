@@ -12,8 +12,10 @@ public class OptionsMenu : MonoBehaviour
     public Slider bgmSlider;
     public Slider sfxSlider;
     public Button backButton;
+    public Animator animator;
 
-
+    private IEnumerator coroutine;
+    
     public Dropdown resolutionDropdown;
     private Toggle fullscreen;
 
@@ -33,6 +35,7 @@ public class OptionsMenu : MonoBehaviour
 
         resolutionDropdown.ClearOptions();
 
+        
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
@@ -71,11 +74,22 @@ public class OptionsMenu : MonoBehaviour
 
     }
 
+    public void OnEnable()
+    {
+        coroutine = JumperJump();
+        StartCoroutine(coroutine);
+    }
+
     public void Update()
     {
         //If player presses escape 
-        if (Input.GetButtonUp("Back"))
-            backButton.onClick.Invoke();
+       // if (Input.GetButtonUp("Back"))
+          //  backButton.onClick.Invoke();
+    }
+
+    public void FixedUpdate()
+    {
+        
     }
 
 
@@ -147,6 +161,14 @@ public class OptionsMenu : MonoBehaviour
     public void SetQuality( int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
+    private IEnumerator JumperJump()
+    {
+        yield return new WaitForSeconds(4f);
+        animator.SetTrigger("Jump");
+        coroutine = JumperJump();
+        StartCoroutine(coroutine);
     }
 
 }

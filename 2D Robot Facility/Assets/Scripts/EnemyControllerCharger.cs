@@ -13,6 +13,8 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     private Vector2 chargeLeft;
     private int nofloor = 0;
 
+    public Animator animator;
+
     [SerializeField] private bool boss;
 
     // Start is called before the first frame update
@@ -21,6 +23,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         base.Start();
         chargeRight = new Vector2(chargeSpeed, 0);
         chargeLeft = new Vector2(chargeSpeed * -1.0f, 0);
+        animator.SetBool("Walking", true);
     }
 
     // Update is called once per frame
@@ -33,11 +36,13 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         if (DistanceToPlayer < aggroRange && PlayerOnLevel())
         {
             aggro = true;
+            animator.SetBool("Charging", true);
         }
         //de aggro if you get out of leash range or out of range height wise 4x the height check distance
         else if (!boss && DistanceToPlayer > aggroLeash || !boss && DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel())
         {
             aggro = false;
+            animator.SetBool("Charging", false);
         }
     }
 
