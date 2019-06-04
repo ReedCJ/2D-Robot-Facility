@@ -83,8 +83,8 @@ public class OptionsMenu : MonoBehaviour
     public void Update()
     {
         //If player presses escape 
-        if (Input.GetButtonUp("Back"))
-            backButton.onClick.Invoke();
+       // if (Input.GetButtonUp("Back"))
+          //  backButton.onClick.Invoke();
     }
 
     public void FixedUpdate()

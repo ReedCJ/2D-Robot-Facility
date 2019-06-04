@@ -6,7 +6,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MenuControllerOptions
+  m_Name: Jumper_Menu
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Jump
@@ -154,7 +154,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Idle
-  m_Speed: 1
+  m_Speed: 0
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101876671229851376}
@@ -167,7 +167,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: d398724065a3e4644b9eb1932b4f710e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -238,16 +238,16 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102957739981252634}
-    m_Position: {x: 276, y: 156, z: 0}
+    m_Position: {x: 276, y: 36, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102627190685868758}
     m_Position: {x: 24, y: 156, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102764330436338026}
-    m_Position: {x: 276, y: 228, z: 0}
+    m_Position: {x: 336, y: 156, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102163363266100746}
-    m_Position: {x: 276, y: 300, z: 0}
+    m_Position: {x: 276, y: 276, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
