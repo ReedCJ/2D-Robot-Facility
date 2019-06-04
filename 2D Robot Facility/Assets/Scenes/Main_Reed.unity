@@ -27468,6 +27468,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1039622464488912814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3554497410073555254, guid: 457ef69d4d3d63241ab9788d0bcecac2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4555786367478154904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1039622465518030979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3554497408684365339, guid: 457ef69d4d3d63241ab9788d0bcecac2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4555786367478154904}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1055531102538376650
 GameObject:
   m_ObjectHideFlags: 0
@@ -36860,12 +36872,12 @@ PrefabInstance:
         type: 3}
       propertyPath: gameOverScreen
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1039622464488912814}
     - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: restartGame
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1039622465518030979}
     - target: {fileID: 7770694891249658993, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: inGameUI
