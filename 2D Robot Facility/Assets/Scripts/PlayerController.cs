@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
 #pragma warning disable 0649
     [SerializeField] private GameObject hook;           // The "hook" in the grappling hook
     [SerializeField] private GameObject shot;           // Our player's projectile
-    [SerializeField] private GameObject attack;         // A hitbox representing a melee weapon
-    [SerializeField] private GameObject cam;            // The primary virtual camera
+    [SerializeField] private Transform[] shotSpawns;    // The locations our player's projectile can spawn from
 
     [SerializeField] private float speed = 0.0f;   // Character ground speed
 #pragma warning restore 0649
@@ -20,14 +19,13 @@ public class PlayerController : MonoBehaviour
     public float fireRate;                  // How fast you can shoot
     private float lf;                       //last time you fired
     private float nextFire;                 //counter for fire rate
-    private GameObject settingshot;
 
     public bool enabledDouble;              // public bool for enabling/disabling double jumps
 
     public Transform teatherSpawn;
     private bool teather;                   // Teather key input
-    public bool jump;                      // Jump key input
-    private bool canDouble;                 // bool for being able to double dump
+    public bool jump;                       // Jump key input
+    [System.NonSerialized] public bool canDouble;// bool for being able to double dump
     private bool doubleJump;                // double jump bool
     private bool camFollow;                 // Camera is in follow mode?
 
@@ -37,23 +35,24 @@ public class PlayerController : MonoBehaviour
     private float lt;                       //When did you last teleport?
 
     private GameObject GrappleHook;         // Active Grappling Hook Object
-    public TeatherController grappleController;     // Script for swinging player
     static public Animator animator;
     public CharacterController2D controller;      // The script that processes our movement inputs
+    [System.NonSerialized] public TeatherController grappleController;  // Script for swinging player
     [System.NonSerialized] public Rigidbody2D body;
-    [System.NonSerialized] public float hMove = 0.0f;               // Ground movement
-    [System.NonSerialized] public float vMove = 0.0f;               // Vertical Input and climbing
-    [System.NonSerialized] public bool teatherOut;                  // Grappling hook deployed?
-    [System.NonSerialized] public bool swinging;                    // Currently swinging?
-    [System.NonSerialized] public bool teatherSwinging;             // Currently swinging?
-    [System.NonSerialized] public bool facing;                      // True = right, False = left
-    [System.NonSerialized] public bool fallThrough;                 // Can the player currently fall through thin platforms?
-    [System.NonSerialized] public bool jumpThrough;                 // Can the player currently jump through thin platforms?
-    [System.NonSerialized] public bool thinGround;                  // Is the player on top of ground he can fall through?
-    [System.NonSerialized] public bool crouch;                      // Is player crouched
-    [System.NonSerialized] public bool up;                                                 // Up Input
-    [System.NonSerialized] public bool down;                                               // Down Input
-    [System.NonSerialized] public bool grounded;                   // On the ground as opposed to in the air?
+    [System.NonSerialized] public float hMove = 0.0f;                   // Ground movement
+    [System.NonSerialized] public float vMove = 0.0f;                   // Vertical Input and climbing
+    [System.NonSerialized] public bool teatherOut;                      // Grappling hook deployed?
+    [System.NonSerialized] public bool swinging;                        // Currently swinging?
+    [System.NonSerialized] public bool teatherSwinging;                 // Currently swinging?
+    [System.NonSerialized] public bool facing;                          // True = right, False = left
+    [System.NonSerialized] public bool fallThrough;                     // Can the player currently fall through thin platforms?
+    [System.NonSerialized] public bool jumpThrough;                     // Can the player currently jump through thin platforms?
+    [System.NonSerialized] public bool thinGround;                      // Is the player on top of ground he can fall through?
+    [System.NonSerialized] public bool crouch;                          // Is player crouched
+    [System.NonSerialized] public bool focusing;                        // Is the player locking his movement to aim?
+    [System.NonSerialized] public bool up;                              // Up Input
+    [System.NonSerialized] public bool down;                            // Down Input
+    [System.NonSerialized] public bool grounded;                        // On the ground as opposed to in the air?
 
     private IEnumerator coroutine;
     private float waitTime;
@@ -71,6 +70,7 @@ public class PlayerController : MonoBehaviour
     //Run when player is created
     void Start()
     {
+        focusing = false;
         knockdown = false;
         thinGround = false;
         //Player starts facing right
@@ -214,6 +214,10 @@ public class PlayerController : MonoBehaviour
                 fire = false;
             }
 
+            if (Input.GetButtonDown("Focus"))
+                focusing = true;
+            else focusing = false;
+
             #endregion
         }
     }
@@ -224,6 +228,11 @@ public class PlayerController : MonoBehaviour
         //
         // Movement input && grapple input processing block
         //
+
+        if (fallThrough)
+        {
+            //Debug.Log(true);
+        }
 
         if (!swinging && !fallThrough)
         {
@@ -284,14 +293,8 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
-        //place where the shot spawns
-        Vector3 attackSpawn = GetShotSpawn();
-        //placeholder rotation
-        Quaternion placeholderRotation = new Quaternion();
-        //shoot the shot
-        settingshot = Instantiate(shot, attackSpawn, placeholderRotation);
-        //set the shot direction
-        SetShotDirection();
+        Transform shotSpawn = GetShotSpawn();
+        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
     }
 
     public bool CanTeleport
@@ -306,115 +309,35 @@ public class PlayerController : MonoBehaviour
         set { teleporter = value; }
     }
 
-    private Vector3 GetShotSpawn()
+    private Transform GetShotSpawn()
     {
-        Vector3 attackSpawn = body.position;
-
         //if up is held always shoot up
-        if(up)
+        if (swinging && focusing)
+            return shotSpawns[0];
+        else if(up)
         {
-            attackSpawn.y++;
-            if (Input.GetAxisRaw("Horizontal") > 0)
+            if (Input.GetAxisRaw("Horizontal") == 0)
             {
-                attackSpawn.x++;
+                return shotSpawns[2];
             }
-            else if(Input.GetAxisRaw("Horizontal") < 0)
-            {
-                attackSpawn.x--;
-            }
+            else
+                return shotSpawns[1];
         }
-        else
+        else if (down)
         {
             //if crouch in air
-            if(Input.GetAxisRaw("Vertical") < 0 && !grounded)
+            if (!grounded || focusing)
             {
-                attackSpawn.y--;
-                if (Input.GetAxisRaw("Horizontal") > 0)
-                {
-                    attackSpawn.x++;
-                }
-                else if (Input.GetAxisRaw("Horizontal") < 0)
-                {
-                    attackSpawn.x--;
-                }
+                if (Input.GetAxisRaw("Horizontal") == 0)
+                    return shotSpawns[4];
+                else
+                    return shotSpawns[3];
             }
             else
-            {
-                //if facing right
-                if(facing)
-                {
-                    attackSpawn.x++;
-                }
-                //if facing left
-                else
-                {
-                    attackSpawn.x--;
-                }
-                //if crouched on ground
-                if(crouch && grounded)
-                {
-                    attackSpawn.y -= 0.5f;
-                }
-            }
-        }
-
-        return attackSpawn;
-    }
-
-    private void SetShotDirection()
-    {
-        //if shooting up
-        if (up)
-        {
-            settingshot.GetComponent<ShotController>().shootVertical = true;
-
-            if (Input.GetAxisRaw("Horizontal") > 0)
-            {
-                settingshot.GetComponent<ShotController>().diagonal = true;
-                settingshot.GetComponent<ShotController>().diagonal = true;
-                settingshot.GetComponent<ShotController>().shootDiagonal = true;
-            }
-            else if (Input.GetAxisRaw("Horizontal") < 0)
-            {
-                settingshot.GetComponent<ShotController>().diagonal = true;
-                settingshot.GetComponent<ShotController>().diagonal = true;
-                settingshot.GetComponent<ShotController>().shootDiagonal = false;
-            }
+                return shotSpawns[0];
         }
         else
-        {
-            if (!grounded && Input.GetAxisRaw("Vertical") < 0)
-            {
-                    settingshot.GetComponent<ShotController>().shootVertical = false;
-                    //if crouch in air and holding horizontal
-                    if (Input.GetAxisRaw("Horizontal") > 0)
-                    {
-                        settingshot.GetComponent<ShotController>().diagonal = true;
-                        settingshot.GetComponent<ShotController>().shootDiagonal = true;
-                    }
-                    else if (Input.GetAxisRaw("Horizontal") < 0)
-                    {
-                        settingshot.GetComponent<ShotController>().diagonal = true;
-                        settingshot.GetComponent<ShotController>().shootDiagonal = false;
-                    }
-            }
-            else
-            {
-                //not a vertical shot
-                settingshot.GetComponent<ShotController>().vertical = false;
-
-                //if facing right
-                if (facing)
-                {
-                    settingshot.GetComponent<ShotController>().shootHorizontal = true;
-                }
-                //if facing left
-                else
-                {
-                    settingshot.GetComponent<ShotController>().shootHorizontal = false;
-                }
-            }
-        }
+            return shotSpawns[0];
     }
 
 
@@ -439,7 +362,7 @@ public class PlayerController : MonoBehaviour
         {
             fallThrough = true;
         }
-        else if (!grounded && body.velocity.y > 0 || jump || doubleJump)
+        else if (!grounded && body.velocity.y > 0 || (jump && !thinGround) || doubleJump)
         {
             jumpThrough = true;
             fallThrough = false;

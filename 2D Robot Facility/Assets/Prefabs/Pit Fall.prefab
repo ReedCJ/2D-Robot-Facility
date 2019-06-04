@@ -109,6 +109,7 @@ MonoBehaviour:
   respawnLeft: 1
   respawnRight: 1
   damage: 1
+  respawnDelay: 0.25
 --- !u!23 &1190918630925863708
 MeshRenderer:
   m_ObjectHideFlags: 0
