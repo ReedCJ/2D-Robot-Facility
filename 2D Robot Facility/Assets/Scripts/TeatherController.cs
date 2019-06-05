@@ -58,7 +58,6 @@ public class TeatherController : MonoBehaviour
 
         teather = Instantiate(teatherPrefab, player.teatherSpawn.transform.position, transform.rotation);
         Shift();
-        Debug.Log("Starting");
     }
 
     // Update is called once per frame
