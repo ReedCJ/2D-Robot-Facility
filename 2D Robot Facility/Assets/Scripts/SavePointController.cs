@@ -28,27 +28,6 @@ public class SavePointController : MonoBehaviour
             SaveSystem.SaveGame(player);
             Debug.Log("Location saved");
         }
-        /*else if (Input.GetKeyDown("y"))
-        {
-            SaveData save = SaveSystem.LoadGame();
-            if (save != null)
-            {
-                Vector3 location = new Vector3(save.playerPos[0], save.playerPos[1], save.playerPos[2]);
-                player.transform.position = location;
-                if (save.health > 0)
-                    playerHP.health = save.health;
-                GameMaster GM = GameObject.FindWithTag("GameMaster").GetComponent<GameMaster>();
-                if (save.reached)
-                {
-                    GM.reachedPoint = save.reached;
-                    Vector3 checkPoint = new Vector3();
-                    checkPoint.x = save.lastCheckPoint[0];
-                    checkPoint.y = save.lastCheckPoint[1];
-                    checkPoint.z = save.lastCheckPoint[2];
-                    GM.checkPoint = checkPoint;
-                }
-            }
-        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
