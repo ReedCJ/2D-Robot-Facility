@@ -34,6 +34,7 @@ public class MainMenu : MonoBehaviour
         }
 
         //assigns player health to player gameobject
+        if (GameObject.FindGameObjectWithTag("Player"))
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
         //if in-game menu 
@@ -140,7 +141,7 @@ public class MainMenu : MonoBehaviour
         {
             animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
             yield return new WaitForSeconds(2f);
-            GameMaster GM = GameObject.Instantiate(Gamemaster).GetComponent<GameMaster>();
+            GameMaster GM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
             if (save.health > 0)
                 GM.health = save.health;
             if (save.reached)
