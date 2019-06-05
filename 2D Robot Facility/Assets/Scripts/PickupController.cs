@@ -8,17 +8,12 @@ public class PickupController : MonoBehaviour
     [SerializeField] private float heal;         // How much this heals when picked up
 #pragma warning restore 0649
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerHealth>().Heal(heal);
+            Destroy(this.gameObject);
         }
     }
 }

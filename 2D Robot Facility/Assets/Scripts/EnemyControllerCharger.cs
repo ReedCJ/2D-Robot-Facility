@@ -46,16 +46,16 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     private void FixedUpdate()
     {
         //move around normally
-        if (Timer > 1.0f && !aggro)
+        if (!boss && Timer > 1.0f && !aggro)
         {
-            if (!boss && !ThereIsFloor() && OverGround() || ThereIsWall(4f,0))
+            if (!ThereIsFloor() && OverGround() || ThereIsWall(4f,0))
             {
                 //nofloor++;
                 FlipAround();
                 setMovement();
                 //Debug.Log(hit2.collider);
             }
-            if (!boss && OverGround())
+            if (OverGround())
             {
                 MoveAround();
                 animator.SetBool("Walking", true);

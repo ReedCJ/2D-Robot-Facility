@@ -26,51 +26,7 @@ public class ShotController : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(11, 14, true);
         body = GetComponent<Rigidbody2D>();
-
-        //shoot direction
-        if (shootVertical && vertical)
-        {
-            body.velocity = transform.up * speed;
-
-            if(diagonal && shootDiagonal)
-            {
-                body.velocity = new Vector2(speed, speed);
-            }
-            else if (diagonal && !shootDiagonal)
-            {
-                body.velocity = new Vector2(-speed, speed);
-            }
-        }
-        else
-        {
-            //if crouch in air
-            if (!shootVertical && vertical)
-            {
-                body.velocity = transform.up * -1.0f * speed;
-
-                if (diagonal && shootDiagonal)
-                {
-                    body.velocity = new Vector2(speed, -speed);
-                }
-                else if (diagonal && !shootDiagonal)
-                {
-                    body.velocity = new Vector2(-speed, -speed);
-                }
-            }
-            else
-            {
-                //if facing right
-                if (shootHorizontal)
-                {
-                    body.velocity = transform.right * speed;
-                }
-                //if facing left
-                else
-                {
-                    body.velocity = transform.right * -1.0f * speed;
-                }
-            }
-        }
+        body.velocity = transform.right * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -89,6 +45,10 @@ public class ShotController : MonoBehaviour
                         if(collision.GetComponent<Drop>() != null)
                         {
                             collision.GetComponent<Drop>().DropObject();
+                        }
+                        if (collision.GetComponent<OnDeath>() != null)
+                        {
+                            collision.GetComponent<OnDeath>().DoAllTheThings();
                         }
                         collision.gameObject.SetActive(false);
                     }

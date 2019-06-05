@@ -11,6 +11,7 @@ public class PitfallController : MonoBehaviour
     [SerializeField] private bool respawnLeft;      // Can the player respawn on the left side?
     [SerializeField] private bool respawnRight;     // Can the player respawn on the right side?
     [SerializeField] private float damage;          // Damage player takes when falling outside the map
+    [SerializeField] private float respawnDelay;    // How long the respawn is delayed
 #pragma warning restore 0649
     private GameObject followCam;                   // The camera following the player
 
@@ -18,10 +19,12 @@ public class PitfallController : MonoBehaviour
     private PlayerController playerController;      // Primary player script.
 
     private bool respawn;                           // Which spawn will the player respawn on? true == left
+    private bool tookDamage;            // Safeguard against taking damage twice bug.
 
     // Start is called before the first frame update
     void Start()
     {
+        tookDamage = false;
         followCam = GameObject.FindGameObjectWithTag("FollowCam");
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
@@ -52,13 +55,18 @@ public class PitfallController : MonoBehaviour
 
             if (player.transform.position.y < transform.position.y)
             {
-                player.health -= damage;
-                player.time = 0;
+                if (tookDamage == false)
+                {
+                    player.health -= damage;
+                    Debug.Log(player.health);
+                    tookDamage = true;
+                    player.time = 0;
 
-                if (player.health > 0)
-                    Respawn();
-                else
-                    playerController.playerDeathFall();
+                    if (player.health > 0)
+                        StartCoroutine(DelayRespawn());
+                    else
+                        playerController.playerDeathFall();
+                }
             }
             else
                 followCam.SetActive(true);
@@ -68,6 +76,12 @@ public class PitfallController : MonoBehaviour
             collision.gameObject.GetComponent<EnemyHealth>().health = 0;
             Destroy(collision.gameObject);
         }
+    }
+
+    IEnumerator DelayRespawn()
+    {
+        yield return new WaitForSeconds(respawnDelay);
+        Respawn();
     }
 
     private void Respawn()          // Place the player on safe ground
@@ -97,5 +111,6 @@ public class PitfallController : MonoBehaviour
             player.health = 0;
             playerController.playerDeathFall();
         }
+        tookDamage = false;
     }
 }

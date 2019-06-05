@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [System.NonSerialized]public float time;
+    [System.NonSerialized] public float time;
 
     public bool invuln;
     public float maxHealth;
-    public float health;
+    [System.NonSerialized] public float health;
     public float invulnFrames;
 
     private void Start()
@@ -34,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(float regen)       // Gain health, but cap out at the max.
     {
-        health = (health + regen) % maxHealth;
+        health = (health + regen);
+        if (health > maxHealth)
+            health = maxHealth;
     }
 }
