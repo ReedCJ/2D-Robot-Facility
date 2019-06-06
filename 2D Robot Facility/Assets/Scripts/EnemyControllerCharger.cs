@@ -32,12 +32,12 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         //Debug.Log("Facing right " + facing);
         //Debug.Log("moveVector.x " + moveVector.x);
         //if player gets to close aggro on them
-        if (DistanceToPlayer < aggroRange && PlayerOnLevel())
+        if (DistanceToPlayer < aggroRange && PlayerOnLevel() && (!territorial || playerInTerritory))
         {
             aggro = true;
         }
         //de aggro if you get out of leash range or out of range height wise 4x the height check distance
-        else if (!boss && DistanceToPlayer > aggroLeash || !boss && DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel())
+        else if (!boss && DistanceToPlayer > aggroLeash || !boss && DistanceToPlayer > levelCheckHeight * 6 && !PlayerOnLevel() || territorial && !playerInTerritory)
         {
             aggro = false;
         }

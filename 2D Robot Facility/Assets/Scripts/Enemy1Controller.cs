@@ -35,12 +35,12 @@ public class Enemy1Controller : EnemyControllerTemplate
 
     protected override void Update()
     {
-        if (DistanceToPlayer < aggroRange && PlayerOnLevel())
+        if (DistanceToPlayer < aggroRange && PlayerOnLevel() && (!territorial || playerInTerritory))
         {
             aggro = true;
         }
         //de aggro if you get out of leash range or out of range height wise 4x the height check distance
-        else if (DistanceToPlayer > aggroLeash || DistanceToPlayer > levelCheckHeight * 4 && !PlayerOnLevel())
+        else if (DistanceToPlayer > aggroLeash || DistanceToPlayer > levelCheckHeight * 4 && !PlayerOnLevel() || territorial && !playerInTerritory)
         {
             aggro = false;
         }
