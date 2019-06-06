@@ -538,6 +538,81 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &862228312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 862228314}
+  - component: {fileID: 862228313}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &862228313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862228312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082db7d25e36fe64192453d6c7cb965b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 24300002, guid: 6e159fa79d866f845a766be5274eed91, type: 2}
+  sounds:
+  - name: Collision
+    clip: {fileID: 8300000, guid: f92f343529c7f604ebdb00df6c07581f, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Start
+    clip: {fileID: 8300000, guid: d97cfbeff99fa3f49bfc9848e47bf7b8, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: 6e906994358437e49acabbbb1f71c83c, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243866979709118752, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+--- !u!4 &862228314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862228312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 196.60762, y: 10.987554, z: -0.12371451}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1035588415
 GameObject:
   m_ObjectHideFlags: 0
@@ -3389,6 +3464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744640376099955991, guid: cb4389c925167cf42a9b6cd3bc799e96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb4389c925167cf42a9b6cd3bc799e96, type: 3}
