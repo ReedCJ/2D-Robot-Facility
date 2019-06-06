@@ -105,6 +105,21 @@ public class OptionsMenu : MonoBehaviour
         Screen.fullScreen = isFullscreen;
     }
 
+ /*   public void SetFullscreen(bool fullscreen)
+    {
+        Screen.fullScreen = fullscreen;
+        if (Screen.fullScreen)
+        {
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
+    }
+*/
+
+
     public void SetVolume (float Volume)
     {
         //Changes Master Mixer to variable Volume
