@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
                 fire = false;
             }
 
-            if (Input.GetButtonDown("Focus"))
+            if (Input.GetButton("Focus"))
                 focusing = true;
             else focusing = false;
 
@@ -227,11 +227,10 @@ public class PlayerController : MonoBehaviour
         // Movement input && grapple input processing block
         //
 
-        if (fallThrough)
+        if (focusing && !swinging)
         {
-            //Debug.Log(true);
+            controller.Move(0, crouch, false, false);
         }
-
         if (!swinging && !fallThrough)
         {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
@@ -310,7 +309,7 @@ public class PlayerController : MonoBehaviour
     private Transform GetShotSpawn()
     {
         //if up is held always shoot up
-        if (swinging && focusing)
+        if (swinging && !focusing)
             return shotSpawns[0];
         else if(up)
         {
