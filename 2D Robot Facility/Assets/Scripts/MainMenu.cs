@@ -14,22 +14,28 @@ public class MainMenu : MonoBehaviour
     public Image healthBar;
     private Animator animator;
     private GameObject menuPlayer;
+    private AudioManager audio;
     
     private IEnumerator coroutine;
 
     public static bool isPaused; //Used to determine paused state
 
-
+ 
     void Start()
     {
+        audio = FindObjectOfType<AudioManager>();
+        
         //assigns animation controller if main menu
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             menuPlayer = GameObject.FindWithTag("Menu");
             animator = menuPlayer.GetComponent<Animator>();
+            audio.Play("MenuMusic");
             //Debug.Log("menuPlayer Animator=" + animator.ToString());
         }
 
+        
+              
         //assigns player health to player gameobject
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
@@ -37,6 +43,8 @@ public class MainMenu : MonoBehaviour
         
         UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts
         isPaused = false; //make sure isPaused is always false when our scene opens
+
+          
     }
 
     
@@ -81,6 +89,8 @@ public class MainMenu : MonoBehaviour
         coroutine = StartGame();
         StartCoroutine(coroutine);
         animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
+        audio.Play("Start"); //Plays menuPlayer SFX
+
     }
 
     public void QuitGame()
