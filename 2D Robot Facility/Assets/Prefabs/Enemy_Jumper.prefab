@@ -90,7 +90,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3565958305124520790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 38, y: 18, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4608115827175748583}
@@ -176,6 +176,7 @@ MonoBehaviour:
   aggroLeash: 35
   levelCheckHeight: 3
   randomMovement: 1
+  drop: {fileID: 0}
   attackJumpspeed: 1000
   attackJumpheight: 650
   attackJumpCD: 2
@@ -214,7 +215,7 @@ MonoBehaviour:
   health: 4
   invulnFrames: 0
   time: 0
-
+  flying: 0
 --- !u!1001 &2905885717467086589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -288,4 +289,3 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 2905885717467086589}
   m_PrefabAsset: {fileID: 0}
-

@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2563208492683336291}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 116, y: 10, z: -0.24063}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.8709803, y: 2.2298875, z: 2.2298875}
   m_Children:
   - {fileID: 2563208493074110660}
@@ -188,6 +188,7 @@ MonoBehaviour:
   aggroLeash: 35
   levelCheckHeight: 6
   randomMovement: 1
+  drop: {fileID: 0}
   mortarCount: 3
   mortarCD: 1
   mortarSpawnHeight: 2.2
@@ -233,6 +234,7 @@ MonoBehaviour:
   health: 26
   invulnFrames: 0
   time: 0
+  flying: 0
 --- !u!1 &2563208493074110663
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,14 +552,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank_Turtle_6_Baked
       objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 70d01baaf5400364099ac424843c816d, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f9da96c46d763f94993a3e94e959180f, type: 2}
-    - target: {fileID: 9500000, guid: 70d01baaf5400364099ac424843c816d, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400094, guid: 70d01baaf5400364099ac424843c816d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.06
@@ -613,6 +607,14 @@ PrefabInstance:
     - target: {fileID: 400094, guid: 70d01baaf5400364099ac424843c816d, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 70d01baaf5400364099ac424843c816d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f9da96c46d763f94993a3e94e959180f, type: 2}
+    - target: {fileID: 9500000, guid: 70d01baaf5400364099ac424843c816d, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70d01baaf5400364099ac424843c816d, type: 3}

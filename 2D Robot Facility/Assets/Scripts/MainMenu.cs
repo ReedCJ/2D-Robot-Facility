@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-#pragma warning disable 0649
-    [SerializeField] private GameObject Gamemaster;
-#pragma warning restore 0649
     [SerializeField] Transform UIPause; //Will assign our panel to this variable so we can enable/disable it
     public TextMeshProUGUI healthText;
     public PlayerHealth player;
@@ -153,8 +150,31 @@ public class MainMenu : MonoBehaviour
                 checkPoint.z = save.lastCheckpoint[2];
                 GM.checkPoint = checkPoint;
             }
+            else
+                GM.reachedPoint = false;
+
+            GM.loading = true;
+            GM.playerPos.x = save.playerPos[0];
+            GM.playerPos.y = save.playerPos[1];
+            GM.playerPos.z = save.playerPos[2];
+
+            if (GM.reachedPoint)
+                Debug.Log("The player was able to reach the checkpoint at: " + GM.checkPoint.x + " " + GM.checkPoint.y + " " + GM.checkPoint.z);
+            else
+                Debug.Log("The player was not able to reach a checkpoint.");
+
+            Debug.Log("Player will be position at: " + GM.playerPos.x + " " + GM.playerPos.y + " " + GM.playerPos.z);
+
+            if (GM.health > 0)
+                Debug.Log("The player will be spawned with " + GM.health + " health.");
+            else if (GM.health == 0)
+                Debug.Log("Health was not recorded during the save.");
+            else Debug.Log("Invalid health amount was recorded.");
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+        else
+            Debug.Log("Load failed.");
     }
 
     public void Restart()
