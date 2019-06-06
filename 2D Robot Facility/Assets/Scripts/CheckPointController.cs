@@ -8,7 +8,8 @@ public class CheckPointController : MonoBehaviour
         "Make sure that the entirety of the gameObject's hitbox is not inside any other hitboxes, especially not the bottom" +
         " so that the player wont get stuck in anything when he respawns. CheckPoints wont work unless an object tagged " +
         "GameMaster with the GameMaster script is in the scene.")]
-    public string howToUseCheckPoints;
+
+    public string howToUseCheckPoints;              // Refer to tooltip, not an actual variable in use.
     private GameMaster GM;      // The script that controls where the player spawns when the game is restarted
     // Start is called before the first frame update
     void Start()

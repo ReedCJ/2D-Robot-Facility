@@ -58,7 +58,6 @@ public class TeatherController : MonoBehaviour
 
         teather = Instantiate(teatherPrefab, player.teatherSpawn.transform.position, transform.rotation);
         Shift();
-        Debug.Log("Starting");
     }
 
     // Update is called once per frame
@@ -127,13 +126,13 @@ public class TeatherController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (retracting && other.gameObject.tag == "Teather Spawn")            // Grapplehook is removed from the game when it comes back to the player
+        if (retracting && other.gameObject.CompareTag("Teather Spawn"))            // Grapplehook is removed from the game when it comes back to the player
         {
             player.teatherOut = false;
             Destroy(teather);
             Destroy(gameObject);
         }
-        else if (other.gameObject.tag == "Terrain" && contact == false)     // Grapple hook starts retracting if the colliding surface is invalid
+        else if (other.gameObject.CompareTag("Terrain") && contact == false)     // Grapple hook starts retracting if the colliding surface is invalid
         {
             retracting = true;
         }
@@ -231,7 +230,7 @@ public class TeatherController : MonoBehaviour
             }
             SlowToMaxSpeed();
         }
-        else if (Input.GetButtonDown("Focus"))
+        else if (player.focusing)
         {
             // Aim weapon
         }

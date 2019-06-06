@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+#pragma warning disable 0649
+    [SerializeField] private GameObject Gamemaster;
+#pragma warning restore 0649
     [SerializeField] Transform UIPause; //Will assign our panel to this variable so we can enable/disable it
     public TextMeshProUGUI healthText;
     public PlayerHealth player;
@@ -37,6 +40,7 @@ public class MainMenu : MonoBehaviour
         
               
         //assigns player health to player gameobject
+        if (GameObject.FindGameObjectWithTag("Player"))
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
         //if in-game menu 
@@ -93,6 +97,12 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    public void ContinueGame()
+    {
+        coroutine = LoadGame();
+        StartCoroutine(coroutine);
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit");
@@ -132,6 +142,29 @@ public class MainMenu : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    private IEnumerator LoadGame()      // Gets load data, puts it into GM, starts game
+    {
+        SaveData save = SaveSystem.LoadGame();
+        if (save != null)               // If there isn't any load data, don't put it into the GM and don't start game
+        {
+            animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
+            yield return new WaitForSeconds(2f);
+            GameMaster GM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
+            if (save.health > 0)
+                GM.health = save.health;
+            if (save.reached)
+            {
+                GM.reachedPoint = true;
+                Vector3 checkPoint = new Vector3();
+                checkPoint.x = save.lastCheckpoint[0];
+                checkPoint.y = save.lastCheckpoint[1];
+                checkPoint.z = save.lastCheckpoint[2];
+                GM.checkPoint = checkPoint;
+            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 
     public void Restart()
