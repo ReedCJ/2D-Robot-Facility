@@ -18,6 +18,24 @@ public class DoorController : MonoBehaviour
         locked = false;
     }
 
+    public bool Locked
+    {
+        get { return locked; }
+        set { locked = value; }
+    }
+
+    public bool LockLeft
+    {
+        get { return lockLeft; }
+        set { lockLeft = value; }
+    }
+
+    public bool LockRight
+    {
+        get { return lockRight; }
+        set { lockRight = value; }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!locked)
@@ -34,13 +52,14 @@ public class DoorController : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.gameObject == player)
         {
             blocker.SetActive(true);
         }
+
+        /* In the wall now for smaller hitbox
         if (lockLeft)
         {
             if (player.transform.position.x < this.transform.position.x)
@@ -57,8 +76,8 @@ public class DoorController : MonoBehaviour
                 lockRight = false;
             }
         }
+        */
     }
-
     public void Unlock()
     {
         locked = false;
