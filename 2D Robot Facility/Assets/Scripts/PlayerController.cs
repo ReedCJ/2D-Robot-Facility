@@ -20,12 +20,10 @@ public class PlayerController : MonoBehaviour
     private float lf;                       //last time you fired
     private float nextFire;                 //counter for fire rate
 
-    public bool enabledDouble;              // public bool for enabling/disabling double jumps
-
     public Transform teatherSpawn;
     private bool teather;                   // Teather key input
-    public bool jump;                       // Jump key input
-    [System.NonSerialized] public bool canDouble;// bool for being able to double dump
+    [System.NonSerialized] public bool jump;        // Jump key input
+    [System.NonSerialized] public bool canDouble;   // bool for being able to double dump
     private bool doubleJump;                // double jump bool
     private bool camFollow;                 // Camera is in follow mode?
 
