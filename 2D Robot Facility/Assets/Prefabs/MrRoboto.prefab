@@ -214,7 +214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7770694891249658994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.6, y: 11.229, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_Children:
   - {fileID: 8299943365871580695}
@@ -308,9 +308,7 @@ MonoBehaviour:
   - {fileID: 4912741514518245879}
   speed: 60
   fireRate: 0.5
-  enabledDouble: 0
   teatherSpawn: {fileID: 8972695426720726024}
-  jump: 0
   controller: {fileID: 7060801079325029928}
   dead: 0
   gameOverUI: {fileID: 0}
@@ -333,7 +331,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invuln: 0
   maxHealth: 10
-  health: 0
   invulnFrames: 2
 --- !u!114 &7770694891249658993
 MonoBehaviour:
