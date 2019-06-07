@@ -91,6 +91,7 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(coroutine);
         animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
         audio.Play("Start"); //Plays menuPlayer SFX
+        audio.Fade("MenuMusic", "BGM");
 
     }
 
@@ -138,6 +139,7 @@ public class MainMenu : MonoBehaviour
     private IEnumerator StartGame()
     {
         yield return new WaitForSeconds(2f);
+      //  audio.Stop("MenuMusic");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -147,6 +149,7 @@ public class MainMenu : MonoBehaviour
         if (save != null)               // If there isn't any load data, don't put it into the GM and don't start game
         {
             animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
+            audio.Play("Start"); //Plays menuPlayer SFX
             yield return new WaitForSeconds(2f);
             GameMaster GM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
             if (save.health > 0)

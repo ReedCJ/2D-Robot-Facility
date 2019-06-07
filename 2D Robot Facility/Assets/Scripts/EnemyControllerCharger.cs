@@ -14,6 +14,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     private int nofloor = 0;
 
     public Animator animator;
+    public AudioSource audio;
 
     [SerializeField] private bool boss;
 
@@ -23,6 +24,8 @@ public class EnemyControllerCharger : EnemyControllerTemplate
         base.Start();
         chargeRight = new Vector2(chargeSpeed, 0);
         chargeLeft = new Vector2(chargeSpeed * -1.0f, 0);
+
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

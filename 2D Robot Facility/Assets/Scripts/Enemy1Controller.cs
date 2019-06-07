@@ -21,7 +21,8 @@ public class Enemy1Controller : EnemyControllerTemplate
     private float jumpedHeight;
 
     public Animator jumperAnim;
-    
+    private AudioSource audio;
+        
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -31,6 +32,8 @@ public class Enemy1Controller : EnemyControllerTemplate
         moveJumpleft = moveJumpspeed * -1.0f;
         moveJumpright = moveJumpspeed;
         jumpedHeight = body.transform.position.y;
+
+        audio = GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -120,6 +123,7 @@ public class Enemy1Controller : EnemyControllerTemplate
     protected override void Jump(float speed, float height)
     {
         jumperAnim.SetTrigger("Jump");
+        audio.Play(0);
         base.Jump(speed, height);
         whenJumped = Timer;
         jumpedHeight = body.transform.position.y;

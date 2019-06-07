@@ -64,10 +64,13 @@ public class PlayerController : MonoBehaviour
     public bool contactRight;
     public bool contactTop;
 
+    private AudioManager audio;
+
 
     //Run when player is created
     void Start()
     {
+        
         focusing = false;
         knockdown = false;
         thinGround = false;
@@ -91,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
     void SetInitialState()      // Sets variables 
     {
+        audio = FindObjectOfType<AudioManager>();
         camFollow = true;
     }
 
@@ -193,6 +197,7 @@ public class PlayerController : MonoBehaviour
                     animator.SetLayerWeight(1, 1);
                     // StartCoroutine("TetherTorso");
                     animator.SetTrigger("SwingStart");
+                    audio.Play("Tether");
                 }
                
             }
@@ -372,8 +377,10 @@ public class PlayerController : MonoBehaviour
     //plays contact animation - triggered from contactDamage script
     public void contactAnimate()
     {
-        Debug.Log("Contact");
+        // Debug.Log("Contact");
+        audio.Play("Damage");
         animator.SetTrigger("Contact");
+        audio.Play("Invulnerable");
     }
 
     //plays contact animation - triggered from contactDamageCharger script
@@ -385,6 +392,9 @@ public class PlayerController : MonoBehaviour
 
         //animation parameter to disable alternate animations
         animator.SetBool("Knockdown", true);
+
+        audio.Play("Knockdown");
+        audio.Play("Invulnerable");
 
         //coroutine to reenable parameters/variables after animation
         StartCoroutine("knockeddown");
