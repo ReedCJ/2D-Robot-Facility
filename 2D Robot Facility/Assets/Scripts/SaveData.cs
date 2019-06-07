@@ -19,10 +19,14 @@ public class SaveData
 
         GameMaster GM = GameObject.FindWithTag("GameMaster").GetComponent<GameMaster>();
         reached = GM.reachedPoint;
-        Vector3 checkPoint = GM.checkPoint;
-        lastCheckpoint[0] = checkPoint.x;
-        lastCheckpoint[1] = checkPoint.y;
-        lastCheckpoint[2] = checkPoint.z;
+        if (reached)
+        {
+            Vector3 checkPoint = GM.checkPoint;
+            lastCheckpoint = new float[3];
+            lastCheckpoint[0] = checkPoint.x;
+            lastCheckpoint[1] = checkPoint.y;
+            lastCheckpoint[2] = checkPoint.z;
+        }
     }
 
     public SaveData(PlayerController player, PlayerHealth hp)

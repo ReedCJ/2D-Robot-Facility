@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2211785857085361117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.25, y: 4.13, z: -0.49043918}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
@@ -138,6 +138,7 @@ MonoBehaviour:
   aggroLeash: 0
   levelCheckHeight: 0
   randomMovement: 0
+  drop: {fileID: 0}
   travelTime: 1
   tank: {fileID: 8078804377546338604, guid: 397cd8fd1b9e05b419f81fb0399dec73, type: 3}
 --- !u!114 &6201164834104318025

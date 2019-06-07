@@ -16,8 +16,9 @@ public class EnemyControllerTemplate : MonoBehaviour
     public float aggroLeash;
     public float levelCheckHeight;
     public bool randomMovement;
+    public bool territorial;
+    protected bool playerInTerritory;
     [SerializeField] private GameObject drop;
-
     protected float height;
     protected bool aggro;
 
@@ -85,6 +86,14 @@ public class EnemyControllerTemplate : MonoBehaviour
             //Debug.Log(player.transform.position.x);
             //Debug.Log(body.transform.position.x);
             return player.transform.position.x > body.transform.position.x;
+        }
+    }
+
+    public bool PlayerInTerritory
+    {
+        set
+        {
+            playerInTerritory = value;
         }
     }
 

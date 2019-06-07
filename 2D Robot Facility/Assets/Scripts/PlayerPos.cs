@@ -8,7 +8,12 @@ public class PlayerPos : MonoBehaviour
     void Start()
     {
         GameMaster GM = GameObject.FindWithTag("GameMaster").GetComponent<GameMaster>();
-        if (GM.reachedPoint)
+        if (GM.loading)
+        {
+            transform.position = GM.playerPos;
+            GM.loading = false;
+        }
+        else if (GM.reachedPoint)
         {
             if (GM.health != 0)
                 GetComponent<PlayerHealth>().health = GM.health;

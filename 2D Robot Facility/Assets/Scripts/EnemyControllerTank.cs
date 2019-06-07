@@ -38,11 +38,11 @@ public class EnemyControllerTank : EnemyControllerTemplate
     // Update is called once per frame
     protected override void Update()
     {
-        if (DistanceToPlayer < aggroRange)
+        if (DistanceToPlayer < aggroRange && (!territorial || playerInTerritory))
         {
             aggro = true;
         }
-        else if (DistanceToPlayer > aggroLeash)
+        else if (DistanceToPlayer > aggroLeash || territorial && !playerInTerritory)
         {
             aggro = false;
         }
