@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour
         {
             menuPlayer = GameObject.FindWithTag("Menu");
             animator = menuPlayer.GetComponent<Animator>();
+            if(!audio.sounds[2].source.isPlaying)
             audio.Play("MenuMusic");
             //Debug.Log("menuPlayer Animator=" + animator.ToString());
         }
@@ -109,6 +110,8 @@ public class MainMenu : MonoBehaviour
 
     public void QuitToMenu()
     {
+        //audio.Fade("BGM", "MenuMusic");
+        audio.Stop("MenuMusic");
         SceneManager.LoadScene(0);
         UIPause.gameObject.SetActive(false);
         isPaused = false;
@@ -117,6 +120,7 @@ public class MainMenu : MonoBehaviour
 
     public void Pause()
     {
+
         isPaused = true;
         UIPause.gameObject.SetActive(true); //turn on the pause menu
         Time.timeScale = 0f; //pause the game
@@ -124,6 +128,7 @@ public class MainMenu : MonoBehaviour
 
     public void UnPause()
     {
+
         UIPause.gameObject.SetActive(false); //turn off pause menu
         Time.timeScale = 1f; //resume game 
         coroutine = UnPauseDelay();
