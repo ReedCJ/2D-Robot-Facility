@@ -13,6 +13,7 @@ public class OptionsMenu : MonoBehaviour
     public Slider sfxSlider;
     public Button backButton;
     public Animator animator;
+    private AudioManager audio;
 
     private IEnumerator coroutine;
     
@@ -27,6 +28,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void Start()
     {
+        audio = FindObjectOfType<AudioManager>();
+
         //gets available resolutions as detected by unity and adds them to an array.
         //Then the available resolutions are added to a dropdown with the current resolution prepopulated
 
@@ -181,6 +184,7 @@ public class OptionsMenu : MonoBehaviour
     private IEnumerator JumperJump()
     {
         yield return new WaitForSeconds(4f);
+        audio.Play("Jumper");
         animator.SetTrigger("Jump");
         coroutine = JumperJump();
         StartCoroutine(coroutine);
