@@ -70,11 +70,12 @@ public class OptionsMenu : MonoBehaviour
         audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("MVolume"));
 
         bgmSlider.value = PlayerPrefs.GetFloat("bgmVolume", 1f);
-        audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("bgmVolume"));
+        audioMixer.SetFloat("BGM", PlayerPrefs.GetFloat("bgmVolume"));
 
         sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
-        audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("sfxVolume"));
+        audioMixer.SetFloat("SFX", PlayerPrefs.GetFloat("sfxVolume"));
 
+       
     }
 
     public void OnEnable()
