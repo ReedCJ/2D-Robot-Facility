@@ -11,6 +11,7 @@ public class TimedSmasher : MonoBehaviour
     private bool raised;            // Is the compactor currently fully raised?
     private bool lowered;           // Is the compactor currently fully lowered?
     private float timer;            // Keeps track of how long to hold in a raised or lowered position
+    private AudioSource audio;
 #pragma warning disable 0649
     [SerializeField] private float timeUp;          // Time it spends staying still after retracting back to the top
     [SerializeField] private float timeDown;        // Time it spends staying still after extending to the max range
@@ -82,7 +83,12 @@ public class TimedSmasher : MonoBehaviour
         lowering = lower;
         timer = 0;
 
-        if (lower) animate.SetTrigger("Slam");
+        if (lower)
+        {
+            audio = FindObjectOfType<AudioSource>();
+            audio.Play(0);
+            animate.SetTrigger("Slam");
+        }
         else animate.SetTrigger("Retract");
     }
 }
