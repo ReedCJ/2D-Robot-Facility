@@ -26,7 +26,8 @@ public class ShotController : MonoBehaviour
     void Start()
     {
         audio = FindObjectOfType<AudioManager>();
-        audio.Play("Shot");
+        if(audio != null)
+            audio.Play("Shot");
         Physics2D.IgnoreLayerCollision(11, 14, true);
         body = GetComponent<Rigidbody2D>();
         body.velocity = transform.right * speed;
