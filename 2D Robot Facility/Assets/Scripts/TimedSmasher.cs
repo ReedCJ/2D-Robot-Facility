@@ -33,6 +33,7 @@ public class TimedSmasher : MonoBehaviour
         hazard.active = false;
 
         animate = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
         animate.SetFloat("SlamSpeed", slamSpeed);
         animate.SetFloat("RetractSpeed", retractSpeed);
     }
@@ -85,8 +86,8 @@ public class TimedSmasher : MonoBehaviour
 
         if (lower)
         {
-            audio = FindObjectOfType<AudioSource>();
-            audio.Play(0);
+            if(audio != null)
+                audio.Play(0);
             animate.SetTrigger("Slam");
         }
         else animate.SetTrigger("Retract");
