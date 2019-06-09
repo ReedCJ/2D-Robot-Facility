@@ -303,6 +303,8 @@ public class PlayerController : MonoBehaviour
 
         if(teleport)
         {
+            if (audio != null)
+                audio.Play("Teleport");
             this.gameObject.transform.position = teleporter.GetComponent<TeleporterController>().Destination.transform.GetChild(0).gameObject.transform.position;
             lt = timer;
         }
