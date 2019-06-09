@@ -36434,11 +36434,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverUI
       objectReference: {fileID: 0}
-    - target: {fileID: 4555786367553010031, guid: 457ef69d4d3d63241ab9788d0bcecac2,
-        type: 3}
-      propertyPath: inGameUI
-      value: 
-      objectReference: {fileID: 7869436945830030302}
     - target: {fileID: 3554497410025412132, guid: 457ef69d4d3d63241ab9788d0bcecac2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -36494,12 +36489,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3554497410073555250, guid: 457ef69d4d3d63241ab9788d0bcecac2,
+    - target: {fileID: 4555786367553010031, guid: 457ef69d4d3d63241ab9788d0bcecac2,
+        type: 3}
+      propertyPath: inGameUI
+      value: 
+      objectReference: {fileID: 7869436945830030302}
+    - target: {fileID: 3554497408684365334, guid: 457ef69d4d3d63241ab9788d0bcecac2,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 3554497408684365334, guid: 457ef69d4d3d63241ab9788d0bcecac2,
+    - target: {fileID: 3554497410073555250, guid: 457ef69d4d3d63241ab9788d0bcecac2,
         type: 3}
       propertyPath: m_Camera
       value: 
@@ -37008,6 +37008,11 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 1280659891}
+    - target: {fileID: 7265923704967026710, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: clawHand
+      value: 
+      objectReference: {fileID: 8972695428110066388}
     - target: {fileID: 1353147268811288123, guid: d33fa022de5bd3749852958513921963,
         type: 3}
       propertyPath: m_Enabled
@@ -37988,8 +37993,40 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.000000052154064
       objectReference: {fileID: 0}
+    - target: {fileID: 7060801079325029928, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: OnCrouchEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7060801079325029928, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: OnCrouchEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7060801079325029928, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: OnCrouchEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7060801079325029928, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: OnCrouchEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8208748433622882811, guid: e47df48187dbcbe4eb28744823bdc0c5,
+        type: 3}
+    - target: {fileID: 8972695427021902271, guid: d33fa022de5bd3749852958513921963,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d33fa022de5bd3749852958513921963, type: 3}
+--- !u!1 &8972695428110066388 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8972695427021902271, guid: d33fa022de5bd3749852958513921963,
+    type: 3}
+  m_PrefabInstance: {fileID: 8972695428110066387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!33 &9005749295285079908
 MeshFilter:
   m_ObjectHideFlags: 0

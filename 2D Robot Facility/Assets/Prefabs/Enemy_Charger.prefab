@@ -96,6 +96,7 @@ MonoBehaviour:
   aggroLeash: 35
   levelCheckHeight: 3
   randomMovement: 1
+  territorial: 0
   drop: {fileID: 0}
   chargeCD: 2
   chargeSpeed: 1500
@@ -169,7 +170,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 7441942b0eca81c469bcd66d72e2c06c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -275,7 +276,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: cbc74086e8adf0847bc7244b25734ece, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -457,14 +458,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charger_Ram_Baked
       objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f7595f64f6a228e48a499d7ca60bfbfc, type: 2}
-    - target: {fileID: 9500000, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.2
@@ -519,6 +512,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f7595f64f6a228e48a499d7ca60bfbfc, type: 2}
+    - target: {fileID: 9500000, guid: bd4610dc84f2fe14e9eb6483494c2dcd, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
