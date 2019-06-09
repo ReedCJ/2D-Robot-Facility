@@ -420,7 +420,7 @@ public class PlayerController : MonoBehaviour
         if (audio != null)
             audio.Play("Damage");
         animator.SetTrigger("Contact");
-        if (audio != null)
+        if (audio != null && !dead)
             audio.Play("Invulnerable");
     }
 
@@ -435,8 +435,12 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Knockdown", true);
         if (audio != null)
         {
-            audio.Play("Knockdown");
-            audio.Play("Invulnerable");
+            if (!dead)
+            {
+                audio.Play("Knockdown");
+                audio.Play("Invulnerable");
+            }
+            
         }
             
         //coroutine to reenable parameters/variables after animation
