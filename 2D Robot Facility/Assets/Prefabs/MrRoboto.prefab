@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 870986908883215073}
   - component: {fileID: 2273663979706724169}
   - component: {fileID: 1353147268811288123}
+  - component: {fileID: 1687022824468770566}
   m_Layer: 12
   m_Name: MrRoboto
   m_TagString: Player
@@ -648,6 +649,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!81 &1687022824468770566
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770694891249658994}
+  m_Enabled: 1
 --- !u!1 &8972695426720726025
 GameObject:
   m_ObjectHideFlags: 0
