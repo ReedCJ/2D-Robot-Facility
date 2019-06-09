@@ -47,7 +47,7 @@ MonoBehaviour:
   sounds:
   - name: Collision
     clip: {fileID: 8300000, guid: f92f343529c7f604ebdb00df6c07581f, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Damage
     clip: {fileID: 8300000, guid: f92f343529c7f604ebdb00df6c07581f, type: 3}
-    volume: 0.228
+    volume: 0.125
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ShotHit
     clip: {fileID: 8300000, guid: 6ca906d88448b9544ab8f66585486020, type: 3}
-    volume: 1
+    volume: 0.25
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -220,6 +220,16 @@ MonoBehaviour:
     volume: 0.75
     volumeVariance: 0
     pitch: 3
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: b759be66a512e1f4a943563fc7e89455, type: 3}
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
     pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
