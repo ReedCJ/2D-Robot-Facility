@@ -258,7 +258,7 @@ public class TeatherController : MonoBehaviour
     {
         Vector2 destination;
 
-        if (Mathf.Abs(angle) > 80)
+        if (Mathf.Abs(angle) > 20)
         {
             destination = new Vector2(transform.position.x - distance - player.transform.position.x,
                 transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * rate * 90;
