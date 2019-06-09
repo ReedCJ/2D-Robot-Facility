@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -120,8 +121,41 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Vertical_f", (vMove));
             animator.SetFloat("Horizontal_f", Mathf.Abs(hMove));
 
-            //Checks if falling parameter
-            animator.SetFloat("Falling", body.velocity.y);
+            //Plays audio for character movement
+            if (grounded && !crouch && Math.Abs(hMove) > .5)
+            {
+                if (audio != null)
+                {
+                    if (!audio.sounds[15].source.isPlaying)
+                        audio.Play("Running");
+                    if (audio.sounds[16].source.isPlaying)
+                        audio.Stop("Walking");
+                }
+            }
+            
+            else if (grounded && crouch && (Math.Abs(hMove) >= .1) || Math.Abs(hMove) <= .5 && Math.Abs(hMove) >= .1)
+            {
+                if (audio != null)
+                {
+                    if(!audio.sounds[16].source.isPlaying)
+                        audio.Play("Walking");
+                    if (audio.sounds[15].source.isPlaying)
+                        audio.Stop("Running");
+                }
+                    
+            }
+            else
+            {
+                if (audio != null)
+                {
+                    audio.Stop("Running");
+                    audio.Stop("Walking");
+                }
+                    
+            }
+
+                //Checks if falling parameter
+                animator.SetFloat("Falling", body.velocity.y);
             if (body.velocity.y < -2)
                 animator.SetBool("Jumping", false);
 
@@ -197,6 +231,7 @@ public class PlayerController : MonoBehaviour
                     animator.SetLayerWeight(1, 1);
                     // StartCoroutine("TetherTorso");
                     animator.SetTrigger("SwingStart");
+                    if (audio != null)
                     audio.Play("Tether");
                 }
                
@@ -349,6 +384,8 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Landing");
         animator.SetBool("Jumping", false);
         animator.SetBool("Grounded", true);
+        if (audio != null)
+            audio.Play("Landing");
 
     }
 
@@ -378,9 +415,11 @@ public class PlayerController : MonoBehaviour
     public void contactAnimate()
     {
         // Debug.Log("Contact");
-        audio.Play("Damage");
+        if (audio != null)
+            audio.Play("Damage");
         animator.SetTrigger("Contact");
-        audio.Play("Invulnerable");
+        if (audio != null)
+            audio.Play("Invulnerable");
     }
 
     //plays contact animation - triggered from contactDamageCharger script
@@ -392,10 +431,12 @@ public class PlayerController : MonoBehaviour
 
         //animation parameter to disable alternate animations
         animator.SetBool("Knockdown", true);
-
-        audio.Play("Knockdown");
-        audio.Play("Invulnerable");
-
+        if (audio != null)
+        {
+            audio.Play("Knockdown");
+            audio.Play("Invulnerable");
+        }
+            
         //coroutine to reenable parameters/variables after animation
         StartCoroutine("knockeddown");
 
@@ -471,6 +512,8 @@ public class PlayerController : MonoBehaviour
                 rend.enabled = true;
             yield return new WaitForSeconds(.2f);
         }
+        if (audio != null)
+            audio.Stop("Invulnerable");
         rend.enabled = true;
     }
 

@@ -9,9 +9,14 @@ public class GameOver : MonoBehaviour
     public GameObject restartGame;
     public GameObject inGameUI;
     private IEnumerator coroutine;
+    private bool dead;
+
+    private AudioManager audio;
 
     void Start()
     {
+        dead = false;
+        audio = FindObjectOfType<AudioManager>();
        // gameOverScreen.SetActive(false);
        // restartGame.SetActive(false);
 
@@ -19,12 +24,32 @@ public class GameOver : MonoBehaviour
 
     public void gameOver ()
     {
-        inGameUI.SetActive(false);
-        gameOverScreen.SetActive(true);
-        //restartGame.SetActive(true);
-        coroutine = WaitAndRetry();
-        StartCoroutine(coroutine);
-        Time.timeScale = 0.5f;
+        if (!dead)
+        {
+            if (audio != null)
+                audio.Play("Dead");
+
+            //disable pause menu
+            inGameUI.SetActive(false);
+
+            //enable Game Over text element
+            gameOverScreen.SetActive(true);
+        
+            //start timed try again message
+            coroutine = WaitAndRetry();
+            StartCoroutine(coroutine);
+
+            //slow motion death screen effect
+            Time.timeScale = 0.5f;
+
+            // slows sound effect
+            var aSources = FindObjectsOfType<AudioSource>();
+            foreach (AudioSource s in aSources)
+                s.pitch = Time.timeScale;
+
+            dead = true;
+        }
+        
     }
 
     private IEnumerator WaitAndRetry()
