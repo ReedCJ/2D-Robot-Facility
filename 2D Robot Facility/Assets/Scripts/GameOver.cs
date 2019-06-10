@@ -26,8 +26,8 @@ public class GameOver : MonoBehaviour
     {
         if (!dead)
         {
-            if (audio != null)
-                audio.Play("Dead");
+            //if (audio != null)
+               // audio.Play("Dead");
 
             //disable pause menu
             inGameUI.SetActive(false);

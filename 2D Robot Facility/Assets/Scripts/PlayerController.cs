@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
                 {
                       jump = true;
                       animator.SetBool("Jumping", true);
-                    if (audio != null)
+                    if (audio != null && !MainMenu.isPaused)
                         audio.Play("Jump");
                       animator.SetBool("Grounded", false);
                 }
@@ -542,28 +542,53 @@ public class PlayerController : MonoBehaviour
         //Plays Death animation and disables all other animation events
         animator.SetBool("Death", true);
 
-        //Start GameOverUI
-        if (gameOverUI != null)
+        if (audio != null)
+        {
+            audio.Play("Dead");
+            //audio.sounds[17].source.pitch = 1f;
+            audio.sounds[15].source.Stop();
+            audio.sounds[16].source.Stop();
+        }
+            
+
+            //Start GameOverUI
+            if (gameOverUI != null)
             gameOverUI.gameOver();
         else Debug.Log("You need to attach inGameUI to PlayerController");
     }
 
     public void playerDeathFall()
     {
+        if (!dead)
+        {
+            
         //Sets playercontroller bool to dead - disables inputs to character controller
         dead = true;
 
         //Ensures input is reset to 0 so once player controller is disabled the player doesnt lock in movement
         hMove = 0;
         vMove = 0;
+        fire = false;
 
         //Plays Death animation and disables all other animation events
         animator.SetBool("DeathFall", true);
 
-        //Start GameOverUI
-        if (gameOverUI != null)
+        if (audio != null)
+            {
+                audio.Play("FallingDeath");
+                // audio.sounds[21].source.pitch = 1f;
+                audio.sounds[16].source.Stop();
+                audio.sounds[15].source.Stop();
+            }
+            
+
+            //Start GameOverUI
+            if (gameOverUI != null)
             gameOverUI.gameOver();
         else Debug.Log("You need to attach inGameUI to PlayerController");
+
+        }
+        
     }
 
 }

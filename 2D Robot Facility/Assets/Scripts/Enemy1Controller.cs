@@ -124,7 +124,7 @@ public class Enemy1Controller : EnemyControllerTemplate
     {
         jumperAnim.SetTrigger("Jump");
         if(audio != null)
-            audio.Play(0);
+            audio.Play();
         base.Jump(speed, height);
         whenJumped = Timer;
         jumpedHeight = body.transform.position.y;

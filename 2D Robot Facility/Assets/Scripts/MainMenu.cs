@@ -22,11 +22,11 @@ public class MainMenu : MonoBehaviour
 
     public static bool isPaused; //Used to determine paused state
 
- 
+    
     void Start()
     {
         audio = FindObjectOfType<AudioManager>();
-        
+                
         //Check if on main menu scene
         if (SceneManager.GetActiveScene().name == "Menu")
         {
@@ -119,21 +119,24 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quit");
+        //Debug.Log("Quit");
         Application.Quit();
     }
 
     public void QuitToMenu()
     {
-        //audio.Fade("BGM", "MenuMusic");
-        audio.Stop("BGM");
-        SceneManager.LoadScene(0);
         UIPause.gameObject.SetActive(false);
-        isPaused = false;
-        Time.timeScale = 1f; //resume game
-        var aSources = FindObjectsOfType<AudioSource>(); //resumes audio effect
+        //resumes audio effect
+        var aSources = FindObjectsOfType<AudioSource>();
         foreach (AudioSource s in aSources)
-            s.pitch = Time.timeScale;
+        {
+            s.Stop();
+            s.pitch = 1f;
+        }
+        Time.timeScale = 1f; //resume game
+        SceneManager.LoadScene(0);
+        coroutine = UnPauseDelay();
+        StartCoroutine(coroutine);
     }
 
     public void Pause()
@@ -152,15 +155,16 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1f; //resume game 
         coroutine = UnPauseDelay();
         StartCoroutine(coroutine);
-        var aSources = FindObjectsOfType<AudioSource>(); //unpauses audio
-        foreach (AudioSource s in aSources)
-            s.pitch = Time.timeScale;
+        
     }
 
     private IEnumerator UnPauseDelay()
     {
         yield return new WaitForSeconds(.1f);
         isPaused = false;
+        var aSources = FindObjectsOfType<AudioSource>(); //unpauses audio
+        foreach (AudioSource s in aSources)
+            s.pitch = Time.timeScale;
     }
 
     private IEnumerator StartGame()
