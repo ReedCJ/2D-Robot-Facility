@@ -40,8 +40,11 @@ public class DoorController : MonoBehaviour
     {
         if (!locked)
         {
-            if (collision.gameObject == player)
+            if (collision.gameObject.CompareTag("Player"))
             {
+                if (doorCode == "none")
+                    blocker.SetActive(false);
+
                 foreach (string k in player.GetComponent<KeycardController>().keycards)
                 {
                     if (k == doorCode)
@@ -54,7 +57,7 @@ public class DoorController : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject == player)
+        if(collision.gameObject.CompareTag("Player"))
         {
             blocker.SetActive(true);
         }
