@@ -16,6 +16,7 @@ TagManager:
   - Door
   - GameMaster
   - Pick Up
+  - Debug
   layers:
   - Default
   - TransparentFX
