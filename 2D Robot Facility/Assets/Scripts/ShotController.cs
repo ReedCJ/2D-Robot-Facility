@@ -20,10 +20,14 @@ public class ShotController : MonoBehaviour
 
     public GameObject shooter;
     public float speed;
+    private AudioManager audio;
 
     // Start is called before the first frame update
     void Start()
     {
+        audio = FindObjectOfType<AudioManager>();
+        if(audio != null)
+            audio.Play("Shot");
         Physics2D.IgnoreLayerCollision(11, 14, true);
         body = GetComponent<Rigidbody2D>();
         body.velocity = transform.right * speed;
@@ -33,12 +37,18 @@ public class ShotController : MonoBehaviour
     {
         //Debug.Log("Gameobject is" + collision.gameObject);
         //instantiate small animations at some point
-        if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
+        if (collision.gameObject.tag == "Terrain") {
+            if(audio != null)
+                audio.Play("ShotHit");
+            Destroy(gameObject);
+        }
         else if (collision.gameObject.layer == 16)
             foreach (string enemyTag in GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().enemyTypes)
             {
                 if (collision.gameObject.tag == enemyTag)
                 {
+                    if(audio != null)
+                        audio.Play("ShotEnemy");
                     collision.GetComponent<EnemyHealth>().health -= damage;
                     EnemyControllerTemplate ect = collision.GetComponent<EnemyControllerTemplate>();
                     ect.Aggro = true;
@@ -56,6 +66,8 @@ public class ShotController : MonoBehaviour
                         {
                             collision.GetComponent<OnDeath>().DoAllTheThings();
                         }
+                        if(audio != null)
+                           audio.Play("ShotKill");
                         collision.gameObject.SetActive(false);
                     }
                     Destroy(gameObject);

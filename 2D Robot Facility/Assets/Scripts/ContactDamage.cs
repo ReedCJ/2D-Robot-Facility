@@ -8,11 +8,10 @@ public class ContactDamage : MonoBehaviour
 
     private PlayerHealth player;                    // Script that handles player damage
     private PlayerController playerController;      // Primary player script. Handles player animation
-   
     // Start is called before the first frame update
     void Start()
     {
-        
+  
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MainMenu : MonoBehaviour
     private Animator animator;
     private GameObject menuPlayer;
     private AudioManager audio;
+    private OptionsMenu optionsMenu;
     
     private IEnumerator coroutine;
 
@@ -25,27 +27,41 @@ public class MainMenu : MonoBehaviour
     {
         audio = FindObjectOfType<AudioManager>();
         
-        //assigns animation controller if main menu
+        //Check if on main menu scene
         if (SceneManager.GetActiveScene().name == "Menu")
         {
+            //assigns menu player model animator on main
             menuPlayer = GameObject.FindWithTag("Menu");
             animator = menuPlayer.GetComponent<Animator>();
+
+            //Plays Menu music if not already playing (returning to main)
+            if(!audio.sounds[2].source.isPlaying)
             audio.Play("MenuMusic");
-            //Debug.Log("menuPlayer Animator=" + animator.ToString());
+           
+            //disables Options Menu at start
+            optionsMenu = FindObjectOfType<OptionsMenu>();
+            optionsMenu.gameObject.SetActive(false);
+
+            //updates options from persistent playerpref values
+            optionsMenu.volSlider.value = PlayerPrefs.GetFloat("MVolume", 1f);
+            optionsMenu.audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("MVolume"));
+
+            optionsMenu.bgmSlider.value = PlayerPrefs.GetFloat("bgmVolume", 1f);
+            optionsMenu.audioMixer.SetFloat("BGM", PlayerPrefs.GetFloat("bgmVolume"));
+
+            optionsMenu.sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
+            optionsMenu.audioMixer.SetFloat("SFX", PlayerPrefs.GetFloat("sfxVolume"));
         }
+        else
+        {
+            //assigns player health to player gameobject
+            if (GameObject.FindGameObjectWithTag("Player"))
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
 
-        
-              
-        //assigns player health to player gameobject
-        if (GameObject.FindGameObjectWithTag("Player"))
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-
-        //if in-game menu 
-        
-        UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts
-        isPaused = false; //make sure isPaused is always false when our scene opens
-
-          
+            //in-game menu 
+            UIPause.gameObject.SetActive(false); //make sure our pause menu is disabled when scene starts
+            isPaused = false; //make sure isPaused is always false when our scene opens
+        }
     }
 
     
@@ -91,6 +107,7 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(coroutine);
         animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
         audio.Play("Start"); //Plays menuPlayer SFX
+        audio.Fade("MenuMusic", "BGM");
 
     }
 
@@ -108,10 +125,15 @@ public class MainMenu : MonoBehaviour
 
     public void QuitToMenu()
     {
+        //audio.Fade("BGM", "MenuMusic");
+        audio.Stop("BGM");
         SceneManager.LoadScene(0);
         UIPause.gameObject.SetActive(false);
         isPaused = false;
         Time.timeScale = 1f; //resume game
+        var aSources = FindObjectsOfType<AudioSource>(); //resumes audio effect
+        foreach (AudioSource s in aSources)
+            s.pitch = Time.timeScale;
     }
 
     public void Pause()
@@ -119,6 +141,9 @@ public class MainMenu : MonoBehaviour
         isPaused = true;
         UIPause.gameObject.SetActive(true); //turn on the pause menu
         Time.timeScale = 0f; //pause the game
+        var aSources = FindObjectsOfType<AudioSource>(); //pauses audio
+        foreach (AudioSource s in aSources)
+            s.pitch = Time.timeScale;
     }
 
     public void UnPause()
@@ -127,6 +152,9 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1f; //resume game 
         coroutine = UnPauseDelay();
         StartCoroutine(coroutine);
+        var aSources = FindObjectsOfType<AudioSource>(); //unpauses audio
+        foreach (AudioSource s in aSources)
+            s.pitch = Time.timeScale;
     }
 
     private IEnumerator UnPauseDelay()
@@ -138,15 +166,20 @@ public class MainMenu : MonoBehaviour
     private IEnumerator StartGame()
     {
         yield return new WaitForSeconds(2f);
+      //  audio.Stop("MenuMusic");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private IEnumerator LoadGame()      // Gets load data, puts it into GM, starts game
     {
+        var aSources = FindObjectsOfType<AudioSource>(); //resumes normal audio
+        foreach (AudioSource s in aSources)
+            s.pitch = Time.timeScale;
         SaveData save = SaveSystem.LoadGame();
         if (save != null)               // If there isn't any load data, don't put it into the GM and don't start game
         {
             animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
+            audio.Play("Start"); //Plays menuPlayer SFX
             yield return new WaitForSeconds(2f);
             GameMaster GM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
             if (save.health > 0)
@@ -192,6 +225,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         UIPause.gameObject.SetActive(false); //turn off pause menu
         Time.timeScale = 1f; //resume game
+        var aSources = FindObjectsOfType<AudioSource>(); //resumes audio effect
+        foreach (AudioSource s in aSources)
+            s.pitch = Time.timeScale;
     }
 
 

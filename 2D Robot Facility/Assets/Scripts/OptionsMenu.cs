@@ -13,6 +13,7 @@ public class OptionsMenu : MonoBehaviour
     public Slider sfxSlider;
     public Button backButton;
     public Animator animator;
+    private AudioManager audio;
 
     private IEnumerator coroutine;
     
@@ -27,6 +28,8 @@ public class OptionsMenu : MonoBehaviour
 
     public void Start()
     {
+        audio = FindObjectOfType<AudioManager>();
+
         //gets available resolutions as detected by unity and adds them to an array.
         //Then the available resolutions are added to a dropdown with the current resolution prepopulated
 
@@ -67,11 +70,12 @@ public class OptionsMenu : MonoBehaviour
         audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("MVolume"));
 
         bgmSlider.value = PlayerPrefs.GetFloat("bgmVolume", 1f);
-        audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("bgmVolume"));
+        audioMixer.SetFloat("BGM", PlayerPrefs.GetFloat("bgmVolume"));
 
         sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
-        audioMixer.SetFloat("Master", PlayerPrefs.GetFloat("sfxVolume"));
+        audioMixer.SetFloat("SFX", PlayerPrefs.GetFloat("sfxVolume"));
 
+       
     }
 
     public void OnEnable()
@@ -104,6 +108,21 @@ public class OptionsMenu : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
+
+ /*   public void SetFullscreen(bool fullscreen)
+    {
+        Screen.fullScreen = fullscreen;
+        if (Screen.fullScreen)
+        {
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
+    }
+*/
+
 
     public void SetVolume (float Volume)
     {
@@ -166,6 +185,7 @@ public class OptionsMenu : MonoBehaviour
     private IEnumerator JumperJump()
     {
         yield return new WaitForSeconds(4f);
+        audio.Play("Jumper");
         animator.SetTrigger("Jump");
         coroutine = JumperJump();
         StartCoroutine(coroutine);

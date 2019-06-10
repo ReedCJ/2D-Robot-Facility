@@ -8,7 +8,9 @@ public class TeatherController : MonoBehaviour
     private Rigidbody2D body;                   // Used to move the hook to different places.
     private Rigidbody2D playerBody;             // Reference to player body to apply swinging physics
     private PlayerController player;            // Script reference for the player
+#pragma warning disable 0649
     [SerializeField] private GameObject teatherPrefab;  // The teather object prefab
+#pragma warning restore 0649
     private GameObject teather;                 // The teather object
 
     private bool retracting;                    // Is the teather currently retracting?
@@ -16,11 +18,15 @@ public class TeatherController : MonoBehaviour
     private bool contact;                       // Is the hook currently touching a grappable surface?
     private bool belowAnchor;                   // Is the player below the anchor?
     private float distance;                     // Current distance of teather from player
-    private float angle;                        // Current angle of the player relative to downwards line from the grapple
+    private float angle;                        // Current angle of the player relative to downwards line from the grapple, -90 = directly left from grapple hook
     private bool m_FacingRight;                 // Used for flipping the player, true == right
     private float currentSwing;                 // Current swing range, is steadily reduced to max when above max
     private float currentSpeed;                 // Current speed of swing
     private Vector3 teatherVelocity;            // Base direction of grapple
+    [Range(0,10)]
+    [SerializeField] private float slowRate;    // Swing slow rate while not pressing the left or right inputs
+    [Range(0, 10)]
+    [SerializeField] private float focusSlowRate;// Swing slow rate while holding the focus button
 
 
     public float gravUp;                        // Rate of gravity increase.
@@ -92,15 +98,11 @@ public class TeatherController : MonoBehaviour
         if (extending)
             Shift();
         if (retracting)
-        {
             Retract();
-            //Debug.Log("Retracting");
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)     // What happens when the grappling hook collides with a valid surface
     {
-        //Debug.Log(other.gameObject + " " + contact);
         if (other.gameObject.tag == "Terrain" && other.GetComponent<Collider2D>().gameObject.GetComponent<Rigidbody2D>()
             && other.gameObject.GetComponent<PlatformController>() != null && other.gameObject.GetComponent<PlatformController>().grappable && !contact && !retracting)
         {
@@ -120,7 +122,6 @@ public class TeatherController : MonoBehaviour
             contact = true;
             player.swinging = true;
             player.teatherSwinging = true;
-            //Debug.Log(retracting);
         }
     }
 
@@ -175,7 +176,7 @@ public class TeatherController : MonoBehaviour
             }
         }
 
-        if (!Input.GetButtonDown("Focus"))
+        if (!player.focusing)
         {
             if (player.vMove > 0)           // Retract teather
             {
@@ -190,11 +191,11 @@ public class TeatherController : MonoBehaviour
                     currentSwing = maxSwing;
             }
 
-            if (angle <= -(pushRange - 20))        // Is the player too high? Push him towards the center
+            if (angle <= -(pushRange - 20))         // Is the player too high? Push him towards the center
             {
                 Deaccel();
             }
-            else if (angle >= pushRange - 20)   // Is the player too high? Push him towards the center
+            else if (angle >= pushRange - 20)       // Is the player too high? Push him towards the center
             {
                 Deaccel();
             }
@@ -226,13 +227,13 @@ public class TeatherController : MonoBehaviour
             }
             else if (player.hMove == 0)                     // If the player is not pressing any buttons, gradually slow him down
             {
-                SlowDown();
+                SlowDown(slowRate);
             }
             SlowToMaxSpeed();
         }
         else if (player.focusing)
         {
-            // Aim weapon
+            SlowDown(focusSlowRate);
         }
 
         joint.distance = currentSwing;      // Update the current distance from the hook
@@ -253,21 +254,21 @@ public class TeatherController : MonoBehaviour
         playerBody.AddForce(destination * Time.fixedDeltaTime * accel * rate);
     }
 
-    private void SlowDown()             // Called to gradually slow the grappling player down
+    private void SlowDown(float rate)             // Called to gradually slow the grappling player down
     {
-        float curSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
         Vector2 destination;
 
-        if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
-        new Vector2(transform.position.x, transform.position.y - distance)) > 2)
+        if (Mathf.Abs(angle) > 20)
         {
             destination = new Vector2(transform.position.x - distance - player.transform.position.x,
-                transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * accel * .25f;
+                transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * rate * 90;
             playerBody.AddForce(destination);
         }
-        else if (curSpeed > .4f)
+        else if (currentSpeed > .8f)
         {
-            playerBody.velocity = playerBody.velocity * .98f;
+            Vector2 curDirection = playerBody.velocity / currentSpeed;
+            float newSpeed = currentSpeed - maxSwingSpeed * rate / 100;
+            playerBody.velocity = curDirection * newSpeed;
         }
         else if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
         new Vector2(transform.position.x, transform.position.y - distance)) < .25f)

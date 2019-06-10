@@ -1,0 +1,237 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1033965298940069364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1033965298940069362}
+  - component: {fileID: 1033965298940069363}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1033965298940069362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033965298940069364}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 196.60762, y: 10.987554, z: -0.12371451}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1033965298940069363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033965298940069364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082db7d25e36fe64192453d6c7cb965b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 24300002, guid: 6e159fa79d866f845a766be5274eed91, type: 2}
+  sounds:
+  - name: Collision
+    clip: {fileID: 8300000, guid: f92f343529c7f604ebdb00df6c07581f, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Start
+    clip: {fileID: 8300000, guid: d97cfbeff99fa3f49bfc9848e47bf7b8, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: 6e906994358437e49acabbbb1f71c83c, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 243866979709118752, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: BGM
+    clip: {fileID: 8300000, guid: 55d167979a876c5408eb0544bb6fa01b, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 243866979709118752, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Jumper
+    clip: {fileID: 8300000, guid: 6e89cdf31058d64498b13dd5a9e80b1f, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 0.77
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Invulnerable
+    clip: {fileID: 8300000, guid: 69e9713a390115740a24fe728fca0e7a, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Damage
+    clip: {fileID: 8300000, guid: f92f343529c7f604ebdb00df6c07581f, type: 3}
+    volume: 0.125
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Shot
+    clip: {fileID: 8300000, guid: e0ad475190d5e0441980a77564b2fd3c, type: 3}
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Knockdown
+    clip: {fileID: 8300000, guid: cbc1ba023f0d94f4e80329c000b72584, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: ShotHit
+    clip: {fileID: 8300000, guid: 6ca906d88448b9544ab8f66585486020, type: 3}
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: ShotKill
+    clip: {fileID: 8300000, guid: cf1213f994f1b684c9812ae74a1ab607, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: ShotEnemy
+    clip: {fileID: 8300000, guid: c6af12106fbf6234280ff4c87a2d7049, type: 3}
+    volume: 0.31
+    volumeVariance: 0
+    pitch: 0.77
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Tether
+    clip: {fileID: 8300000, guid: 8d89b7d9fa8c8614f884be0978df2fc2, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: ChargerWalk
+    clip: {fileID: 8300000, guid: 594faf03ea8e3eb41af24e3dc4d12efa, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Landing
+    clip: {fileID: 8300000, guid: 262b0edf46e5b234ba4be45b4ae16174, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Running
+    clip: {fileID: 8300000, guid: 4c14f7ccf436e0e40b2f0895fb92a878, type: 3}
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Walking
+    clip: {fileID: 8300000, guid: 4c14f7ccf436e0e40b2f0895fb92a878, type: 3}
+    volume: 0.125
+    volumeVariance: 0
+    pitch: 0.5
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Dead
+    clip: {fileID: 8300000, guid: 42b48d5e5f6e5004aba0cbb40056c9af, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 3
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: b759be66a512e1f4a943563fc7e89455, type: 3}
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
