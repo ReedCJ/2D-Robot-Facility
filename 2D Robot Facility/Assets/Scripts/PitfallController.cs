@@ -50,7 +50,7 @@ public class PitfallController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             player = collision.GetComponent<PlayerHealth>();
 
@@ -72,7 +72,7 @@ public class PitfallController : MonoBehaviour
             else
                 followCam.SetActive(true);
         }
-        else if (collision.gameObject.tag == "Enemy1" && collision.transform.position.y < transform.position.y)
+        else if (collision.gameObject.CompareTag("Enemy1") && collision.transform.position.y < transform.position.y)
         {
             collision.gameObject.GetComponent<EnemyHealth>().health = 0;
             Destroy(collision.gameObject);
