@@ -123,7 +123,8 @@ public class Enemy1Controller : EnemyControllerTemplate
     protected override void Jump(float speed, float height)
     {
         jumperAnim.SetTrigger("Jump");
-        audio.Play(0);
+        if(audio != null)
+            audio.Play(0);
         base.Jump(speed, height);
         whenJumped = Timer;
         jumpedHeight = body.transform.position.y;
