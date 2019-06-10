@@ -14,7 +14,7 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     private int nofloor = 0;
 
     public GameObject chargerParts;
-    public bool destroyEffect;
+    public bool destroyEffect = false;
 
     public Animator animator;
     public AudioSource audio;

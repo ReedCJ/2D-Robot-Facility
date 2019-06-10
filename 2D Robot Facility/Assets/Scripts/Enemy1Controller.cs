@@ -12,7 +12,7 @@ public class Enemy1Controller : EnemyControllerTemplate
     public float moveJumpCD;
 
     public GameObject jumperParts;
-    public bool destroyEffect;
+    public bool destroyEffect = false;
 
     private float attackJumpleft;
     private float attackJumpright;
