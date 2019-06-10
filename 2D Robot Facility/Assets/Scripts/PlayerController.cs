@@ -271,7 +271,7 @@ public class PlayerController : MonoBehaviour
         {
             controller.Move(0, crouch, false, false);
         }
-        if (!swinging && !fallThrough)
+        else if (!swinging && !fallThrough)
         {
             controller.Move(hMove * speed * Time.fixedDeltaTime, crouch, jump, doubleJump);
         }
