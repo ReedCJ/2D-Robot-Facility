@@ -19,6 +19,7 @@ public class EnemyControllerTemplate : MonoBehaviour
     public bool territorial;
     protected bool playerInTerritory;
     [SerializeField] private GameObject drop;
+    [SerializeField] private bool debug;
     protected float height;
     protected bool aggro;
 
@@ -146,7 +147,7 @@ public class EnemyControllerTemplate : MonoBehaviour
         //raycast down 3 at the distance specified
         hit = Physics2D.Raycast(checkPosition, Vector2.down, 4.0f);
         //debug
-        Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 4.0f);
+        //Debug.DrawRay(checkPosition, Vector2.down * 3, Color.red, 4.0f);
         //return true if hit collider isn't null
         return hit.collider != null;
     }
@@ -164,8 +165,9 @@ public class EnemyControllerTemplate : MonoBehaviour
             checkPosition = new Vector2(body.transform.position.x - x, body.transform.position.y + y);
         }
         hit = Physics2D.Raycast(checkPosition, direction, 0.5f);
-        //Debug.DrawRay(checkPosition, direction * 0.5f, Color.red, 0.7f);
+        Debug.DrawRay(checkPosition, direction * 0.5f, Color.red, 0.7f);
         if (hit.collider != null) { return hit.collider.gameObject.tag == "Terrain" || hit.collider.gameObject.tag == "Door"; }
+        if(debug) { Debug.Log(hit); }
         return false;
     }
 
