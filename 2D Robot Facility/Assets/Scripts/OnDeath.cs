@@ -16,6 +16,8 @@ public class OnDeath : MonoBehaviour
         if(unlockDoor != null)
         {
             unlockDoor.GetComponent<DoorController>().Unlock();
+            unlockDoor.GetComponent<DoorController>().LockLeft = false;
+            unlockDoor.GetComponent<DoorController>().LockRight = false;
         }
     }
 }
