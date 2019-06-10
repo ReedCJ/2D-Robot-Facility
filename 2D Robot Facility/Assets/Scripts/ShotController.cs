@@ -50,6 +50,12 @@ public class ShotController : MonoBehaviour
                     if(audio != null)
                         audio.Play("ShotEnemy");
                     collision.GetComponent<EnemyHealth>().health -= damage;
+                    EnemyControllerTemplate ect = collision.GetComponent<EnemyControllerTemplate>();
+                    ect.Aggro = true;
+                    ect.aggroRange += 2;
+                    ect.aggroLeash += 2;
+                    ect.levelCheckHeight += 1;
+
                     if (collision.GetComponent<EnemyHealth>().health <= 0)
                     {
                         if(collision.GetComponent<Drop>() != null)
