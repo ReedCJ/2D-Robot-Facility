@@ -166,12 +166,16 @@ public class PlayerController : MonoBehaviour
                 {
                       jump = true;
                       animator.SetBool("Jumping", true);
+                    if (audio != null)
+                        audio.Play("Jump");
                       animator.SetBool("Grounded", false);
                 }
                 //double jump
                 else if (!grounded && canDouble || swinging)
                 {
                     animator.SetTrigger("DoubleJumping");
+                    if (audio != null)
+                        audio.Play("DoubleJump");
                     animator.SetBool("Jumping", true);
                     animator.SetBool("Grounded", false);
                     doubleJump = true;
