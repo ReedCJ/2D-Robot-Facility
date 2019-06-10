@@ -24,7 +24,7 @@ public class ContactDamage : MonoBehaviour
             if (player.time > player.invulnFrames)
             {
                 player.health -= damage;
-                Debug.Log("Health Remaining: " + player.health);
+                //Debug.Log("Health Remaining: " + player.health);
                 player.time = 0;
                 if (player.health <= 0)
                 {

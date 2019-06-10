@@ -216,10 +216,10 @@ MonoBehaviour:
       type: 2}
     source: {fileID: 0}
   - name: Dead
-    clip: {fileID: 8300000, guid: 42b48d5e5f6e5004aba0cbb40056c9af, type: 3}
-    volume: 0.75
+    clip: {fileID: 8300000, guid: 6eebc5a8b6218964c81db42655016c24, type: 3}
+    volume: 0.5
     volumeVariance: 0
-    pitch: 3
+    pitch: 2
     pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
@@ -230,6 +230,36 @@ MonoBehaviour:
     volume: 0.25
     volumeVariance: 0
     pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 92559bee41bee474c81e102e4df470ea, type: 3}
+    volume: 0.125
+    volumeVariance: 0
+    pitch: 0.85
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: DoubleJump
+    clip: {fileID: 8300000, guid: be5ba6bdf7384ad4e812a9a47dc75234, type: 3}
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
+      type: 2}
+    source: {fileID: 0}
+  - name: FallingDeath
+    clip: {fileID: 8300000, guid: 1e54b9a1d6a864b4dba6d0d896d0e50b, type: 3}
+    volume: 0.5
+    volumeVariance: 0
+    pitch: 3
     pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 243551044601472304, guid: 6e159fa79d866f845a766be5274eed91,
