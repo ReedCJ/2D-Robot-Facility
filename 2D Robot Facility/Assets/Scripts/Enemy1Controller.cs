@@ -10,7 +10,10 @@ public class Enemy1Controller : EnemyControllerTemplate
     public float moveJumpheight;
     public float moveJumpspeed;
     public float moveJumpCD;
-    
+
+    public GameObject jumperParts;
+    public bool destroyEffect = false;
+
     private float attackJumpleft;
     private float attackJumpright;
     private float moveJumpleft;
@@ -128,5 +131,12 @@ public class Enemy1Controller : EnemyControllerTemplate
         base.Jump(speed, height);
         whenJumped = Timer;
         jumpedHeight = body.transform.position.y;
+    }
+
+    private void OnDisable()
+    {
+        //Debug.Log("on disable event");
+        if(destroyEffect)
+            Instantiate(jumperParts, transform.position + transform.forward, transform.rotation);
     }
 }
