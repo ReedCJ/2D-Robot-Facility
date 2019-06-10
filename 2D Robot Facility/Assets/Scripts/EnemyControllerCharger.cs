@@ -13,6 +13,9 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     private Vector2 chargeLeft;
     private int nofloor = 0;
 
+    public GameObject chargerParts;
+    public bool destroyEffect;
+
     public Animator animator;
     public AudioSource audio;
 
@@ -102,4 +105,13 @@ public class EnemyControllerCharger : EnemyControllerTemplate
     {
         body.velocity = new Vector2(body.velocity.x * 0.9f, body.velocity.y);
     }
+
+    private void OnDisable()
+    {
+        //Debug.Log("on disable event");
+        if(destroyEffect)
+             Instantiate(chargerParts, transform.position + transform.forward, transform.rotation);
+    }
+
+
 }
