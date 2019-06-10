@@ -50,6 +50,11 @@ public class EnemyControllerTemplate : MonoBehaviour
         setMovement();
     }
 
+    public bool Aggro
+    {
+        set { aggro = true; }
+    }
+
     protected virtual void Update()
     {
     }
