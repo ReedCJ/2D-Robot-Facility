@@ -24,10 +24,13 @@ public class EnemyControllerTank : EnemyControllerTemplate
     private Quaternion placeHolderRotation;
 
     public Animator TankAnim;
+    private AudioSource[] audio;
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        audio = GetComponents<AudioSource>();
+
         base.Start();
         sm = 0;
         laserParent = body.gameObject.transform.GetChild(1).gameObject;
@@ -120,6 +123,8 @@ public class EnemyControllerTank : EnemyControllerTemplate
 
     private void FireMortar()
     {
+        if (audio != null)
+            audio[0].Play();
         Debug.Log("Mortar Fired");
         Instantiate(TankMortar, MortarSpawn(), placeHolderRotation).GetComponent<TankMortarController>().SetMortar(facing, MortarSpawn(), player.transform.position, this.gameObject);
     }
@@ -132,7 +137,20 @@ public class EnemyControllerTank : EnemyControllerTemplate
         laserParent.transform.LookAt(LaserLookAt);
         laserParent.SetActive(true);
         TankAnim.SetBool("Charging", true);
+
+        //audio laser charge
+        //if (audio != null)
+           // audio[1].Play();
+
         laserTrace.SetActive(true);
+
+        //audio laser shot
+        if (audio != null)
+        {
+           // audio[1].Stop();
+            audio[1].Play();
+        }
+            
         TankAnim.SetTrigger("Shoot");
         lf = Timer;
     }

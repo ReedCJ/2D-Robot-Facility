@@ -21,20 +21,29 @@ public class TankMortarController : EnemyControllerTemplate
     private Vector2 ep;
     private float mh;
     private GameObject shooter;
+    private AudioSource audio;
+    private Renderer rend;
     // Start is called before the first frame update
     protected override void Start()
     {
+        audio = GetComponent<AudioSource>();
+        rend = GetComponent<Renderer>();
+        rend.enabled = true;
     }
     private void FixedUpdate()
     {
         currentTime = (Timer - startTime) / travelTime;
         body.transform.position = Parabola(spawnPosition, ep, mh, currentTime);
         //they should probably blow up at the end or something
-        if(Timer > startTime + travelTime) { Destroy(gameObject); }
+        if(Timer > startTime + travelTime)
+        {
+           sfxDestroy();
+        }
     }
 
     public void SetMortar(bool f, Vector2 sp, Vector2 pp, GameObject s)
     {
+        
         base.Start();
         startTime = Timer;
         tankFacing = f;
@@ -56,7 +65,11 @@ public class TankMortarController : EnemyControllerTemplate
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Terrain") { Destroy(gameObject); }
+        if (collision.gameObject.tag == "Terrain")
+        {
+            //Destroy(gameObject);
+            sfxDestroy();
+        }
     }
     
     //get position
@@ -82,5 +95,13 @@ public class TankMortarController : EnemyControllerTemplate
             endPosition.x -= hdp * 2;
         }
         return endPosition;
+    }
+
+    public void sfxDestroy()
+    {
+        if (!audio.isPlaying)
+            audio.Play();
+        rend.enabled = false;
+        Destroy(gameObject, 1f);
     }
 }
