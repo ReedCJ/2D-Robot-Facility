@@ -25,6 +25,11 @@ public class CheckPointController : MonoBehaviour
             GM.checkPoint = location;
             GM.reachedPoint = true;
             GM.health = collision.GetComponent<PlayerHealth>().health;
+
+            KeycardController keys = collision.GetComponent<KeycardController>();
+            GM.cards = new string[keys.keycards.Count - 1];
+            for (int i = 1; i < keys.keycards.Count; i++)
+                GM.cards[i - 1] = keys.keycards[i];
         }
     }
 }
