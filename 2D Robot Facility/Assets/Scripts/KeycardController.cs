@@ -9,6 +9,12 @@ public class KeycardController : MonoBehaviour
     void Start()
     {
         keycards.Add("none");
+
+        GameMaster GM = GameObject.FindWithTag("GameMaster").GetComponent<GameMaster>();
+
+        if (GM.cards != null)
+            for (int i = 0; i < GM.cards.Length; i++)
+                keycards.Add(GM.cards[i]);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -32,11 +38,5 @@ public class KeycardController : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

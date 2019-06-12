@@ -205,6 +205,8 @@ public class MainMenu : MonoBehaviour
             GM.playerPos.y = save.playerPos[1];
             GM.playerPos.z = save.playerPos[2];
 
+            GM.cards = save.cards;
+
             if (GM.reachedPoint)
                 Debug.Log("The player was able to reach the checkpoint at: " + GM.checkPoint.x + " " + GM.checkPoint.y + " " + GM.checkPoint.z);
             else
@@ -217,6 +219,15 @@ public class MainMenu : MonoBehaviour
             else if (GM.health == 0)
                 Debug.Log("Health was not recorded during the save.");
             else Debug.Log("Invalid health amount was recorded.");
+
+            if (GM.cards != null)
+            {
+                string loadCards = "The player will spawn in with: ";
+                for (int i = 0; i < GM.cards.Length; i++)
+                    loadCards += "a " + GM.cards[i] + " card, ";
+                Debug.Log("Card count: " + GM.cards.Length);
+                Debug.Log(loadCards);
+            }
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
