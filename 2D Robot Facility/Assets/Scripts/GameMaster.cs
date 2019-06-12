@@ -8,6 +8,7 @@ public class GameMaster : MonoBehaviour
     [System.NonSerialized] public Vector3 playerPos;            // Where the player will respawn if the game just restarted.
     [System.NonSerialized] public Vector3 checkPoint;           // Where the player will respawn if the game just restarted.
     [System.NonSerialized] public float health;                 // The health value of the player
+    [System.NonSerialized] public string[] cards;               // Which keycards the player has
     [System.NonSerialized] public bool reachedPoint = false;    // Whether or not the player has reached any checkpoints at all
     [System.NonSerialized] public bool loading = false;         // Is the game loading a save?
 
