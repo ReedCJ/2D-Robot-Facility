@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Horizontal_f", Mathf.Abs(hMove));
 
             //Plays audio for character movement
-            if (grounded && !crouch && Math.Abs(hMove) > .5)
+            if (grounded && !crouch && !confined && Math.Abs(hMove) > .5)
             {
                 if (audio != null)
                 {
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             
-            else if (grounded && crouch && (Math.Abs(hMove) >= .1) || Math.Abs(hMove) <= .5 && Math.Abs(hMove) >= .1)
+            else if (grounded && (crouch || confined) && Math.Abs(hMove) >= .1 || Math.Abs(hMove) <= .5 && Math.Abs(hMove) >= .1)
             {
                 if (audio != null)
                 {
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
                 }
                     
             }
-            else
+            else 
             {
                 if (audio != null)
                 {

@@ -927,6 +927,16 @@ PrefabInstance:
       propertyPath: sounds.Array.data[17].pitch
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1033965298940069363, guid: 49b74f2a0e89d8348993b70c943e7b71,
+        type: 3}
+      propertyPath: sounds.Array.data[3].volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033965298940069363, guid: 49b74f2a0e89d8348993b70c943e7b71,
+        type: 3}
+      propertyPath: sounds.Array.data[2].volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b74f2a0e89d8348993b70c943e7b71, type: 3}
 --- !u!33 &2905885715814818593
@@ -3170,7 +3180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3565958303542364182
 Transform:
   m_ObjectHideFlags: 0
@@ -3198,6 +3208,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8954165916395909119, guid: cb4389c925167cf42a9b6cd3bc799e96,
+        type: 3}
+      propertyPath: UIPause
+      value: 
+      objectReference: {fileID: 101133500}
     - target: {fileID: 8954165917503919863, guid: cb4389c925167cf42a9b6cd3bc799e96,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3308,11 +3323,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 181457753}
-    - target: {fileID: 8954165916395909119, guid: cb4389c925167cf42a9b6cd3bc799e96,
-        type: 3}
-      propertyPath: UIPause
-      value: 
-      objectReference: {fileID: 101133500}
     - target: {fileID: 5744640375614860764, guid: cb4389c925167cf42a9b6cd3bc799e96,
         type: 3}
       propertyPath: m_IsActive

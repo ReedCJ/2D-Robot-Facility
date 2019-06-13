@@ -67,7 +67,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MenuMusic
     clip: {fileID: 8300000, guid: 6e906994358437e49acabbbb1f71c83c, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BGM
     clip: {fileID: 8300000, guid: 55d167979a876c5408eb0544bb6fa01b, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
