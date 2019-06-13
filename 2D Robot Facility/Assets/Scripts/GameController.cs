@@ -33,11 +33,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        //Restart the game
-        if (Input.GetButtonDown("Restart"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
     }
 
     public void PopulateEnemyList()
