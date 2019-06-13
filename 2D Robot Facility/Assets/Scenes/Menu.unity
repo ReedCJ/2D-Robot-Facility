@@ -550,6 +550,24 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &843232309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4454095148270343631, guid: f69928de1dcb27e4db8475548dc71e57,
+    type: 3}
+  m_PrefabInstance: {fileID: 2068054214}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &843232310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843232309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87e0de004e5c8d4e95ba807116379ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1035588415
 GameObject:
   m_ObjectHideFlags: 0
