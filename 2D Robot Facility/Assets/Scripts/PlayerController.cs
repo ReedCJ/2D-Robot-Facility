@@ -105,6 +105,10 @@ public class PlayerController : MonoBehaviour
         //timer
         timer += Time.deltaTime;
 
+        //focusing check for animation 
+        if (focusing) { animator.SetBool("Focus", true); }
+        else { animator.SetBool("Focus", false); }
+
         //Checks for invulnerable to display effect
         if (!dead && playerHealth.invuln)
             StartCoroutine("Blink");
