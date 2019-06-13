@@ -12,12 +12,44 @@ public class GameMaster : MonoBehaviour
     [System.NonSerialized] public bool reachedPoint = false;    // Whether or not the player has reached any checkpoints at all
     [System.NonSerialized] public bool loading = false;         // Is the game loading a save?
 
+    public GameObject redCardUI;
+    public GameObject blueCardUI;
+    public GameObject yellowCardUI;
+    public GameObject purpleCardUI;
+
     void Awake()        // Don't destroy this object when restarting or loading a new scene, keep player check point information
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(instance);
+        }
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i <= cards.Length; i++)
+        {
+            if(cards[i] == "Red") 
+            {
+                Destroy(redCardUI);
+            }
+            if(cards[i] == "Blue")
+            {
+                Destroy(blueCardUI);
+                
+            }
+            if (cards[i] == "Yellow")
+            {
+                Destroy(yellowCardUI);
+
+            }
+            if (cards[i] == "Purple")
+            {
+                Destroy(purpleCardUI);
+
+            }
+
         }
     }
 }
