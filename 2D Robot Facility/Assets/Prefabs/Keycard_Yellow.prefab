@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3047006322416776671}
   - component: {fileID: 473436629683495058}
   - component: {fileID: 884754379708633513}
+  - component: {fileID: 7476603465641086982}
   m_Layer: 0
   m_Name: Keycard_Yellow
   m_TagString: Keycard
@@ -140,3 +141,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7476603465641086982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4579424371358005859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948e4c71398217d4fa480cde9a236ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theObjectToDestroy: {fileID: 0}

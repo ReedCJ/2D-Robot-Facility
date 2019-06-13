@@ -4,24 +4,19 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
-    private IEnumerator coroutine;
+    public GameObject theObjectToDestroy;
 
     // Start is called before the first frame update
     void Start()
     {
-        coroutine = DestroyThis();
-        StartCoroutine(coroutine);
+       
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    private IEnumerator DestroyThis()
-    {
-        yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(theObjectToDestroy);
+        }
     }
 }
