@@ -13,9 +13,13 @@ public class GameMaster : MonoBehaviour
     [System.NonSerialized] public bool loading = false;         // Is the game loading a save?
 
     public GameObject redCardUI;
+    public GameObject redCard;
     public GameObject blueCardUI;
+    public GameObject blueCard;
     public GameObject yellowCardUI;
+    public GameObject yellowCard;
     public GameObject purpleCardUI;
+    public GameObject purpleCard;
 
     void Awake()        // Don't destroy this object when restarting or loading a new scene, keep player check point information
     {
@@ -28,28 +32,44 @@ public class GameMaster : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i <= cards.Length; i++)
+        if(cards != null)
         {
-            if(cards[i] == "Red") 
+            for (int i = 0; i <= cards.Length; i++)
             {
-                Destroy(redCardUI);
-            }
-            if(cards[i] == "Blue")
-            {
-                Destroy(blueCardUI);
-                
-            }
-            if (cards[i] == "Yellow")
-            {
-                Destroy(yellowCardUI);
+                if (cards[i] == "Red") 
+                {
+                    if(redCardUI)
+                    Destroy(redCardUI);
 
-            }
-            if (cards[i] == "Purple")
-            {
-                Destroy(purpleCardUI);
+                    if (redCard)
+                        Destroy(redCard);
+                }
+                if (cards[i] == "Blue")
+                {
+                    if(blueCardUI)
+                    Destroy(blueCardUI);
 
-            }
+                    if (blueCard)
+                        Destroy(blueCard);
+                }
+                if (cards[i] == "Yellow")
+                {
+                    if(yellowCardUI)
+                    Destroy(yellowCardUI);
 
+                    if (yellowCard)
+                        Destroy(yellowCard);
+                }
+                if (cards[i] == "Purple")
+                {
+                    if(purpleCardUI)
+                    Destroy(purpleCardUI);
+
+                    if (purpleCard)
+                        Destroy(purpleCard);
+                }
+            }
         }
+        
     }
 }
