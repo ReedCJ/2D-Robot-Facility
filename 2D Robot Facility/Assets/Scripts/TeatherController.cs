@@ -28,17 +28,27 @@ public class TeatherController : MonoBehaviour
     [Range(0, 10)]
     [SerializeField] private float focusSlowRate;// Swing slow rate while holding the focus button
 
-
+    [Tooltip("The rate at which gravity increases when the player swings beyond the max swing range")]
     public float gravUp;                        // Rate of gravity increase.
+    [Tooltip("The angle relative to the character's front at which the teather is launched in degrees.")]
     public float deployAngle;                   // Tether deploy angle relative to the character's front in degrees
+    [Tooltip("The speed at which the teather is deployed.")]
     public float speed;                         // Teather movement speed
+    [Tooltip("The maximum range at which the teather can extend when deploying.")]
     public float teatherRange;                  // Max travel distance
+    [Tooltip("The maximum range the teather can maintain after attaching to a surface.")]
     public float maxSwing;                      // Max swing range
+    [Tooltip("The minimum range the teather can maintain after attaching to a surface.")]
     public float minSwing;                      // Min swing range
+    [Tooltip("The rate of acceleration for swinging the player.")]
     public float accel;                         // Speed of swinging
+    [Tooltip("The maximum swing speed for the player.")]
     public float maxSwingSpeed;                 // Maximum Swinging speed
+    [Tooltip("The maximum swing height. If the player goes beyond this range, he will be pushed back down.")]
     public float pushRange;                     // Max Swing Height
+    [Tooltip("The rate at which the player can extend and retract the grapple after it has been deployed.")]
     public float climbSpeed;                    // Speed of retracting grapple
+    [Tooltip("The rate that the grapple will automatically retract at when it is beyond the maximum teather range.")]
     public float pullRate;                      // Rate that the grapple will pull the player into range in
 
 

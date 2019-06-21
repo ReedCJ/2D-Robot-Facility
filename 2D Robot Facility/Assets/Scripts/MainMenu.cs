@@ -185,7 +185,7 @@ public class MainMenu : MonoBehaviour
             animator.SetTrigger("Wake"); //Plays menuPlayer Wake animation
             audio.Play("Start"); //Plays menuPlayer SFX
             yield return new WaitForSeconds(2f);
-            GameMaster GM = GameObject.FindGameObjectWithTag("GameMaster").GetComponent<GameMaster>();
+            GameMaster GM = GameMaster.instance;
             if (save.health > 0)
                 GM.health = save.health;
             if (save.reached)
