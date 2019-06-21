@@ -18,7 +18,7 @@ public class SaveData
         playerPos[1] = player.transform.position.y;
         playerPos[2] = player.transform.position.z;
 
-        GameMaster GM = GameObject.FindWithTag("GameMaster").GetComponent<GameMaster>();
+        GameMaster GM = GameMaster.instance;
         reached = GM.reachedPoint;
         if (reached)
         {
@@ -42,7 +42,7 @@ public class SaveData
         playerPos[1] = player.transform.position.y;
         playerPos[2] = player.transform.position.z;
 
-        GameMaster GM = GameObject.FindWithTag("GameMaster").GetComponent<GameMaster>();
+        GameMaster GM = GameMaster.instance;
         reached = GM.reachedPoint;
         if (reached)
         {

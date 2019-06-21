@@ -7,12 +7,20 @@ using Cinemachine;
 public class PitfallController : MonoBehaviour
 {
 #pragma warning disable 0649
+    [Tooltip("The left respawn location. Put the respawn left object into this field.")]
     [SerializeField] private Transform respawnLocationL;    // Respawn location on the left
+    [Tooltip("The right respawn location. Put the respawn right object into this field.")]
     [SerializeField] private Transform respawnLocationR;    // Respawn location on the right
+    [Tooltip("Can the player respawn from the left?")]
     [SerializeField] private bool respawnLeft;      // Can the player respawn on the left side?
+    [Tooltip("Can the player respawn from the right?")]
     [SerializeField] private bool respawnRight;     // Can the player respawn on the right side?
+    [Tooltip("How much damage the player will take when falling into this pitfall? If both respawns are disabled, this value is ignored and the player is killed.")]
     [SerializeField] private float damage;          // Damage player takes when falling outside the map
+    [Tooltip("How long it takes until the player respawns after falling into this pitfall.")]
     [SerializeField] private float respawnDelay;    // How long the respawn is delayed
+    [Tooltip("The height at which the fall animation triggers and the player loses control, relative to the bottom of the pitfall hitbox.")]
+    [SerializeField] private float fallHeight;      // At what point the player starts to "fall"
 #pragma warning restore 0649
     private GameObject followCam;                   // The camera following the player
 
@@ -41,9 +49,10 @@ public class PitfallController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" && playerController.transform.position.y < transform.position.y + transform.localScale.y / 5.0f)
+        if (collision.gameObject.tag == "Player" && playerController.transform.position.y < transform.position.y - transform.localScale.y + fallHeight)
         {
             followCam.SetActive(false);
+            playerController.dead = true;
             PlayerController.animator.SetBool("DeathFall", true);
         }
     }
@@ -58,6 +67,7 @@ public class PitfallController : MonoBehaviour
             {
                 if (tookDamage == false)
                 {
+                    playerController.dead = true;
                     player.health -= damage;
                     Debug.Log(player.health);
                     tookDamage = true;
@@ -89,6 +99,8 @@ public class PitfallController : MonoBehaviour
     {
         playerController.body.velocity = Vector3.zero;
         PlayerController.animator.SetBool("DeathFall", false);
+        playerController.dead = false;
+
         if (respawnLeft && respawnRight)        // If both spots are available, choose one
         {
             if (respawn)

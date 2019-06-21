@@ -7,7 +7,7 @@ public class PlayerPos : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameMaster GM = GameObject.FindWithTag("GameMaster").GetComponent<GameMaster>();
+        GameMaster GM = GameMaster.instance;
         if (GM.loading)
         {
             transform.position = GM.playerPos;

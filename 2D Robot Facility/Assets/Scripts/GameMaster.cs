@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour
 {
-    private static GameMaster instance;
+    public static GameMaster instance;
     [System.NonSerialized] public Vector3 playerPos;            // Where the player will respawn if the game just restarted.
     [System.NonSerialized] public Vector3 checkPoint;           // Where the player will respawn if the game just restarted.
     [System.NonSerialized] public float health;                 // The health value of the player
