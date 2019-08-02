@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
 #pragma warning disable 0649
     [SerializeField] private GameObject hook;           // The "hook" in the grappling hook
     [SerializeField] private GameObject shot;           // Our player's projectile
@@ -71,6 +73,8 @@ public class PlayerController : MonoBehaviour
     //Run when player is created
     void Start()
     {
+        instance = this;
+        GetComponent<LookController>().player = this;
         
         focusing = false;
         knockdown = false;
