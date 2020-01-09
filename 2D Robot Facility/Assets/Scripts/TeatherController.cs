@@ -266,11 +266,9 @@ public class TeatherController : MonoBehaviour
 
     private void SlowDown(float rate)             // Called to gradually slow the grappling player down
     {
-        Vector2 destination;
-
-        if (Mathf.Abs(angle) > 20)
+        if (Mathf.Abs(angle) > 20 && currentSpeed > .2)
         {
-            destination = new Vector2(transform.position.x - distance - player.transform.position.x,
+            Vector2 destination = new Vector2(transform.position.x,
                 transform.position.y - player.transform.position.y) * Time.fixedDeltaTime * rate * 90;
             playerBody.AddForce(destination);
         }
@@ -280,9 +278,11 @@ public class TeatherController : MonoBehaviour
             float newSpeed = currentSpeed - maxSwingSpeed * rate / 100;
             playerBody.velocity = curDirection * newSpeed;
         }
-        else if (Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.y),
-        new Vector2(transform.position.x, transform.position.y - distance)) < .25f)
+        else if (Mathf.Abs(player.transform.position.x - transform.position.x) < .12f)
+        {
+
             playerBody.velocity = new Vector2(0, 0);
+        }
     }
 
     private void Deaccel()                  // If the player is moving up, increase the gravity and slow him  down further if he past the pushrange
@@ -299,8 +299,8 @@ public class TeatherController : MonoBehaviour
     {
         if (currentSpeed > maxSwingSpeed)
         {
-            float curSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
-            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y) / curSpeed * maxSwingSpeed;
+            currentSpeed = Mathf.Sqrt(Mathf.Pow(playerBody.velocity.x, 2) + Mathf.Pow(playerBody.velocity.y, 2));
+            playerBody.velocity = new Vector2(playerBody.velocity.x, playerBody.velocity.y) / currentSpeed * maxSwingSpeed;
         }
     }
 
